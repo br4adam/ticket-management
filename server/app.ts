@@ -13,7 +13,7 @@ app.use(express.json())
 
 app.use("/api/login", login)
 app.use("/api/tickets", tickets)
-app.use("/api/tickets", users)
-app.use("/api/tickets", companies)
+app.use("/api/users", users)
+app.use("/api/companies", companies)
 
 export default app

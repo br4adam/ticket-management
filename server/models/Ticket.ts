@@ -6,11 +6,11 @@ const ticketSchema = new Schema({
   subject: { type: String, trim: true, required: true },
   company: { type: mongoose.Schema.Types.ObjectId, ref: "Company", required: true },
   description: { type: String },
-  priority: { type: String, required: true, default: "Low" },
-  status: { type: String, default: "Open" },
+  priority: { type: String, enum: ["low", "medium", "high"], default: "low" },
+  status: { type: String, enum: ["open", "pending", "closed"], default: "open" },
   messages: [ 
     {
-      date: { type: Date, default: Date.now },
+      date: { type: Date, default: () => new Date() },
       user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
       message: { type: String, required: true }
     }

@@ -36,11 +36,11 @@ router.post('/', verifySchema(LoginRequestSchema), async (req: Request, res: Res
   const foundUser = await User.findOne({ sub: data.sub })
   if (!foundUser) await User.create(data)
   
-  const user = await User.findOne({ sub: data.sub })
-  if (!user) return res.sendStatus(500)
-  
-  const sessionToken = jwt.sign(user, secretKey)
-  res.json(sessionToken) 
+  const user = await User.findOne({ sub: data.sub }).select("-sub").populate("company")
+  if (!user) return res.sendStatus(400)
+
+  const sessionToken = jwt.sign({ user }, secretKey, { expiresIn: "2h" })
+  res.status(200).json(sessionToken) 
 })
 
 export default router

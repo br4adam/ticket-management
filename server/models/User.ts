@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { Schema, InferSchemaType } from "mongoose"
 
 const userSchema = new Schema({
-  sub: { type: String, required: true, unique: true },
+  sub: { type: String, required: true, unique: true, immutable: true },
   name: { type: String, trim: true, required: true },
   email: { type: String, trim: true, required: true },
   picture: { type: String },
