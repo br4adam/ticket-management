@@ -1,7 +1,7 @@
 import request from "supertest"
 import app from "../app"
 import jwt from "jsonwebtoken"
-import { connect, disconnect, clear } from "./database"
+import { connect, disconnect, clear } from "./databaseHandler"
 import { Company } from "../models/Company"
 import { User } from "../models/User"
 const secretKey = process.env.JWT_SECRET_KEY as string
@@ -19,9 +19,9 @@ describe("GET /api/companies", () => {
       .get("/api/companies")
     // then
     const dbContent = await Company.find()
-    expect(200)
+    expect(response.status).toBe(200)
     expect(dbContent).toHaveLength(2)
-    expect(response.body.length).toEqual(2)
+    expect(response.body.length).toBe(2)
   })
 })
 
@@ -39,10 +39,10 @@ describe("POST /api/companies", () => {
     // then
     const dbContent = await Company.find()
     expect(dbContent).toHaveLength(1)
-    expect(201)
+    expect(response.status).toBe(201)
     expect(response.body).toHaveProperty("name")
     expect(response.body).toHaveProperty("_id")
-    expect(response.body.name).toEqual("Test Company")
+    expect(response.body.name).toBe("Test Company")
   })
 
     it("should return status 409 if the company name is taken", async () => {
@@ -57,8 +57,8 @@ describe("POST /api/companies", () => {
       .send({ name: companyName })
       .set("Authorization", `Bearer ${token}`)
     // then
-    expect(409)
-    expect(response.body).toEqual("This company is already listed in our system.")
+    expect(response.status).toBe(409)
+    expect(response.body).toBe("This company is already listed in our system.")
   })
 
   it("should return status 400 if the length of the name is shorther than 3 characters", async () => {
@@ -72,7 +72,7 @@ describe("POST /api/companies", () => {
       .send({ name: companyName })
       .set("Authorization", `Bearer ${token}`)
     // then
-    expect(400)
-    expect(response.body).toEqual("Validation error.")
+    expect(response.status).toBe(400)
+    expect(response.body).toBe("Validation error.")
   })
 })
