@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express"
+import { z } from "zod"
 import mongoose from "mongoose"
 import verifySchema from "../middlewares/verifySchema"
 import verifyToken from "../middlewares/verifyToken"
 import { Ticket, TicketType } from "../models/Ticket"
 import { Company } from "../models/Company"
-import { z } from "zod"
 
 const { ObjectId } = mongoose.Types
 
@@ -24,52 +24,56 @@ const TicketSchema = z.object({
   description: z.string().optional(),
   priority: z.enum(["low", "medium", "high"]).default("low"),
   status: z.enum(["open", "pending", "closed"]).default("open"),
-  messages: z.array(MessageSchema).default([]),
-  createdAt: z.date().optional(), 
-  updatedAt: z.date().optional(), 
+  messages: z.array(MessageSchema).default([])
 })
 type NewTicketType = z.infer<typeof TicketSchema>
+
+const TicketUpdateSchema = z.object({
+  priority: z.enum(["low", "medium", "high"]).optional(),
+  status: z.enum(["open", "pending", "closed"]).optional(),
+})
+type TicketUpdateType = z.infer<typeof TicketUpdateSchema>
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
   const userCompany = await Company.findById(user.company).populate("admins")
   const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
   if (isAdmin) {
-    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate("messages.user")
+    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" })
     if (!companyTickets) return res.status(400).json("Tickets not found.")
     return res.status(200).json(companyTickets)
   }
   else {
-    const foundTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate("messages.user")
-    if (!foundTickets) return res.status(400).json("Tickets not found.")
-    return res.status(200).json(foundTickets)
+    const userTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" })
+    if (!userTickets) return res.status(400).json("Tickets not found.")
+    return res.status(200).json(userTickets)
   }
 })
 
 router.get("/:id", verifyToken, async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
-  const foundTicket = await Ticket.findById(id).populate("createdBy").populate("company").populate("messages.user")
+  const foundTicket = await Ticket.findById(id).populate("createdBy").populate("company").populate(({ path: "messages.user", select: "_id name" }))
   if (!foundTicket) return res.status(404).json(`Ticket ${id} not found.`)
   res.status(200).json(foundTicket)
 })
 
-router.post("/", verifySchema(TicketSchema), verifyToken, async (req: Request, res: Response) => {
+router.post("/", verifyToken, verifySchema(TicketSchema), async (req: Request, res: Response) => {
   const data = req.body as NewTicketType
-  const newTicket = await Ticket.create<TicketType>(data)
-  res.status(201).json(newTicket)
+  const createdTicket = await Ticket.create<TicketType>(data)
+  res.status(201).json(createdTicket)
 })
 
-router.put("/:id", verifyToken, async (req: Request, res: Response) => {
+router.put("/:id", verifyToken, verifySchema(TicketUpdateSchema), async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
-  const data = req.body
+  const data = req.body as TicketUpdateType
   const updatedTicket = await Ticket.findByIdAndUpdate(id, { $set: { ...data } }, { new: true })
   if (!updatedTicket) return res.status(404).json(`Ticket ${id} not found.`)
   res.status(200).json(updatedTicket)
 })
 
-router.put("/:id/messages", verifySchema(MessageSchema), verifyToken, async (req: Request, res: Response) => {
+router.put("/:id/messages", verifyToken, verifySchema(MessageSchema), async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const user = res.locals.user

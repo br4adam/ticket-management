@@ -1,10 +1,9 @@
-import mongoose from "mongoose"
-import { Schema, InferSchemaType } from "mongoose"
+import mongoose, { Schema, InferSchemaType } from "mongoose"
 
 const companySchema = new Schema({
   name: { type: String, trim: true, required: true, unique: true },
   admins: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    { type: Schema.Types.ObjectId, ref: "User" }
   ]
 })
 
