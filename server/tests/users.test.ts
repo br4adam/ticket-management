@@ -80,7 +80,6 @@ describe("PUT /api/users/me", () => {
     // then
     const dbContent = await User.find()
     expect(dbContent).toHaveLength(1)
-    console.log(dbContent)
     expect(dbContent[0].email).toBe("user@test.com")
     expect(response.status).toBe(400)
   })

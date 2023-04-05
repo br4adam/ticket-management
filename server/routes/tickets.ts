@@ -13,7 +13,7 @@ const router = express.Router()
 const MessageSchema = z.object({
   date: z.date().default(() => new Date()),
   user: z.string().transform((val) => new ObjectId(val)),
-  message: z.string(),
+  message: z.string().min(1),
 })
 type MessageType = z.infer<typeof MessageSchema>
 
@@ -21,7 +21,7 @@ const TicketSchema = z.object({
   createdBy: z.string().transform((val) => new ObjectId(val)),
   subject: z.string(),
   company: z.string().transform((val) => new ObjectId(val)),
-  description: z.string().optional(),
+  description: z.string().min(1).optional(),
   priority: z.enum(["low", "medium", "high"]).default("low"),
   status: z.enum(["open", "pending", "closed"]).default("open"),
   messages: z.array(MessageSchema).default([])
@@ -89,7 +89,7 @@ router.delete("/:id", verifyToken, async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const deletedTicket = await Ticket.findByIdAndDelete(id)
   if (!deletedTicket) return res.status(404).json(`Ticket ${id} not found.`)
-  res.status(200).json(deletedTicket)
+  res.status(200).json("Ticket has been deleted successfully.")
 })
 
 export default router

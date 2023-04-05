@@ -61,7 +61,7 @@ describe("POST /api/companies", () => {
     expect(response.body).toBe("This company is already listed in our system.")
   })
 
-  it("should return status 400 if the length of the name is shorther than 3 characters", async () => {
+  it("should return status 400 if the length of the name is shorter than 3 characters", async () => {
     // given
     const companyName = "T"
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })

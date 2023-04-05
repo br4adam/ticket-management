@@ -10,7 +10,7 @@ import { User } from "../models/User"
 const router = express.Router()
 
 const NewCompanySchema = z.object({
-  name: z.string().min(3, { message: "Name must be 3 or more characters long" })
+  name: z.string().min(3, { message: "Name must be 3 or more characters long." })
 })
 type NewCompanyType = z.infer<typeof NewCompanySchema> 
 
