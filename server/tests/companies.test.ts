@@ -19,8 +19,8 @@ describe("GET /api/companies", () => {
       .get("/api/companies")
     // then
     const dbContent = await Company.find()
-    expect(response.status).toBe(200)
     expect(dbContent).toHaveLength(2)
+    expect(response.status).toBe(200)
     expect(response.body.length).toBe(2)
   })
 })

@@ -1,8 +1,18 @@
 import express, { Request, Response } from "express"
+import { z } from "zod"
 import verifyToken from "../middlewares/verifyToken"
+import verifySchema from "../middlewares/verifySchema"
 import { User } from "../models/User"
 
 const router = express.Router()
+
+const UserUpdateSchema = z.object({
+  name: z.string().min(3).optional(),
+  email: z.string().email().optional(),
+  avatar: z.string().optional(),
+  phone: z.string().min(6).max(14).optional(),
+})
+type UserUpdateType = z.infer<typeof UserUpdateSchema>
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
@@ -19,8 +29,8 @@ router.get("/me", verifyToken, async (req: Request, res: Response) => {
   res.status(200).json(foundUser)
 })
 
-router.put("/me", verifyToken, async (req: Request, res: Response) => {
-  const userData = req.body
+router.put("/me", verifyToken, verifySchema(UserUpdateSchema), async (req: Request, res: Response) => {
+  const userData = req.body as UserUpdateType
   const user = res.locals.user
   const updatedUser = await User.findByIdAndUpdate(user._id, { $set: { ...userData } }, { new: true })
   if (!updatedUser) return res.status(400).json("User not found.")
