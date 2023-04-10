@@ -60,6 +60,8 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
 
 router.post("/", verifyToken, verifySchema(TicketSchema), async (req: Request, res: Response) => {
   const data = req.body as NewTicketType
+  const user = res.locals.user
+  if (data.createdBy !== user._id) return res.sendStatus(401)
   const createdTicket = await Ticket.create<TicketType>(data)
   res.status(201).json(createdTicket)
 })
