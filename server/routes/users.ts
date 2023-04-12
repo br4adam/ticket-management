@@ -10,6 +10,7 @@ const UserUpdateSchema = z.object({
   name: z.string().min(3).optional(),
   email: z.string().email().optional(),
   avatar: z.string().optional(),
+  company: z.string().optional(),
   phone: z.string().min(6).max(14).optional(),
 })
 type UserUpdateType = z.infer<typeof UserUpdateSchema>

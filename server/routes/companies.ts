@@ -32,7 +32,7 @@ router.get("/:id/tickets", verifyToken, async (req: Request, res: Response) => {
 router.post("/", verifyToken, verifySchema(NewCompanySchema), async (req: Request, res: Response) => {
   const company = req.body as NewCompanyType
   const user = res.locals.user
-  const foundCompany = await Company.findOne({ name: company.name })
+  const foundCompany = await Company.findOne({ name: { "$regex": company.name, $options: "i" }})
   if (foundCompany) return res.status(409).json("This company is already listed in our system.")
   const newCompany = await Company.create<CompanyType>({ name: company.name, admins: [ user._id ] })
   await User.findByIdAndUpdate(user._id, { company: newCompany._id })
