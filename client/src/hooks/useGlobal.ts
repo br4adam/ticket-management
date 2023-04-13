@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { BehaviorSubject } from "rxjs"
 
-const useGlobal = <T>(data: BehaviorSubject<T>, initialValue: T): T => {
-  const [ value, setValue ] = useState<T>(initialValue)
+const useGlobal = <T>(data: BehaviorSubject<T>): T => {
+  const [ value, setValue ] = useState<T>(data.getValue())
   
   useEffect(() => {
     const subscription = data.subscribe(setValue)

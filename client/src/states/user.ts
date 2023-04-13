@@ -26,7 +26,6 @@ const login = async (code: string) => {
   const result = UserSchema.safeParse(decoded)
   if (!result.success) return console.log(result.error)
   user$.next(result.data)
-  console.log(result.data)
   localStorage.setItem("token", token)
 }
 
@@ -35,4 +34,6 @@ const logout = () => {
   localStorage.removeItem("token")
 }
 
-export { user$, login, logout }
+const update = (data: UserType) => user$.next(data)
+
+export { user$, login, logout, update }

@@ -7,8 +7,8 @@ import useGlobal from "../hooks/useGlobal"
 import { user$ } from "../states/user"
 
 const Navbar = () => {
-  const user = useGlobal(user$, null)
-  const avatar = user && user.avatar ? avatars.find(x => x.includes(user.avatar!)) : defaultAvatar
+  const user = useGlobal(user$)
+  const avatar = user?.avatar ? avatars.find(a => a.includes(user.avatar!)) : defaultAvatar
 
   return (
     <header>

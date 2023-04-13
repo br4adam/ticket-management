@@ -17,7 +17,7 @@ describe("GET /api/tickets", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     await Ticket.create([ { createdBy: user._id, subject: "First ticket", company: user.company }, { createdBy: user._id, subject: "Second ticket", company: user.company } ])
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get("/api/tickets")
@@ -38,7 +38,7 @@ describe("GET /api/tickets", () => {
     const otherUser = await User.create({ sub: "5678", name: "Other User", email: "other@test.com", company: otherCompany._id })
     await Company.findByIdAndUpdate(company._id, { admins: [ user._id ] })
     await Ticket.create([ { createdBy: otherUser._id, subject: "First ticket", company: otherUser.company }, { createdBy: user._id, subject: "Second ticket", company: user.company }, { createdBy: user._id, subject: "Third ticket", company: otherCompany._id } ])
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get("/api/tickets")
@@ -59,7 +59,7 @@ describe("GET /api/tickets/:id", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const ticket = await Ticket.create({ createdBy: user._id, subject: "Subject", company: user.company })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get(`/api/tickets/${ticket._id}`)
@@ -75,7 +75,7 @@ describe("GET /api/tickets/:id", () => {
   it("should return status 422 if the id is not correct", async () => {
     // given
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get("/api/tickets/1234567")
@@ -92,7 +92,7 @@ describe("POST /api/tickets", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const newTicket = { createdBy: user._id, subject: "Subject", company: user.company }
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .post("/api/tickets")
@@ -112,7 +112,7 @@ describe("POST /api/tickets", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const newTicket = { createdBy: user._id }
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .post("/api/tickets")
@@ -132,7 +132,7 @@ describe("PUT /api/tickets/:id", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const ticket = await Ticket.create({ createdBy: user._id, subject: "Subject", company: user.company })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .put(`/api/tickets/${ticket._id}`)
@@ -151,7 +151,7 @@ describe("PUT /api/tickets/:id", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const ticket = await Ticket.create({ createdBy: user._id, subject: "Subject", company: user.company })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .put(`/api/tickets/${ticket._id}`)
@@ -169,7 +169,7 @@ describe("PUT /api/tickets/:id/messages", () => {
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const ticket = await Ticket.create({ createdBy: user._id, subject: "Subject", company: user.company })
     const newMessage = { user: user._id, message: "Hello!" }
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .put(`/api/tickets/${ticket._id}/messages`)
@@ -188,7 +188,7 @@ describe("PUT /api/tickets/:id/messages", () => {
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const ticket = await Ticket.create({ createdBy: user._id, subject: "Subject", company: user.company })
     const newMessage = { user: user._id, message: "" }
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .put(`/api/tickets/${ticket._id}/messages`)
@@ -206,7 +206,7 @@ describe("DELETE /api/tickets/:id", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     const ticket = await Ticket.create({ createdBy: user._id, subject: "Subject", company: user.company })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .delete(`/api/tickets/${ticket._id}`)
@@ -221,7 +221,7 @@ describe("DELETE /api/tickets/:id", () => {
   it("should return status 422 if the id is not correct", async () => {
     // given
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .delete(`/api/tickets/1234567`)

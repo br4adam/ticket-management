@@ -30,7 +30,7 @@ describe("POST /api/companies", () => {
     // given
     const companyName = "Test Company"
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .post("/api/companies")
@@ -50,7 +50,7 @@ describe("POST /api/companies", () => {
     const companyName = "Test Company"
     await Company.create({ name: "Test Company"})
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .post("/api/companies")
@@ -65,7 +65,7 @@ describe("POST /api/companies", () => {
     // given
     const companyName = "T"
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .post("/api/companies")

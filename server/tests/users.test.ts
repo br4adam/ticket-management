@@ -16,7 +16,7 @@ describe("GET /api/users", () => {
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
     await User.create([ { sub: "1", name: "User 1", email: "user1@test.com", company: company._id }, { sub: "2", name: "User 2", email: "user2@test.com", company: company._id }, { sub: "3", name: "User 3", email: "user3@test.com", company: company._id } ])
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get("/api/users")
@@ -34,7 +34,7 @@ describe("GET /api/users/me", () => {
   it("should return status 200 and all data of the user", async () => {
     // given
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get("/api/users/me")
@@ -53,7 +53,7 @@ describe("PUT /api/users/me", () => {
   it("should return status 200 and change the avatar and phone number of the user", async () => {
     // given
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", avatar: "picture1" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .put("/api/users/me")
@@ -71,7 +71,7 @@ describe("PUT /api/users/me", () => {
   it("should return status 400 if wrong data sent", async () => {
     // given
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign({ user }, secretKey)
+    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .put("/api/users/me")

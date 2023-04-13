@@ -251,6 +251,98 @@ nav a img {
   margin-top: 1rem;
 }
 
+/* Onboarding */
+
+.onboarding.wrapper {
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.onboarding.wrapper > p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.avatars {
+  max-width: 34rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.avatar {
+  position: relative;
+}
+
+.avatar > div {
+  border-radius: 100%;
+  width: 4rem;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+}
+
+.avatar img:hover {
+  transform: scale(1.1);
+}
+
+.avatar svg {
+  position: absolute;
+  bottom: 0;
+  right: -0.5rem;
+  font-size: 1.5rem;
+  fill: var(--color-black);
+}
+
+.companies {
+  max-width: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: self-start;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.companies li {
+  position: relative;
+  display: inline-block;
+  list-style-type: none;
+  border: 1px solid var(--color-black);
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.companies li:hover {
+  padding: 0.25rem 1rem;
+}
+
+.companies li svg {
+  position: absolute;
+  bottom: -0.5rem;
+  right: -0.7rem;
+  font-size: 1.5rem;
+  fill: var(--color-black);
+}
+
+.add-company {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
 /* Breakpoints */
 
 @media screen and (max-width: 992px) {

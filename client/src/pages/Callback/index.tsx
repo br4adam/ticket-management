@@ -1,13 +1,9 @@
-import { FC, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useEffect } from "react"
+import { useSearchParams, useNavigate } from "react-router-dom"
 import Loader from "../../components/Loader"
-import { user$, login } from "../../states/user"
-import useGlobal from "../../hooks/useGlobal"
-import { useNavigate } from "react-router-dom"
+import { login } from "../../states/user"
 
-const Callback: FC = () => {
-  const user = useGlobal(user$, null)
-
+const Callback = () => {
   const [ searchParams ] = useSearchParams()
   const code = searchParams.get("code")
 
@@ -15,8 +11,7 @@ const Callback: FC = () => {
 
   useEffect(() => {
     if (code) login(code)
-    // if (user && (!user.company || !user.avatar)) return navigate("/completeprofile")
-    // navigate("/dashboard")
+    navigate("/onboarding")
   }, [])
 
   return (
