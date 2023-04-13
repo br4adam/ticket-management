@@ -8,7 +8,7 @@ import { user$ } from "../states/user"
 
 const Navbar = () => {
   const user = useGlobal(user$)
-  const avatar = user?.avatar ? avatars.find(a => a.includes(user.avatar!)) : defaultAvatar
+  const avatar = avatars.find(a => a.includes(user?.avatar!)) || defaultAvatar
 
   return (
     <header>
@@ -18,7 +18,7 @@ const Navbar = () => {
           <p>Ticket Management</p>
         </div>
         <nav>
-          { user?.company && user?.avatar
+          { user && user.company
           ? <>
               <Link to="/dashboard" className="link">Dashboard</Link>
               <Link to="/tickets" className="link">Tickets</Link>

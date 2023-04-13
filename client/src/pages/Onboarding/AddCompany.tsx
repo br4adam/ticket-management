@@ -1,22 +1,18 @@
-import { useState } from "react"
+import { FC, useState } from "react"
+import { createCompany } from "../../api/companies"
 
-const AddCompany = () => {
+type Props = {
+  getCompaniesList: () => Promise<void>
+}
+
+const AddCompany: FC<Props> = ({ getCompaniesList }) => {
   const [ newCompany, setNewCompany ] = useState<string>("")
 
   const saveCompany = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/companies`, {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}` },
-        body: JSON.stringify({ name: newCompany })
-      })
-      const data = await response.json()
-      setNewCompany("")
-    } catch (error) {
-      console.log(error)
-    }
+    if (!newCompany) return
+    await createCompany(newCompany)
+    await getCompaniesList()
+    setNewCompany("")
   }
 
   return (

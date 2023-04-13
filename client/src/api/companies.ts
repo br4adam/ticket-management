@@ -2,17 +2,25 @@ import { z } from "zod"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
 
-const CompanyResponseSchema = z.object({
+const CompanySchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  admins: z.string().array()
+})
+export type CompanyType = z.infer<typeof CompanySchema>
+
+const CompanyListSchema = z.object({
   _id: z.string(),
   name: z.string(),
   admins: z.string().array()
 }).array()
+type CompanyListType = z.infer<typeof CompanyListSchema>
 
-const getCompanies = async () => {
+const getCompanies = async (): Promise<CompanyListType | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/companies`)
     const data = await response.json()
-    const result = CompanyResponseSchema.safeParse(data)
+    const result = CompanyListSchema.safeParse(data)
     if (!result.success) return null
     return result.data
   } catch (error) {
@@ -21,4 +29,23 @@ const getCompanies = async () => {
   }
 }
 
-export { getCompanies }
+const createCompany = async (name: string): Promise<CompanyType | null> => {
+  try {
+    const response = await fetch(`${baseUrl}/api/companies`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}` },
+      body: JSON.stringify({ name })
+    })
+    const data = await response.json()
+    const result = CompanySchema.safeParse(data)
+    if (!result.success) return null
+    return result.data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export { getCompanies, createCompany }

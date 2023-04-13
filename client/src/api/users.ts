@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { UserSchema, type UserType, type UpdateType } from "../states/user"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
 
@@ -21,4 +22,23 @@ const login = async (code: string): Promise<string | null> => {
   }
 }
 
-export { login }
+const updateUser = async (updateData: UpdateType): Promise<UserType | null> => {
+  try {
+    const response = await fetch(`${baseUrl}/api/users/me`, {
+      method: "PUT",
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}` },
+      body: JSON.stringify(updateData)
+    })
+    const data = await response.json()
+    const result = UserSchema.safeParse(data)
+    if (!result.success) return null
+    return result.data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export { login, updateUser }

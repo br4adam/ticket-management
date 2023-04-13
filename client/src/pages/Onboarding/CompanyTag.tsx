@@ -1,9 +1,9 @@
 import { HiBadgeCheck } from "react-icons/hi"
-import type { Company } from "."
+import type { CompanyType } from "../../api/companies"
 import { FC } from "react"
 
 type Props = {
-  company: Company,
+  company: CompanyType,
   onClick: React.MouseEventHandler<HTMLLIElement>,
   selected: boolean,
 }
