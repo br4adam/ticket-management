@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import logo from "../assets/logo.svg"
 import avatars from "../assets/avatars"
-import defaultAvatar from "../assets/default-avatar.png"
+import defaultAvatar from "../assets/default-avatar.webp"
 import LoginButton from "../components/LoginButton"
 import useGlobal from "../hooks/useGlobal"
 import { user$ } from "../states/user"

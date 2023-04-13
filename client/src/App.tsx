@@ -4,6 +4,7 @@ import Landing from "./pages/Landing"
 import Callback from "./pages/Callback"
 import Onboarding from "./pages/Onboarding"
 import Dashboard from "./pages/Dashboard"
+import NotFound from "./pages/NotFound"
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ const router = createBrowserRouter([
       { path: "/", element: <Landing /> },
       { path: "/callback", element: <Callback /> },
       { path: "/onboarding", element: <Onboarding /> },
-      { path: "/dashboard", element: <Dashboard /> }
+      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/*", element: <NotFound /> }
     ],
   },
 ])

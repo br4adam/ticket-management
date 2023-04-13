@@ -174,17 +174,16 @@ nav a img {
 
 .landing.wrapper {
   gap: 2rem;
-  margin: 3rem auto 0;
-  padding-bottom: 4rem;
+  margin: 3rem auto 6rem;
   text-align: center;
 }
 
 .landing h1 {
   font-size: clamp(3.5rem, 1.722rem + 3.704vw, 4.5rem);
-  font-weight: 700;
   line-height: 1;
-  text-align: center;
-  width: 75%;
+  letter-spacing: -0.125rem;
+  width: 90%;
+  max-width: 40rem;
 }
 
 .landing h1 span {
@@ -197,11 +196,11 @@ nav a img {
 
 .landing h2 {
   font-size: 2rem;
-  font-weight: 700;
   line-height: 1.25;
-  text-align: center;
+  letter-spacing: -0.0625rem;
   margin-bottom: 2rem;
-  max-width: 30rem;
+  width: 90%;
+  max-width: 40rem;
 }
 
 .features {
@@ -249,6 +248,24 @@ nav a img {
 
 .callback.wrapper {
   margin-top: 1rem;
+}
+
+/* Not Found */
+
+.notfound {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+}
+
+.notfound.wrapper {
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.notfound img {
+  width: 90%;
+  max-width: 32rem;
 }
 
 /* Onboarding */
