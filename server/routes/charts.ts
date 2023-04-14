@@ -52,4 +52,24 @@ router.get("/barchart", verifyToken, async (req: Request, res: Response) => {
   return res.status(200).json(newTicketCounts)
 })
 
+router.get("/statistics", verifyToken, async (req: Request, res: Response) => {
+  const user = res.locals.user
+  const userCompany = await Company.findById(user.company).populate("admins")
+  const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
+
+  let matchQuery: any = { createdBy: user._id }
+  if (isAdmin) matchQuery = { company: userCompany?._id }
+
+  const ticketCounts = await Ticket.aggregate()
+  .match(matchQuery)
+  .group({ _id: "$status", count: { $sum: 1 }})
+  .group({
+    _id: null,
+    counts: { $push: { status: "$_id", count: "$count" }},
+    total: { $sum: "$count" }
+  })
+  .project({ _id: 0, counts: { $concatArrays: ["$counts", [{ status: "total", count: "$total" }]] }})
+return res.status(200).json(ticketCounts[0].counts)
+})
+
 export default router

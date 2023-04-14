@@ -3,14 +3,14 @@ import { HiBadgeCheck } from "react-icons/hi"
 
 type Props = {
   image: string,
-  onClick: React.MouseEventHandler<HTMLImageElement>,
-  selected: boolean
+  onClick?: React.MouseEventHandler<HTMLImageElement>,
+  selected?: boolean
 }
 
 const Avatar: FC<Props> = ({ image, onClick, selected }) => {
   return (
     <div className="avatar">
-      <div>
+      <div className="container">
         <img src={image} onClick={onClick} />
       </div>
       { selected && <HiBadgeCheck /> }

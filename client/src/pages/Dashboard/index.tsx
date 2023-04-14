@@ -1,8 +1,10 @@
+import Statistics from "./Statistics"
+
 const Dashboard = () => {
   return (
-    <div>
-
-    </div>
+    <>
+      <Statistics />
+    </>
   )
 }
 
