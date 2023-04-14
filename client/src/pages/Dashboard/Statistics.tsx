@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
+import { getStatistics, type StatisticListType } from "../../api/charts"
+import { HiChartBar, HiOutlineChartBar } from "react-icons/hi2"
 import Stat from "./Stat"
 
-type Statistic = {
-  status: string,
-  count: number
+type Props = {
+  showCharts: boolean
+  setShowCharts: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Statistics = () => {
-  const [ statistics, setStatistics ] = useState<Statistic[]>([])
-
-  const getStatistics = async () => {
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/charts/statistics`, {
-      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
-    const data = await response.json()
-    setStatistics(data)
-  }
+const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
+  const [ statistics, setStatistics ] = useState<StatisticListType>([])
   
   useEffect(() => {
-    getStatistics()
+    const loadStatistics = async () => {
+      const data = await getStatistics()
+      if (!data) return
+      setStatistics(data)
+    }
+    loadStatistics()
   }, [])
+
+  const toggle = () => setShowCharts(prev => !prev)
 
   const order = ["total", "open", "pending", "closed"]
   const sortedStatistics = statistics.sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
@@ -26,7 +28,10 @@ const Statistics = () => {
   return (
     <section className="statistics">
       <div className="wrapper">
-        <h1>Dashboard</h1>
+        <div className="title">
+          <h1>Dashboard</h1>
+          { showCharts ? <HiChartBar onClick={toggle} /> : <HiOutlineChartBar onClick={toggle} className="hidden" /> }
+        </div>
         <div className="statgrid">
         { sortedStatistics.map(stat => <Stat key={stat.status} {...stat} />)}
         </div>

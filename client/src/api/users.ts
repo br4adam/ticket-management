@@ -2,10 +2,11 @@ import { z } from "zod"
 import { UserSchema, type UserType, type UpdateType } from "../states/user"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
+const token = localStorage.getItem("token")
 
 const LoginResponseSchema = z.string()
 
-const login = async (code: string): Promise<string | null> => {
+const login = async (code: string ): Promise<string | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/login`, {
       method: "POST",
@@ -28,7 +29,7 @@ const updateUser = async (updateData: UpdateType): Promise<UserType | null> => {
       method: "PUT",
       headers: { 
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}` },
+        "Authorization": `Bearer ${token}` },
       body: JSON.stringify(updateData)
     })
     const data = await response.json()
