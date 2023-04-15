@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
-const token = localStorage.getItem("token")
 
 const StatisticSchema = z.object({
   status: z.string(),
@@ -12,10 +11,24 @@ type StatisticType = z.infer<typeof StatisticSchema>
 const StatisticListSchema = StatisticSchema.array()
 export type StatisticListType = z.infer<typeof StatisticListSchema>
 
+const BarChartDataSchema = z.object({
+  date: z.string(),
+  count: z.number(),
+}).array()
+export type BarChartDataType = z.infer<typeof BarChartDataSchema>
+
+const LineChartDataSchema = z.object({
+  date: z.string(),
+  open: z.number(),
+  pending: z.number(),
+  closed: z.number()
+}).array()
+export type LineChartDataType = z.infer<typeof LineChartDataSchema>
+
 const getStatistics = async (): Promise<StatisticType[] | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/charts/statistics`, {
-      headers: { "Authorization": `Bearer ${token}` }})
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
     const data = await response.json()
     const result = StatisticListSchema.safeParse(data)
     if (!result.success) return null
@@ -26,24 +39,28 @@ const getStatistics = async (): Promise<StatisticType[] | null> => {
   }
 }
 
-const getBarChartData = async () => {
+const getBarChartData = async (): Promise<BarChartDataType | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/charts/barchart`, {
-      headers: { "Authorization": `Bearer ${token}` }})
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
     const data = await response.json()
-    return data
+    const result = BarChartDataSchema.safeParse(data)
+    if (!result.success) return null
+    return result.data
   } catch (error) {
     console.log(error)
     return null
   }
 }
 
-const getLineChartData = async () => {
+const getLineChartData = async (): Promise<LineChartDataType | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/charts/linechart`, {
-      headers: { "Authorization": `Bearer ${token}` }})
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
     const data = await response.json()
-    return data
+    const result = LineChartDataSchema.safeParse(data)
+    if (!result.success) return null
+    return result.data
   } catch (error) {
     console.log(error)
     return null

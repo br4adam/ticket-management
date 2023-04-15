@@ -10,7 +10,7 @@ type Props = {
 const Avatar: FC<Props> = ({ image, onClick, selected }) => {
   return (
     <div className="avatar">
-      <div className="container">
+      <div className="box">
         <img src={image} onClick={onClick} />
       </div>
       { selected && <HiBadgeCheck /> }

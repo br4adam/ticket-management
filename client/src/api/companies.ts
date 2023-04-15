@@ -3,7 +3,7 @@ import { z } from "zod"
 const baseUrl = import.meta.env.VITE_SERVER_URL
 const token = localStorage.getItem("token")
 
-const CompanySchema = z.object({
+export const CompanySchema = z.object({
   _id: z.string(),
   name: z.string(),
   admins: z.string().array()

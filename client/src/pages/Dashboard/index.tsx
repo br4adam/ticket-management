@@ -1,10 +1,12 @@
+import { useState } from "react"
 import Statistics from "./Statistics"
 import NewTicketsChart from "./BarChart"
 import StatusChart from "./LineChart"
-import { useState } from "react"
+import Tickets from "./Tickets"
 
 const Dashboard = () => {
   const [ showCharts, setShowCharts ] = useState<boolean>(true)
+  
   return (
     <>
       <Statistics showCharts={showCharts} setShowCharts={setShowCharts} />
@@ -14,6 +16,7 @@ const Dashboard = () => {
           <StatusChart />
         </div>
         }
+        <Tickets />
       </div>
     </>
   )

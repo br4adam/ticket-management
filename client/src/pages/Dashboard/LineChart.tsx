@@ -1,37 +1,24 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { useState, useEffect } from "react"
-import { getLineChartData } from "../../api/charts"
-import { getDateBefore, getDates, formatDate } from "../../utils/handleDates"
-
-type ChartDataType = {
-  date: string,
-  open: number,
-  pending: number,
-  closed: number
-}
+import { getLineChartData, type LineChartDataType } from "../../api/charts"
 
 const StatusChart = () => {
-  const [ chartData, setChartData ] = useState<ChartDataType[]>([])
+  const [ chartData, setChartData ] = useState<LineChartDataType>([])
 
   useEffect(() => {
     const getChartData = async () => {
       const data = await getLineChartData()
+      if (!data) return
       setChartData(data)
     }
     getChartData()
   }, [])
 
-  const datesArray = getDates(getDateBefore(7), new Date())
-  const filledChartData = datesArray.map((date) => {
-    const ticketCount = chartData?.find(chartData => chartData.date === formatDate(date))
-    return { date: formatDate(date), open: ticketCount ? ticketCount.open : 0, closed: ticketCount ? ticketCount.closed : 0, pending: ticketCount ? ticketCount.pending : 0 }
-  })
-
   return (
     <div className="chart">
       <p>Tickets by status</p>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={filledChartData}>
+        <LineChart data={chartData}>
           <CartesianGrid vertical={false} stroke="#666666" />
           <XAxis height={24} dy={8} padding={{ left: 8, right: 16 }} tickLine={false} dataKey="date" tick={{ fill: "white" }} interval={0} />
           <YAxis width={32} dx={-8} axisLine={false} tick={{ fill: "white" }} allowDecimals={false} />

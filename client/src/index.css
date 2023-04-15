@@ -13,13 +13,18 @@
   --color-white: #ffffff;
   --color-dark-background: #262829;
   --color-light-background: #faf8fc;
-  --color-light-gray: #dbdbdb;
+  --color-light-gray: #ebebeb;
   --color-mid-gray: #a8a8a8;
   --color-dark-gray: #565656;
   --color-status-total: #7befff;
   --color-status-open: #acffaa;
+  --color-status-open-text: #238812;
   --color-status-pending: #ffe693;
+  --color-status-pending-text: #845d13;
   --color-status-closed: #e0c8ff;
+  --color-priority-low: #70dfee;
+  --color-priority-medium: #fac762;
+  --color-priority-high: #ff7575;
   --box-shadow: 0 0.75rem 1rem -0.2rem #00000015, 0 0.25rem 0.4rem 0.125rem #00000005;
 }
 
@@ -134,7 +139,7 @@ input::placeholder {
   position: relative;
 }
 
-.avatar .container {
+.avatar .box {
   overflow: hidden;
   width: 4rem;
   border-radius: 100%;
@@ -195,15 +200,15 @@ nav a:has(img) {
   padding: 0;
 }
 
-nav .avatar .container {
+nav .avatar .box {
   width: calc(2rem + 4px);
 }
 
 /* Landing */
 
 .landing.wrapper {
-  gap: 2rem;
-  margin: 3rem auto 6rem;
+  gap: 2.5rem;
+  margin: 4rem auto 6rem;
   text-align: center;
 }
 
@@ -373,20 +378,19 @@ nav .avatar .container {
   padding: 1rem 0 2rem 0;
 }
 
-.statistics .wrapper .title {
+.statistics .wrapper .titlebar {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.statistics .wrapper .title svg {
+.statistics .wrapper .titlebar svg {
   font-size: 1.5rem;
-  color: var(--color-main);
   cursor: pointer;
 }
 
-.statistics .wrapper .title .hidden {
+.statistics .wrapper .titlebar .hidden {
   color: var(--color-white);
   opacity: 0.5;
 }
@@ -415,18 +419,6 @@ nav .avatar .container {
   border-radius: 100%;
 }
 
-.stat:first-of-type .icon {
- background-color: var(--color-status-total);
-}
-
-.stat:nth-of-type(2) .icon {
-  background-color: var(--color-status-open);
-}
-
-.stat:nth-of-type(3) .icon {
-  background-color: var(--color-status-pending);
-}
-
 .stat:last-of-type .icon {
   background-color: var(--color-status-closed);
 }
@@ -449,6 +441,7 @@ nav .avatar .container {
 
 .dashboard.wrapper {
   margin-top: 1rem;
+  gap: 1rem;
 }
 
 .charts {
@@ -475,6 +468,159 @@ nav .avatar .container {
 .chart > p {
   font-size: 1rem;
   font-weight: 700;
+}
+
+.container {
+  width: 100%;
+  background-color: var(--color-white);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tickets .scrollable {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticketheader {
+  font-weight: 600;
+}
+
+.ticketbar,
+.ticketheader {
+  padding: 1rem;
+  border-bottom: 1px solid #16171825;
+  display: flex;
+  min-width: max-content;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.ticketbar .id, .ticketheader .id {
+  width: 12.5rem;
+}
+
+.ticketbar .id {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  border: 0.5px solid var(--color-mid-gray);
+  background-color: var(--color-light-background);
+}
+
+.ticketbar .user, .ticketheader .user {
+  width: 10rem;
+  flex: 1 0 10rem;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+}
+
+.ticketbar .user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.ticketbar .user .avatar .box {
+  width: 1.5rem;
+}
+
+.ticketbar .subject, .ticketheader .subject {
+  width: 14rem;
+  flex: 1 0 14rem;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+}
+
+.ticketbar .status, .ticketheader .status {
+  width: 4.5rem;
+  text-align: center;
+}
+
+.ticketbar .status {
+  border-radius: 1rem;
+  padding: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.ticketbar .priority, .ticketheader .priority {
+  width: 5rem;
+}
+
+.ticketbar .priority {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.ticketbar .priority div {
+  height: 0.5rem;
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+}
+
+.ticketbar .date, .ticketheader .date {
+  width: 6rem;
+}
+
+.ticketheader svg:last-child {
+  visibility: hidden;
+}
+
+.ticketbar svg {
+  cursor: pointer;
+}
+
+/* Status & Priority */
+
+.open {
+  background-color: var(--color-status-open);
+  color: var(--color-status-open-text);
+  border: 0.5px solid var(--color-status-open-text);
+}
+
+.pending {
+  background-color: var(--color-status-pending);
+  color: var(--color-status-pending-text);
+  border: 0.5px solid var(--color-status-pending-text);
+}
+
+.closed {
+  background-color: var(--color-light-gray);
+  color: var(--color-dark-gray);
+  border: 0.5px solid var(--color-dark-gray);
+}
+
+.low {
+  background-color: var(--color-priority-low);
+}
+
+.medium {
+  background-color: var(--color-priority-medium);
+}
+
+.high {
+  background-color: var(--color-priority-high);
+}
+
+.total {
+  background-color: var(--color-status-total);
 }
 
 /* Breakpoints */
