@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
-const token = localStorage.getItem("token")
 
 export const CompanySchema = z.object({
   _id: z.string(),
@@ -32,7 +31,7 @@ const createCompany = async (name: string): Promise<CompanyType | null> => {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` },
+        "Authorization": `Bearer ${localStorage.getItem("token")}` },
       body: JSON.stringify({ name })
     })
     const data = await response.json()

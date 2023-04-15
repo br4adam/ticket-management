@@ -48,9 +48,11 @@ const logout = () => {
 }
 
 const update = async (data: UpdateType) => {
-  const user = await updateUser(data)
+  const token = await updateUser(data)
+  const user = decodeToken(token)
   if (!user) return
   user$.next(user)
+  localStorage.setItem("token", token!)
 }
 
 export { user$, login, logout, update }

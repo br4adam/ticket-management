@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express"
+import mongoose from "mongoose"
 import verifyToken from "../middlewares/verifyToken"
 import { Ticket } from "../models/Ticket"
 import { Company } from "../models/Company"
@@ -6,7 +7,7 @@ import { getDateBefore, getDates, formatDate } from "../utils/handleDates"
 
 const router = express.Router()
 
-const startDate = getDateBefore(7)
+const startDate = getDateBefore(6)
 const datesArray = getDates(startDate, new Date())
 
 router.get("/linechart", verifyToken, async (req: Request, res: Response) => {
@@ -14,7 +15,7 @@ router.get("/linechart", verifyToken, async (req: Request, res: Response) => {
   const userCompany = await Company.findById(user.company).populate("admins")
   const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
 
-  let matchQuery: any = { createdBy: user._id, updatedAt: { $gte: startDate }}
+  let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id), updatedAt: { $gte: startDate }}
   if (isAdmin) matchQuery = { company: userCompany?._id, updatedAt: { $gte: startDate }}
 
   const groupedTicketCounts = await Ticket.aggregate()
@@ -45,7 +46,7 @@ router.get("/barchart", verifyToken, async (req: Request, res: Response) => {
   const userCompany = await Company.findById(user.company).populate("admins")
   const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
 
-  let matchQuery: any = { createdBy: user._id, createdAt: { $gte: startDate }}
+  let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id), createdAt: { $gte: startDate }}
   if (isAdmin) matchQuery = { company: userCompany?._id, createdAt: { $gte: startDate }}
 
   const newTicketCounts = await Ticket.aggregate()
@@ -70,7 +71,7 @@ router.get("/statistics", verifyToken, async (req: Request, res: Response) => {
   const userCompany = await Company.findById(user.company).populate("admins")
   const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
 
-  let matchQuery: any = { createdBy: user._id }
+  let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id) }
   if (isAdmin) matchQuery = { company: userCompany?._id }
 
   const ticketCountsByStatus = await Ticket.aggregate()
@@ -79,12 +80,16 @@ router.get("/statistics", verifyToken, async (req: Request, res: Response) => {
     .match({ _id: { $in: ["open", "pending", "closed"] } })
     .project({ _id: 0, status: "$_id", count: 1 })
 
-  const total = ticketCountsByStatus.reduce((total, x) => total + x.count, 0)
-  ticketCountsByStatus.push({ count: total, status: "total" })
-  const order = ["total", "open", "pending", "closed"]
-  const ticketCounts = ticketCountsByStatus.sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
+  const sum = ticketCountsByStatus.reduce((total, item) => total + item.count, 0)
+  ticketCountsByStatus.push({ count: sum, status: "total" })
 
-  return res.status(200).json(ticketCounts)
+  const order = ["total", "open", "pending", "closed"]
+  for (const status of order) {
+    if (!ticketCountsByStatus.find((item) => item.status === status)) ticketCountsByStatus.push({ count: 0, status })
+  }
+  ticketCountsByStatus.sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
+
+  return res.status(200).json(ticketCountsByStatus)
 })
 
 export default router

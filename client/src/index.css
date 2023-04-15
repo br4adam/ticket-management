@@ -385,14 +385,13 @@ nav .avatar .box {
   align-items: center;
 }
 
-.statistics .wrapper .titlebar svg {
-  font-size: 1.5rem;
-  cursor: pointer;
+.statistics .wrapper .titlebar button {
+  background-color: var(--color-dark-background);
+  font-size: 0.75rem;
 }
 
 .statistics .wrapper .titlebar .hidden {
-  color: var(--color-white);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .statistics .statgrid {
@@ -508,7 +507,7 @@ nav .avatar .box {
 }
 
 .ticketbar .id, .ticketheader .id {
-  width: 12.5rem;
+  width: 13rem;
 }
 
 .ticketbar .id {
@@ -525,8 +524,6 @@ nav .avatar .box {
 .ticketbar .user, .ticketheader .user {
   width: 10rem;
   flex: 1 0 10rem;
-  text-overflow: ellipsis;
-  overflow: hidden; 
 }
 
 .ticketbar .user {
@@ -534,6 +531,11 @@ nav .avatar .box {
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
+}
+
+.ticketbar .user p {
+  text-overflow: ellipsis;
+  overflow: hidden; 
 }
 
 .ticketbar .user .avatar .box {

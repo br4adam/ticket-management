@@ -3,8 +3,12 @@ import { z } from "zod"
 import verifyToken from "../middlewares/verifyToken"
 import verifySchema from "../middlewares/verifySchema"
 import { User } from "../models/User"
+import jwt from "jsonwebtoken"
 
 const router = express.Router()
+
+const secretKey = process.env.JWT_SECRET_KEY
+if (!secretKey) throw new Error ("Secret key is required.")
 
 const UserUpdateSchema = z.object({
   name: z.string().min(3).optional(),
@@ -33,9 +37,10 @@ router.get("/me", verifyToken, async (req: Request, res: Response) => {
 router.put("/me", verifyToken, verifySchema(UserUpdateSchema), async (req: Request, res: Response) => {
   const userData = req.body as UserUpdateType
   const user = res.locals.user
-  const updatedUser = await User.findByIdAndUpdate(user._id, { $set: { ...userData } }, { new: true })
+  const updatedUser = await User.findByIdAndUpdate(user._id, { $set: { ...userData } }, { new: true }).select("-sub").populate("company").lean()
   if (!updatedUser) return res.status(400).json("User not found.")
-  res.status(200).json(updatedUser)
+  const sessionToken = jwt.sign(updatedUser, secretKey, { expiresIn: "2h" })
+  res.status(200).json(sessionToken)
 })
 
 export default router

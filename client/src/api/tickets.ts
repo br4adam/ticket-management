@@ -2,7 +2,6 @@ import { z } from "zod"
 import { CompanySchema } from "./companies"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
-const token = localStorage.getItem("token")
 
 const TicketSchema = z.object({
   _id: z.string(),
@@ -38,7 +37,7 @@ type TicketListType = z.infer<typeof TicketListListSchema>
 const getTickets = async (): Promise<TicketType[] | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/tickets`, {
-      headers: { "Authorization": `Bearer ${token}` }})
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
     const data = await response.json()
     const result = TicketListListSchema.safeParse(data)
     if (!result.success) return null

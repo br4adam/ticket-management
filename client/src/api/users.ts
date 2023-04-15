@@ -1,10 +1,9 @@
 import { z } from "zod"
-import { UserSchema, type UserType, type UpdateType } from "../states/user"
+import { type UpdateType } from "../states/user"
 
 const baseUrl = import.meta.env.VITE_SERVER_URL
-const token = localStorage.getItem("token")
 
-const LoginResponseSchema = z.string()
+const TokenSchema = z.string()
 
 const login = async (code: string ): Promise<string | null> => {
   try {
@@ -14,7 +13,7 @@ const login = async (code: string ): Promise<string | null> => {
       body: JSON.stringify({ code })
     })
     const data = await response.json()
-    const result = LoginResponseSchema.safeParse(data)
+    const result = TokenSchema.safeParse(data)
     if (!result.success) return null
     return result.data
   } catch (error) {
@@ -23,17 +22,17 @@ const login = async (code: string ): Promise<string | null> => {
   }
 }
 
-const updateUser = async (updateData: UpdateType): Promise<UserType | null> => {
+const updateUser = async (updateData: UpdateType): Promise<string | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/users/me`, {
       method: "PUT",
       headers: { 
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` },
+        "Authorization": `Bearer ${localStorage.getItem("token")}` },
       body: JSON.stringify(updateData)
     })
     const data = await response.json()
-    const result = UserSchema.safeParse(data)
+    const result = TokenSchema.safeParse(data)
     if (!result.success) return null
     return result.data
   } catch (error) {

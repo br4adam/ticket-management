@@ -39,12 +39,12 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
   const userCompany = await Company.findById(user.company).populate("admins")
   const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
   if (isAdmin) {
-    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" })
+    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" }).sort({ createdAt: -1 })
     if (!companyTickets) return res.status(400).json("Tickets not found.")
     return res.status(200).json(companyTickets)
   }
   else {
-    const userTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" })
+    const userTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" }).sort({ createdAt: -1 })
     if (!userTickets) return res.status(400).json("Tickets not found.")
     return res.status(200).json(userTickets)
   }
