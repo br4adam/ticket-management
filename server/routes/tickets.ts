@@ -21,7 +21,7 @@ const TicketSchema = z.object({
   createdBy: z.string().transform((val) => new ObjectId(val)),
   subject: z.string(),
   company: z.string().transform((val) => new ObjectId(val)),
-  description: z.string().min(1).optional(),
+  description: z.string().optional(),
   priority: z.enum(["low", "medium", "high"]).default("low"),
   status: z.enum(["open", "pending", "closed"]).default("open"),
   messages: z.array(MessageSchema).default([])
@@ -63,7 +63,7 @@ router.post("/", verifyToken, verifySchema(TicketSchema), async (req: Request, r
   const user = res.locals.user
   if (data.createdBy !== user._id) return res.sendStatus(401)
   const createdTicket = await Ticket.create<TicketType>(data)
-  res.status(201).json(createdTicket)
+  res.status(201).json(createdTicket._id)
 })
 
 router.put("/:id", verifyToken, verifySchema(TicketUpdateSchema), async (req: Request, res: Response) => {

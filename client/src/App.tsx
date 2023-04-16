@@ -4,6 +4,8 @@ import Landing from "./pages/Landing"
 import Callback from "./pages/Callback"
 import Onboarding from "./pages/Onboarding"
 import Dashboard from "./pages/Dashboard"
+import Create from "./pages/Create"
+import TicketList from "./pages/TicketList"
 import NotFound from "./pages/NotFound"
 
 const router = createBrowserRouter([
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
       { path: "/callback", element: <Callback /> },
       { path: "/onboarding", element: <Onboarding /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/create", element: <Create /> },
+      { path: "/tickets", element: <TicketList /> },
       { path: "/*", element: <NotFound /> }
     ],
   },

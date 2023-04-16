@@ -14,8 +14,8 @@ const TicketSchema = z.object({
     phone: z.string().optional(),
     company: z.string()
   }),
-  priority: z.string(),
-  status: z.string(),
+  priority: z.enum(["low", "medium", "high"]).default("low"),
+  status: z.enum(["open", "pending", "closed"]).default("open"),
   subject: z.string(),
   description: z.string().optional(),
   createdAt: z.string(),
@@ -31,8 +31,17 @@ const TicketSchema = z.object({
 })
 export type TicketType = z.infer<typeof TicketSchema>
 
+const NewTicketSchema = z.object({
+  createdBy: z.string(),
+  company: z.string(),
+  subject: z.string(),
+  description: z.string().optional(),
+  priority: z.string().default("low"),
+  status: z.string().default("open"),
+})
+export type NewTicketType = z.infer<typeof NewTicketSchema>
+
 const TicketListListSchema = TicketSchema.array()
-type TicketListType = z.infer<typeof TicketListListSchema>
 
 const getTickets = async (): Promise<TicketType[] | null> => {
   try {
@@ -48,4 +57,23 @@ const getTickets = async (): Promise<TicketType[] | null> => {
   }
 }
 
-export { getTickets }
+const saveTicket = async (ticketData: NewTicketType): Promise<string | null> => {
+  try {
+    const response = await fetch(`${baseUrl}/api/tickets`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}` },
+      body: JSON.stringify(ticketData)
+    })
+    const data = await response.json()
+    const result = z.string().safeParse(data)
+    if (!result.success) return null
+    return result.data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export { getTickets, saveTicket }

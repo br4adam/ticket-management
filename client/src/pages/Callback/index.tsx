@@ -15,8 +15,10 @@ const Callback = () => {
   }, [])
 
   useEffect(() => {
-    if (user?.company) return navigate("/dashboard")
-    navigate("/onboarding")
+    if (user) {
+      if (!user.company) return navigate("/onboarding")
+      navigate("/dashboard")
+    }
   }, [user])
 
   return (

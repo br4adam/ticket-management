@@ -7,7 +7,7 @@ import { RxCopy } from "react-icons/rx"
 import Avatar from "../../components/Avatar"
 import capitalize from "../../utils/capitalize"
 import useClipboard from "../../hooks/useClipboard"
-import formatDateString from "../../utils/handleDates"
+import formatDate from "../../utils/formatDate"
 
 const TicketBar: FC<TicketType> = ( ticket ) => {
   const { copy, copied } = useClipboard()
@@ -32,7 +32,7 @@ const TicketBar: FC<TicketType> = ( ticket ) => {
         <div className={ticket.priority}></div>
         <p>{ capitalize(ticket.priority) }</p>
       </div>
-      <p className="date">{ formatDateString(ticket.createdAt) }</p>
+      <p className="date">{ formatDate(ticket.createdAt) }</p>
       <HiOutlineArrowRight />
     </div>
   )

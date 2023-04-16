@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import notfound from "../../assets/notfound.webp"
+import notfound from "../../assets/not-found.webp"
 
 const NotFound = () => {
   return (

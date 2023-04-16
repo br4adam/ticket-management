@@ -26,7 +26,7 @@ const NewTicketsChart = () => {
             cursor={{ fill: "#ffffff10" }}
             wrapperStyle={{ outline: "none"}}
             contentStyle={{ backgroundColor: "#262829", border: "1px solid #666666", borderRadius: "0.25rem" }} />
-          <Bar dataKey="count" fill="#7befff" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="count" fill="#7befff" radius={[4, 4, 0, 0]} isAnimationActive={false} />
         </BarChart>
       </ResponsiveContainer>
     </div>
