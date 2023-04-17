@@ -1,5 +1,6 @@
 import { FC } from "react"
-import { TicketType } from "../../api/tickets"
+import { useNavigate } from "react-router-dom"
+import { type TicketType } from "../../api/tickets"
 import avatars from "../../assets/avatars"
 import defaultAvatar from "../../assets/default-avatar.webp"
 import { HiOutlineArrowRight, HiOutlineCheck } from "react-icons/hi"
@@ -12,6 +13,7 @@ import formatDate from "../../utils/formatDate"
 const TicketBar: FC<TicketType> = ( ticket ) => {
   const { copy, copied } = useClipboard()
   const avatar = avatars.find(a => a.includes(ticket.createdBy.avatar!)) || defaultAvatar
+  const navigate = useNavigate()
 
   return (
     <div className="ticketbar">
@@ -32,8 +34,8 @@ const TicketBar: FC<TicketType> = ( ticket ) => {
         <div className={ticket.priority}></div>
         <p>{ capitalize(ticket.priority) }</p>
       </div>
-      <p className="date">{ formatDate(ticket.createdAt) }</p>
-      <HiOutlineArrowRight />
+      <p className="date">{ formatDate(ticket.createdAt, "date") }</p>
+      <HiOutlineArrowRight onClick={() => navigate(`/tickets/${ticket._id}`) }/>
     </div>
   )
 }

@@ -31,7 +31,7 @@ const Select: FC<Props> = ({ options, disabled, onSelect = () => {} }) => {
 
   const onChange = (value: string) => {
     setSelected(value)
-    onSelect(selected)
+    onSelect(value)
     setIsOpen(false)
   }
   

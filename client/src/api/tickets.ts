@@ -24,8 +24,9 @@ const TicketSchema = z.object({
     date: z.string(),
     message: z.string(),
     user: z.object({
+      _id: z.string(),
       name: z.string(),
-      _id: z.string()
+      avatar: z.string()
     })
   }).array().optional()
 })
@@ -41,14 +42,28 @@ const NewTicketSchema = z.object({
 })
 export type NewTicketType = z.infer<typeof NewTicketSchema>
 
-const TicketListListSchema = TicketSchema.array()
+const TicketListSchema = TicketSchema.array()
 
 const getTickets = async (): Promise<TicketType[] | null> => {
   try {
     const response = await fetch(`${baseUrl}/api/tickets`, {
       headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
     const data = await response.json()
-    const result = TicketListListSchema.safeParse(data)
+    const result = TicketListSchema.safeParse(data)
+    if (!result.success) return null
+    return result.data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+const getTicket = async (id: string): Promise<TicketType | null> => {
+  try {
+    const response = await fetch(`${baseUrl}/api/tickets/${id}`, {
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
+    const data = await response.json()
+    const result = TicketSchema.safeParse(data)
     if (!result.success) return null
     return result.data
   } catch (error) {
@@ -76,4 +91,4 @@ const saveTicket = async (ticketData: NewTicketType): Promise<string | null> => 
   }
 }
 
-export { getTickets, saveTicket }
+export { getTickets, saveTicket, getTicket }

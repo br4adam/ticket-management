@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import RootLayout from "./layouts/RootLayout"
+import RootLayout from "./layout/RootLayout"
 import Landing from "./pages/Landing"
 import Callback from "./pages/Callback"
 import Onboarding from "./pages/Onboarding"
 import Dashboard from "./pages/Dashboard"
 import Create from "./pages/Create"
 import TicketList from "./pages/TicketList"
+import Ticket from "./pages/Ticket"
 import NotFound from "./pages/NotFound"
 
 const router = createBrowserRouter([
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/create", element: <Create /> },
       { path: "/tickets", element: <TicketList /> },
+      { path: "/tickets/:id", element: <Ticket /> },
       { path: "/*", element: <NotFound /> }
     ],
   },

@@ -17,7 +17,7 @@ const AddCompany: FC<Props> = ({ getCompaniesList }) => {
 
   return (
     <div className="add-company">
-      <input type="text" placeholder="add your company" value={newCompany} onChange={(e) => setNewCompany(e.target.value)} className="rounded" />
+      <input type="text" placeholder="add your company" value={newCompany} onChange={(e) => setNewCompany(e.target.value)} />
       <button className="solid" disabled={!newCompany} onClick={saveCompany}>Add</button>
     </div>
   )

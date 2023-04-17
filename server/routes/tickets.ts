@@ -39,12 +39,12 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
   const userCompany = await Company.findById(user.company).populate("admins")
   const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
   if (isAdmin) {
-    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" }).sort({ createdAt: -1 })
+    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
     if (!companyTickets) return res.status(400).json("Tickets not found.")
     return res.status(200).json(companyTickets)
   }
   else {
-    const userTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name" }).sort({ createdAt: -1 })
+    const userTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
     if (!userTickets) return res.status(400).json("Tickets not found.")
     return res.status(200).json(userTickets)
   }
@@ -53,7 +53,7 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
 router.get("/:id", verifyToken, async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
-  const foundTicket = await Ticket.findById(id).populate("createdBy").populate("company").populate(({ path: "messages.user", select: "_id name" }))
+  const foundTicket = await Ticket.findById(id).populate("createdBy").populate("company").populate(({ path: "messages.user", select: "_id name avatar" }))
   if (!foundTicket) return res.status(404).json(`Ticket ${id} not found.`)
   res.status(200).json(foundTicket)
 })

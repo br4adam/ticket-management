@@ -26,7 +26,7 @@ const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
       <div className="wrapper">
         <div className="titlebar">
           <h1>Dashboard</h1>
-          { showCharts ? <button onClick={toggle}>hide charts</button> : <button onClick={toggle} className="hidden">show charts</button> }
+          { showCharts ? <button onClick={toggle}>Hide charts</button> : <button onClick={toggle} className="hidden">Show charts</button> }
         </div>
         <div className="statgrid">
         { statistics.map(stat => <Stat key={stat.status} {...stat} />)}

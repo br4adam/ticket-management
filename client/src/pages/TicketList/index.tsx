@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { getTickets } from "../../api/tickets"
 import type { TicketType } from "../../api/tickets"
 import TicketHeader from "../Dashboard/TicketHeader"
 import TicketBar from "../Dashboard/TicketBar"
 import EmptyState from "../../components/EmptyState"
-import { useNavigate } from "react-router-dom"
+import Search from "./Search"
 
 const Tickets = () => {
   const [ tickets, setTickets ] = useState<TicketType[]>([])
@@ -22,6 +23,10 @@ const Tickets = () => {
 
   return (
     <div className="ticketlist wrapper">
+      <div>
+        <h1>Tickets</h1>
+        <Search />
+      </div>
       <section className="tickets container">
         <p className="title">All Tickets { hasTickets && <span>({ tickets.length })</span> }</p>
         { hasTickets
