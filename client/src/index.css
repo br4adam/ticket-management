@@ -21,14 +21,14 @@
   --color-status-open-text: #238812;
   --color-status-pending: #ffe693;
   --color-status-pending-text: #845d13;
-  --color-status-closed: #e0c8ff;
+  --color-status-closed: #e0cbfc;
   --color-priority-low: #7befff;
   --color-priority-medium: #fbd17c;
   --color-priority-high: #fa8484;
   --color-priority-low-bg: #ddf6f9;
   --color-priority-medium-bg: #fbefda;
   --color-priority-high-bg: #f7dada;
-  --box-shadow: 0 0.75rem 1rem -0.2rem #00000010, 0 0.25rem 0.4rem 0.125rem #00000005;
+  --box-shadow: 0 0.75rem 1rem -0.5rem #00000020;
 }
 
 body {
@@ -60,7 +60,7 @@ button.solid, a.solid {
 }
 
 button.solid:hover:not(:disabled), a.solid:hover:not(:disabled) {
-  color: var(--color-main);
+  background-color: var(--color-dark-background);
 }
 
 button.outline, a.outline {
@@ -81,7 +81,7 @@ button:disabled {
 
 input, textarea {
   all: unset;
-  border: 1px solid var(--color-mid-gray);
+  border: 1px solid var(--color-light-gray);
   background-color: var(--color-white);
   border-radius: 2rem;
   line-height: 1.25;
@@ -92,6 +92,10 @@ input, textarea {
 
 textarea {
   border-radius: 0.5rem;
+}
+
+input:hover, textarea:hover {
+  border-color: var(--color-mid-gray);
 }
 
 input:focus, textarea:focus {
@@ -109,13 +113,41 @@ input:focus, textarea:focus {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin: 1rem auto 5rem;
+  padding: 1rem 0 5rem 0;
+  margin: auto;
 }
 
 .wrapper h1 {
   font-size: 1.5rem;
   align-self: flex-start;
 }
+
+/* Container */
+
+.container {
+  width: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-light-gray);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.title span {
+  color: var(--color-mid-gray);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
 
 /* Loader */
 
@@ -172,7 +204,7 @@ header {
 
 header .wrapper {
   flex-direction: row;
-  margin: 0 auto;
+  padding: 0;
   height: 2.5rem;
 }
 
@@ -211,6 +243,7 @@ header .hamburger {
   position: relative;
   font-size: 1.5rem;
   transition: all 0.25s ease-in-out;
+  cursor: pointer;
 }
 
 header .hamburger:hover {
@@ -227,7 +260,7 @@ nav.mobile {
   gap: 0;
   width: 100%;
   height: calc(100% - 4.5rem);
-  z-index: 3;
+  z-index: 30;
   overflow: hidden;
   border-top: 1px solid var(--color-dark-background);
   background-color: var(--color-black);
@@ -254,7 +287,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .landing.wrapper {
   gap: 2.5rem;
-  margin: 4rem auto 5rem;
+  padding-top: 4rem;
   text-align: center;
 }
 
@@ -298,12 +331,9 @@ nav.mobile a:hover, nav.mobile button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 1rem;
   gap: 1rem;
-  background-color: var(--color-white);
-  box-shadow: var(--box-shadow);
   padding: 2rem;
-  border-radius: 0.5rem;
-  text-align: center;
 }
 
 .features .feature-card .icon {
@@ -338,7 +368,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 }
 
 .notfound.wrapper {
-  margin: 3rem auto 5rem;
+  padding-top: 4rem;
 }
 
 .notfound img {
@@ -349,7 +379,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 /* Onboarding */
 
 .onboarding.wrapper {
-  margin: 2rem auto 5rem;
+  padding-top: 2rem;
 }
 
 .onboarding.wrapper > p {
@@ -416,7 +446,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 }
 
 .statistics .wrapper {
-  margin: 0 auto;
   align-items: flex-start;
   padding: 1rem 0 2rem;
 }
@@ -512,28 +541,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   font-weight: 600;
 }
 
-.container {
-  width: 100%;
-  background-color: var(--color-white);
-  box-shadow: var(--box-shadow);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-}
-
-.title {
-  font-size: 1rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.title span {
-  color: var(--color-mid-gray);
-  font-size: 0.875rem;
-  font-weight: 400;
-}
-
 .tickets .scrollable {
   overflow-x: auto;
   overflow-y: hidden;
@@ -546,8 +553,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   font-weight: 600;
 }
 
-.ticketbar,
-.ticketheader {
+.ticketbar, .ticketheader {
   padding: 1rem;
   border-bottom: 1px solid #16171825;
   display: flex;
@@ -555,7 +561,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   justify-content: space-between;
   gap: 2rem;
   align-items: center;
-  font-size: 0.875rem;
 }
 
 .ticketbar:hover {
@@ -651,8 +656,9 @@ nav.mobile a:hover, nav.mobile button:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 1rem;
+  gap: 0.5rem;
   margin: 1rem 0;
+  font-size: 0.875rem;
 }
 
 .empty-state img {
@@ -660,8 +666,16 @@ nav.mobile a:hover, nav.mobile button:hover {
   max-width: 20rem;
 }
 
+.empty-state p:first-of-type {
+  font-weight: 600;
+}
+
 .empty-state p:last-of-type {
-  font-size: 0.875rem;
+  color: var(--color-dark-gray);
+}
+
+.empty-state button {
+  font-size: 1rem;
 }
 
 /* Create */
@@ -687,16 +701,11 @@ nav.mobile a:hover, nav.mobile button:hover {
   border: 1px solid var(--color-mid-gray)
 }
 
-.priority-info > p:last-of-type {
-  font-size: 0.875rem;
-}
-
 .priority-name {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  font-size: 0.875rem;
   width: fit-content;
   padding: 0.25rem 0.5rem;
   border: 1px solid;
@@ -726,6 +735,10 @@ nav.mobile a:hover, nav.mobile button:hover {
   border-color: var(--color-priority-high);
 }
 
+.priority-info > p:last-of-type {
+  color: var(--color-dark-gray);
+}
+
 .select-elements {
   display: flex;
   gap: 1rem;
@@ -736,6 +749,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   position: relative;
   width: 100%;
   font-weight: 600;
+  font-size: 1rem;
   user-select: none;
 }
 
@@ -792,7 +806,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   box-shadow: var(--box-shadow);
   border-radius: 0.5rem;
   cursor: pointer;
-  z-index: 2;
+  z-index: 20;
 }
 
 .select .options .option {
@@ -900,7 +914,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .message .from {
   font-weight: 600;
-  font-size: 0.875rem;
 }
 
 .message .from span {
@@ -917,6 +930,10 @@ nav.mobile a:hover, nav.mobile button:hover {
   gap: 0.5rem;
 }
 
+.new-message button {
+  font-size: 1rem;
+}
+
 .new-message button svg {
   transform: rotate(90deg);
 }
@@ -927,11 +944,11 @@ nav.mobile a:hover, nav.mobile button:hover {
   align-items: center;
   text-align: center;
   gap: 0.5rem;
-  font-size: 0.875rem;
   color: var(--color-dark-gray);
 }
 
 .no-messages p:first-of-type {
+  color: var(--color-black);
   font-weight: 600;
 }
 
@@ -1014,7 +1031,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 @media screen and (max-width: 768px) {
   .charts {
     flex-direction: column-reverse;
-    gap: 1rem;
   }
   .chart {
     width: 100%;
@@ -1025,7 +1041,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   header {
     position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 30;
   }
 }
 

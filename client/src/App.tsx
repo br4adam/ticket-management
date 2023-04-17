@@ -31,24 +31,6 @@ const router = createBrowserRouter([
   },
 ])
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <RootLayout />,
-//     children: [
-//       { path: "/", element: <Landing /> },
-//       { path: "/callback", element: <Callback /> },
-//       { element: <Callback /> },
-//       { path: "/onboarding", element: <Onboarding /> },
-//       { path: "/dashboard", element: <Dashboard /> },
-//       { path: "/create", element: <Create /> },
-//       { path: "/tickets", element: <TicketList /> },
-//       { path: "/tickets/:id", element: <Ticket /> },
-//       { path: "/*", element: <NotFound /> }
-//     ],
-//   },
-// ])
-
 const App = () => {
   return (
     <RouterProvider router={router} />

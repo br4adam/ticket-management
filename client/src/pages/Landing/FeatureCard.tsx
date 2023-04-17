@@ -10,7 +10,7 @@ type Props = {
 
 const FeatureCard: FC<Props> = ({ feature }) => {
   return (
-    <div className="feature-card">
+    <div className="feature-card container">
       <div className="icon">{ feature.icon }</div>
       <p>{ feature.title }</p>
       <p>{ feature.description }</p>

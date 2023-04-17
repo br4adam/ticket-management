@@ -27,7 +27,7 @@ const Tickets = () => {
           { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}
           </div>
         : <EmptyState>
-            <p className="title">No tickets found</p>
+            <p>No tickets found</p>
             <p>Create your first ticket and it will show up here.</p>
           </EmptyState>
         }
