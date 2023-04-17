@@ -7,12 +7,14 @@ import CompanyTag from "./CompanyTag"
 import AddCompany from "./AddCompany"
 import { getCompanies, type CompanyType } from "../../api/companies"
 import getFilename from "../../utils/getFilename"
-import { update as updateUser } from "../../states/user"
+import { user$, update as updateUser } from "../../states/user"
+import useGlobal from "../../hooks/useGlobal"
 
 const Onboarding = () => {
   const [ companies, setCompanies ] = useState<CompanyType[]>([])
   const [ selectedAvatar, setSelectedAvatar ] = useState<string | null>(null)
   const [ selectedCompany, setSelectedCompany ] = useState<string | null>(null)
+  const user = useGlobal(user$)
   const navigate = useNavigate()
 
   const getCompaniesList = async () => {
@@ -21,6 +23,7 @@ const Onboarding = () => {
   }
 
   useEffect(() => {
+    if (user?.company) return navigate("/dashboard")
     getCompaniesList()
   }, [])
 

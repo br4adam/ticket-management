@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import useGlobal from "../hooks/useGlobal"
-import { user$ } from "../states/user"
+import { user$, logout } from "../states/user"
 import LoginButton from "../components/LoginButton"
 
 type Props = {
@@ -12,6 +12,11 @@ type Props = {
 const MobileNavigation: FC<Props> = ({ isOpen, onClick }) => {
   const user = useGlobal(user$)
 
+  const logOut = () => {
+    logout()
+    onClick()
+  }
+
   return (
     <nav className={ isOpen ? "mobile slide" : "mobile" }>
       { user?.company
@@ -20,6 +25,7 @@ const MobileNavigation: FC<Props> = ({ isOpen, onClick }) => {
           <Link to="/tickets" onClick={onClick} className="link">Tickets</Link>
           <Link to="/create" onClick={onClick} className="link">Create Ticket</Link>
           <Link to="/profile" onClick={onClick} className="link">Profile</Link>
+          <button onClick={logOut} className="link">Logout</button>
         </>
       : <LoginButton type="link">Login</LoginButton>
       }

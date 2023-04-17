@@ -36,20 +36,20 @@ const Select: FC<Props> = ({ options, disabled, onSelect = () => {} }) => {
   }
   
   return (
-    <div className="select container">
-      <div className="header">
+    <div className="select container" ref={optionsRef}>
+      <div className="header" onClick={toggling}>
         <div className={`icon ${selected}`}>
           <img src={icon} alt="option icon" />
         </div>
         <p>{ capitalize(selected) }</p>
         { !disabled &&
-          <div className="chevron" onClick={toggling}>
+          <div className="chevron" >
           { isOpen ? <HiChevronUp /> : <HiChevronDown /> } 
           </div>
         }
       </div>
       { isOpen && !disabled && 
-        <ul className="options" ref={optionsRef}>
+        <ul className="options">
           { options.map(option => <SelectOption key={option} option={option} onChange={onChange} />) }
         </ul>
       }

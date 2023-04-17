@@ -1,6 +1,7 @@
 import { FC } from "react"
 import Message from "./Message"
 import MessageInput from "./MessageInput"
+import NoMessages from "./NoMessages"
 
 type Props = {
   messages: {
@@ -20,7 +21,10 @@ const Messages: FC<Props> = ({ messages }) => {
   return (
     <section className="messages container">
       <p className="title">Messages { hasMessages && <span>({ messages.length })</span> }</p>
-      { messages.map((message, index) => <Message key={index} message={message} /> )}
+      { messages.length > 0
+        ? <>{ messages.map((message, index) => <Message key={index} message={message} /> )}</>
+        : <NoMessages />
+      }
       <MessageInput />
     </section>
   )

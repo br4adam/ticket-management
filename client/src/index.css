@@ -108,12 +108,12 @@ input:focus, textarea:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto 3rem;
+  gap: 1rem;
+  margin: 1rem auto 5rem;
 }
 
 .wrapper h1 {
   font-size: 1.5rem;
-  line-height: 1.25;
   align-self: flex-start;
 }
 
@@ -128,25 +128,6 @@ input:focus, textarea:focus {
 .loader circle {
   stroke: var(--color-dark-gray);
   animation: dash 1.5s ease-in-out infinite;
-}
-
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
-  }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -125;
-  }
 }
 
 /* Avatar */
@@ -191,7 +172,7 @@ header {
 
 header .wrapper {
   flex-direction: row;
-  margin-bottom: 0;
+  margin: 0 auto;
   height: 2.5rem;
 }
 
@@ -257,7 +238,7 @@ nav.mobile.slide {
   right: 0;
 }
 
-nav.mobile a {
+nav.mobile a, nav.mobile button {
   width: 100%;
   border-radius: 0;
   padding: 1.5rem;
@@ -265,7 +246,7 @@ nav.mobile a {
   transition: all 0.25s ease-in-out;
 }
 
-nav.mobile a:hover {
+nav.mobile a:hover, nav.mobile button:hover {
   background-color: var(--color-dark-background);
 }
 
@@ -273,13 +254,13 @@ nav.mobile a:hover {
 
 .landing.wrapper {
   gap: 2.5rem;
-  margin: 4rem auto 6rem;
+  margin: 4rem auto 5rem;
   text-align: center;
 }
 
 .landing h1 {
   font-size: clamp(3.5rem, 1.722rem + 3.704vw, 4.5rem);
-  line-height: 1;
+  line-height: 1.25;
   letter-spacing: -0.125rem;
   align-self: center;
   width: 90%;
@@ -288,6 +269,10 @@ nav.mobile a:hover {
 
 .landing h1 span {
   background: linear-gradient(180deg, transparent 60%, var(--color-main) 60%, var(--color-main) 80%, transparent 80%);
+}
+
+.landing .sub {
+  color: var(--color-dark-gray);
 }
 
 .landing img {
@@ -337,17 +322,12 @@ nav.mobile a:hover {
 
 .features .feature-card p:first-of-type {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .features .feature-card p:last-of-type {
+  color: var(--color-dark-gray);
   max-width: 28rem;
-}
-
-/* Callback */
-
-.callback.wrapper {
-  margin-top: 1rem;
 }
 
 /* Not Found */
@@ -358,8 +338,7 @@ nav.mobile a:hover {
 }
 
 .notfound.wrapper {
-  margin-top: 3rem;
-  gap: 1rem;
+  margin: 3rem auto 5rem;
 }
 
 .notfound img {
@@ -370,13 +349,12 @@ nav.mobile a:hover {
 /* Onboarding */
 
 .onboarding.wrapper {
-  margin-top: 2rem;
-  gap: 1rem;
+  margin: 2rem auto 5rem;
 }
 
 .onboarding.wrapper > p {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -438,10 +416,9 @@ nav.mobile a:hover {
 }
 
 .statistics .wrapper {
-  margin-bottom: 0;
+  margin: 0 auto;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem 0 2rem 0;
+  padding: 1rem 0 2rem;
 }
 
 .statistics .wrapper .titlebar {
@@ -509,11 +486,6 @@ nav.mobile a:hover {
   width: 7rem;
 }
 
-.dashboard.wrapper {
-  margin-top: 1rem;
-  gap: 1rem;
-}
-
 .charts {
   width: 100%;
   display: flex;
@@ -537,7 +509,7 @@ nav.mobile a:hover {
 
 .chart > p {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .container {
@@ -550,7 +522,7 @@ nav.mobile a:hover {
 
 .title {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -693,12 +665,6 @@ nav.mobile a:hover {
 }
 
 /* Create */
-
-.create.wrapper {
-  margin-top: 1rem;
-  gap: 1rem;
-  justify-content: flex-start;
-}
 
 .priority-levels {
   display: flex;
@@ -858,7 +824,7 @@ nav.mobile a:hover {
 }
 
 .new-form > div p {
-  font-weight: 700;
+  font-weight: 600;
   width: 7rem;
   padding-top: 0.25rem;
 }
@@ -868,11 +834,6 @@ nav.mobile a:hover {
 }
 
 /* Ticket List */
-
-.ticketlist.wrapper {
-  margin-top: 1rem;
-  gap: 1rem;
-}
 
 .ticketlist.wrapper > div {
   width: 100%;
@@ -897,11 +858,6 @@ nav.mobile a:hover {
 
 /* Ticket */
 
-.ticket.wrapper {
-  margin-top: 1rem;
-  gap: 1rem;
-}
-
 .details {
   display: flex;
   flex-direction: column;
@@ -916,11 +872,13 @@ nav.mobile a:hover {
 
 .details .data > div {
   display: flex;
+  color: var(--color-dark-gray);
 }
 
 .details .data > div > p:first-of-type {
   min-width: 7rem;
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--color-black);
 }
 
 .messages {
@@ -940,23 +898,46 @@ nav.mobile a:hover {
   width: 2.5rem;
 }
 
-.message > div p:first-of-type {
-  font-weight: 700;
+.message .from {
+  font-weight: 600;
   font-size: 0.875rem;
 }
 
-.message > div span {
+.message .from span {
   font-weight: 400;
   color: var(--color-dark-gray)
 }
 
+.message .text {
+  color: var(--color-dark-gray);
+}
+
 .new-message {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .new-message button svg {
   transform: rotate(90deg);
+}
+
+.no-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-dark-gray);
+}
+
+.no-messages p:first-of-type {
+  font-weight: 600;
+}
+
+.no-messages img {
+  width: 90%;
+  max-width: 20rem;
 }
 
 /* Status & Priority */
@@ -993,6 +974,27 @@ nav.mobile a:hover {
 
 .total {
   background-color: var(--color-status-total);
+}
+
+/* Keyframes */
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -125;
+  }
 }
 
 /* Breakpoints */

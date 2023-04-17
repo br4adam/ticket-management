@@ -1,28 +1,6 @@
 import { BehaviorSubject } from "rxjs"
+import { login as loginRequest, updateUser, type UserType, type UpdateType, UserSchema } from "../api/users"
 import jwt_decode from "jwt-decode"
-import { z } from "zod"
-import { login as loginRequest, updateUser } from "../api/users"
-
-export const UserSchema = z.object({
-  _id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  avatar: z.string().optional(),
-  phone: z.string().min(6).max(14).optional(),
-  company: z.object({
-    _id: z.string(),
-    name: z.string(),
-    admins: z.string().array(),
-  }).optional()
-})
-export type UserType = z.infer<typeof UserSchema>
-
-export const UpdateSchema = z.object({
-  avatar: z.string().optional(),
-  phone: z.string().min(6).max(14).optional(),
-  company: z.string().optional()
-})
-export type UpdateType = z.infer<typeof UpdateSchema> 
 
 const decodeToken = (token: string | null): UserType | null => {
   if (!token) return null
@@ -34,12 +12,18 @@ const decodeToken = (token: string | null): UserType | null => {
 
 const user$ = new BehaviorSubject<UserType | null>(decodeToken(localStorage.getItem("token")))
 
-const login = async (code: string) => {
+type Callback = {
+  onSuccess: () => any,
+  onError: () => any
+}
+
+const login = async (code: string, callback: Callback): Promise<void> => {
   const token = await loginRequest(code)
   const user = decodeToken(token)
-  if (!user) return
+  if (!user) return callback.onError()
   user$.next(user)
   localStorage.setItem("token", token!)
+  callback.onSuccess()
 }
 
 const logout = () => {

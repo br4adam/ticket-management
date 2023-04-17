@@ -23,8 +23,8 @@ const Message: FC<Props> = ({ message }) => {
     <div className="message">
       <Avatar image={avatar} />
       <div>
-        <p>{ message.user.name }<span>{ " • " + timeAgo(message.date) }</span></p>
-        <p>{ message.message }</p>
+        <p className="from">{ message.user.name }<span>{ " • " + timeAgo(message.date) }</span></p>
+        <p className="text">{ message.message }</p>
       </div>
     </div>
   )

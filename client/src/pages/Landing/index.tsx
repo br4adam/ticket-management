@@ -13,7 +13,7 @@ const Landing = () => {
   return (
     <div className="landing wrapper">
       <h1>Your solution is just a <span>ticket</span> away.</h1>
-      <div>
+      <div className="sub">
         <p>Tired of struggling with technical errors on your own?</p>
         <p>Our error ticket management system is here to help!</p>
       </div>

@@ -1,25 +1,19 @@
 import { useEffect } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom"
 import Loader from "../../components/Loader"
-import { login, user$ } from "../../states/user"
-import useGlobal from "../../hooks/useGlobal"
+import { login } from "../../states/user"
 
 const Callback = () => {
-  const user = useGlobal(user$)
   const [ searchParams ] = useSearchParams()
   const code = searchParams.get("code")
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (code) login(code)
+    if (code) login(code, {
+      onSuccess: () => navigate("/onboarding"),
+      onError: () => navigate("/")
+    })
   }, [])
-
-  useEffect(() => {
-    if (user) {
-      if (!user.company) return navigate("/onboarding")
-      navigate("/dashboard")
-    }
-  }, [user])
 
   return (
     <div className="callback wrapper">

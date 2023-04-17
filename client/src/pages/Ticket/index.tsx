@@ -38,7 +38,7 @@ const Ticket = () => {
 
   return (
     <div className="ticket wrapper">
-      <h1>{ticket?.subject || "Ticket details"}</h1>
+      <h1>Ticket details</h1>
       <section className="select-elements">
         <Select options={statuses} disabled={!isAdmin} />
         <Select options={priorities} disabled={!isAdmin} />
