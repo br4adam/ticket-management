@@ -132,6 +132,8 @@ input:focus, textarea:focus {
   border-radius: 0.5rem;
   font-size: 0.875rem;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -155,6 +157,7 @@ input:focus, textarea:focus {
   width: 2rem;
   aspect-ratio: 1/1;
   animation: spin 2s linear infinite;
+  margin: auto;
 }
   
 .loader circle {
@@ -675,6 +678,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 }
 
 .empty-state button {
+  margin-top: 0.5rem;
   font-size: 1rem;
 }
 

@@ -1,8 +1,8 @@
 import { FC } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import useGlobal from "../hooks/useGlobal"
 import { user$, logout } from "../states/user"
-import LoginButton from "../components/LoginButton"
+import createGoogleUrl from "../utils/createGoogleUrl"
 
 type Props = {
   isOpen: boolean,
@@ -11,10 +11,12 @@ type Props = {
 
 const MobileNavigation: FC<Props> = ({ isOpen, onClick }) => {
   const user = useGlobal(user$)
+  const navigate = useNavigate()
 
   const logOut = () => {
     logout()
     onClick()
+    navigate(0)
   }
 
   return (
@@ -27,7 +29,7 @@ const MobileNavigation: FC<Props> = ({ isOpen, onClick }) => {
           <Link to="/profile" onClick={onClick} className="link">Profile</Link>
           <button onClick={logOut} className="link">Logout</button>
         </>
-      : <LoginButton type="link">Login</LoginButton>
+      : <Link to={createGoogleUrl()} className="linke">Login</Link>
       }
     </nav>
   )

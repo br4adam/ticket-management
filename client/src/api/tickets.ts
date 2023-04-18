@@ -41,20 +41,42 @@ const NewTicketSchema = z.object({
 })
 export type NewTicketType = z.infer<typeof NewTicketSchema>
 
+const UpdateTicketSchema = z.object({
+  priority: z.string().optional(),
+  status: z.string().optional(),
+})
+export type UpdateTicketType = z.infer<typeof UpdateTicketSchema>
+
+const MessageSchema = z.object({
+  user: z.string(),
+  message: z.string().min(1),
+})
+type MessageType = z.infer<typeof MessageSchema>
+
 const TicketListSchema = TicketSchema.array()
 const TicketIdSchema = z.string()
 
 export const getTickets = async () => {
   const response = await request("get", "/api/tickets", {}, TicketListSchema)
-  return response.data
+  return response
 }
 
 export const getTicket = async (id: string) => {
   const response = await request("get", `/api/tickets/${id}`, {}, TicketSchema)
-  return response.data
+  return response
 }
 
-export const saveTicket = async (ticketData: NewTicketType) => {
-  const response = await request("post", "/api/tickets", ticketData, TicketIdSchema)
-  return response.data
+export const saveTicket = async (data: NewTicketType) => {
+  const response = await request("post", "/api/tickets", data, TicketIdSchema)
+  return response
+}
+
+export const updateTicket = async (id: string, data: UpdateTicketType) => {
+  const response = await request("put", `/api/tickets/${id}`, data, TicketSchema)
+  return response
+}
+
+export const sendMessage = async (id: string, data: MessageType) => {
+  const response = await request("put", `/api/tickets/${id}/messages`, data, TicketSchema)
+  return response
 }

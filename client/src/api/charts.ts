@@ -23,16 +23,15 @@ export type LineChartDataType = z.infer<typeof LineChartDataSchema>
 
 export const getStatistics = async () => {
   const response = await request("get", "/api/charts/statistics", {}, StatisticListSchema)
-  console.log(response)
-  return response.data
+  return response
 }
 
 export const getBarChartData = async () => {
   const response = await request("get", "/api/charts/barchart", {}, BarChartDataSchema)
-  return response.data
+  return response
 }
 
 export const getLineChartData = async () => {
   const response = await request("get", "/api/charts/linechart", {}, LineChartDataSchema)
-  return response.data
+  return response
 }

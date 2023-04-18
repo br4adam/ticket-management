@@ -1,50 +1,44 @@
-import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { getTicket, type TicketType } from "../../api/tickets"
+import { getTicket, updateTicket, type TicketType } from "../../api/tickets"
 import Select from "../../components/Select"
 import Details from "./Details"
 import Messages from "./Messages"
 import EmptyState from "../../components/EmptyState"
-import useGlobal from "../../hooks/useGlobal"
 import { user$ } from "../../states/user"
+import useGlobal from "../../hooks/useGlobal"
+import useApi from "../../hooks/useApi"
+import Loader from "../../components/Loader"
 
 const priorities = [ "low", "medium", "high" ]
 const statuses = [ "open", "pending", "closed" ]
 
 const Ticket = () => {
-  const [ ticket, setTicket ] = useState<TicketType>()
-  const user = useGlobal(user$)
   const { id } = useParams()
-  const isAdmin = user && ticket?.company.admins.includes(user._id)
+  const { data: ticket, loading, callApi: reloadTicket } = useApi<TicketType>(() => getTicket(id!))
+  const user = useGlobal(user$)
 
-  console.log(isAdmin)
-
-  useEffect(() => {
-    if (!id) return
-    const loadTicket = async () => {
-      const data = await getTicket(id)
-      if (!data) return
-      setTicket(data)
-    }
-    loadTicket()
-  }, [])
-
-  if (!ticket) return (
-    <EmptyState>
+  if (!id || !ticket ) return (
+    <EmptyState loading={loading}>
       <p className="title">{`Ticket with Id "${id}" not found`}</p>
       <p>Check the Id of the ticket again.</p>
     </EmptyState>
   )
 
+  const updateStatus = async (value: string) => await updateTicket(id, { status: value })
+  const updatePriority = async (value: string) => await updateTicket(id, { priority: value })
+
+  const isAdmin = user && ticket.company.admins.includes(user._id)
+
   return (
     <div className="ticket wrapper">
       <h1>Ticket details</h1>
+      { loading && <Loader/> }
       <section className="select-elements">
-        <Select options={statuses} disabled={!isAdmin} />
-        <Select options={priorities} disabled={!isAdmin} />
+        <Select options={statuses} disabled={!isAdmin} def={ticket.status} onSelect={updateStatus} />
+        <Select options={priorities} disabled={!isAdmin} def={ticket.priority} onSelect={updatePriority} />
       </section>
       { ticket && <Details ticket={ticket} /> }
-      { ticket?.messages && <Messages messages={ticket.messages} /> }
+      { ticket.messages && <Messages messages={ticket.messages} reloadTicket={reloadTicket} /> }
     </div>
   )
 }

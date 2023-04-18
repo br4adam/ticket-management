@@ -25,11 +25,9 @@ const request = async <T extends z.ZodTypeAny>(method: string, url: string, payl
   try {
     const options = { method, url, data: payload }
     const response = await client.request(options)
-
     const result = schema.safeParse(response.data)
     if (result.success) return { data: result.data, status: response.status }
     else return { data: null, status: response.status }
-
   } catch (error) {
     const response = (error as AxiosError).response
     if (response?.status === 401) endSession()

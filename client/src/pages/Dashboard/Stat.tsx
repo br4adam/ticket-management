@@ -6,14 +6,15 @@ import closed from "../../assets/status-closed.svg"
 import capitalize from "../../utils/capitalize"
 
 type Props = {
-  status: string,
-  count: number
+  stat: {
+    status: string,
+    count: number
+  }
 }
 
-const Stat: FC<Props> = ( stat ) => {
+const Stat: FC<Props> = ({ stat }) => {
   const statusIcons = [ total, open, pending, closed ]
   const icon = statusIcons.find(icon => icon.includes(stat.status))
-  const status = `${capitalize(stat.status)} Tickets`
 
   return (
     <div className="stat">
@@ -22,7 +23,7 @@ const Stat: FC<Props> = ( stat ) => {
       </div>
       <div className="data">
         <p>{ stat.count }</p>
-        <p>{ status }</p>
+        <p>{ `${capitalize(stat.status)} Tickets` }</p>
       </div>
     </div>
   )

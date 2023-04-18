@@ -1,18 +1,11 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
-import { useEffect, useState } from "react"
 import { getBarChartData, type BarChartDataType } from "../../api/charts"
+import useApi from "../../hooks/useApi"
 
 const NewTicketsChart = () => {
-  const [ chartData, setChartData ] = useState<BarChartDataType>([])
+  const { data: chartData } = useApi<BarChartDataType>(getBarChartData)
 
-  useEffect(() => {
-    const getChartData = async () => {
-      const data = await getBarChartData()
-      if (!data) return
-      setChartData(data)
-    }
-    getChartData()
-  }, [])
+  if (!chartData) return null
 
   return (
     <div className="chart">

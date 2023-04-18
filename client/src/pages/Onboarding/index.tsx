@@ -8,23 +8,19 @@ import AddCompany from "./AddCompany"
 import { getCompanies, type CompanyType } from "../../api/companies"
 import getFilename from "../../utils/getFilename"
 import { user$, update as updateUser } from "../../states/user"
+import Loader from "../../components/Loader"
 import useGlobal from "../../hooks/useGlobal"
+import useApi from "../../hooks/useApi"
 
 const Onboarding = () => {
-  const [ companies, setCompanies ] = useState<CompanyType[]>([])
+  const { data: companies, loading, callApi: getCompaniesList } = useApi<CompanyType[]>(getCompanies)
   const [ selectedAvatar, setSelectedAvatar ] = useState<string | null>(null)
   const [ selectedCompany, setSelectedCompany ] = useState<string | null>(null)
   const user = useGlobal(user$)
   const navigate = useNavigate()
 
-  const getCompaniesList = async () => {
-    const companies = await getCompanies()
-    if (companies) setCompanies(companies)
-  }
-
   useEffect(() => {
     if (user?.company) return navigate("/dashboard")
-    getCompaniesList()
   }, [])
 
   const saveUserData = async () => {
@@ -32,6 +28,8 @@ const Onboarding = () => {
     await updateUser({ avatar: selectedAvatar, company: selectedCompany })
     navigate("/dashboard")
   }
+
+  if (loading) return <Loader />
 
   return (
     <div className="onboarding wrapper">

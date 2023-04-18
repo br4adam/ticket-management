@@ -12,13 +12,14 @@ import high from "../assets/priority-high.svg"
 
 type Props = {
   options: string[],
-  onSelect?: React.Dispatch<React.SetStateAction<string>>
+  def: string,
+  onSelect?: (value: string) => void
   disabled?: boolean
 }
 
-const Select: FC<Props> = ({ options, disabled, onSelect = () => {} }) => {
+const Select: FC<Props> = ({ options, def, disabled, onSelect = () => {} }) => {
   const [ isOpen, setIsOpen ] = useState<boolean>(false)
-  const [ selected, setSelected ] = useState<string>(options[0])
+  const [ selected, setSelected ] = useState<string>(def || options[0])
 
   const icons = [ open, pending, closed, low, medium, high ]
   const icon = icons.find(item => item.includes(selected))

@@ -1,6 +1,9 @@
-import { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { getStatistics, type StatisticListType } from "../../api/charts"
 import Stat from "./Stat"
+import useApi from "../../hooks/useApi"
+
+const initialState = [{ status: "total", count: 0 }, { status: "open", count: 0 }, { status: "pending", count: 0 }, { status: "closed", count: 0 }]
 
 type Props = {
   showCharts: boolean
@@ -8,19 +11,10 @@ type Props = {
 }
 
 const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
-  const [ statistics, setStatistics ] = useState<StatisticListType>([{ status: "total", count: 0 }, { status: "open", count: 0 }, { status: "pending", count: 0 }, { status: "closed", count: 0 }])
+  const { data: statistics, error } = useApi<StatisticListType>(getStatistics, initialState)
   
-  useEffect(() => {
-    const loadStatistics = async () => {
-      const data = await getStatistics()
-      if (!data) return
-      setStatistics(data)
-    }
-    loadStatistics()
-  }, [])
-
   const toggle = () => setShowCharts(prev => !prev)
-  
+
   return (
     <section className="statistics">
       <div className="wrapper">
@@ -28,8 +22,9 @@ const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
           <h1>Dashboard</h1>
           { showCharts ? <button onClick={toggle}>Hide charts</button> : <button onClick={toggle} className="hidden">Show charts</button> }
         </div>
+        { error && <p>{error}</p> }
         <div className="statgrid">
-        { statistics.map(stat => <Stat key={stat.status} {...stat} />)}
+        { statistics && statistics.map(stat => <Stat key={stat.status} stat={stat} />)}
         </div>
       </div>
     </section>

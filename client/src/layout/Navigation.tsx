@@ -4,7 +4,7 @@ import defaultAvatar from "../assets/default-avatar.webp"
 import useGlobal from "../hooks/useGlobal"
 import { user$ } from "../states/user"
 import Avatar from "../components/Avatar"
-import LoginButton from "../components/LoginButton"
+import createGoogleUrl from "../utils/createGoogleUrl"
 
 const Navigation = () => {
   const user = useGlobal(user$)
@@ -19,7 +19,7 @@ const Navigation = () => {
           <Link to="/create" className="outline">+ New Ticket</Link>
           <Link to="/profile"><Avatar image={avatar || ""} /></Link>
         </>
-      : <LoginButton type="outline">Login</LoginButton>
+      : <Link to={createGoogleUrl()} className="outline">Login</Link>
       }
     </nav>
   )

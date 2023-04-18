@@ -7,7 +7,6 @@ type Props = {
 }
 
 const Details: FC<Props> = ({ ticket }) => {
-  console.log(ticket)
   return (
     <section className="details container">
       <div className="data">

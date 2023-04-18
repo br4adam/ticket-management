@@ -12,7 +12,7 @@ const CompanyListSchema = CompanySchema.array()
 
 export const getCompanies = async () => {
   const response = await request("get", "/api/companies", {}, CompanyListSchema)
-  return response.data
+  return response
 }
 
 export const createCompany = async (name: string) => {

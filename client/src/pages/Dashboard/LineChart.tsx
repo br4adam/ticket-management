@@ -1,18 +1,11 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
-import { useState, useEffect } from "react"
 import { getLineChartData, type LineChartDataType } from "../../api/charts"
+import useApi from "../../hooks/useApi"
 
 const StatusChart = () => {
-  const [ chartData, setChartData ] = useState<LineChartDataType>([])
+  const { data: chartData } = useApi<LineChartDataType>(getLineChartData)
 
-  useEffect(() => {
-    const getChartData = async () => {
-      const data = await getLineChartData()
-      if (!data) return
-      setChartData(data)
-    }
-    getChartData()
-  }, [])
+  if (!chartData) return null
 
   return (
     <div className="chart">

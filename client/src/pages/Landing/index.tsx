@@ -1,7 +1,8 @@
-import dashboard from "../../assets/dashboard-mockup.webp"
-import LoginButton from "../../components/LoginButton"
-import FeatureCard from "./FeatureCard"
+import { Link } from "react-router-dom"
 import { HiOutlineDeviceMobile, HiOutlineViewGrid, HiOutlineEmojiHappy } from "react-icons/hi"
+import dashboard from "../../assets/dashboard-mockup.webp"
+import FeatureCard from "./FeatureCard"
+import createGoogleUrl from "../../utils/createGoogleUrl"
 
 const Landing = () => {
   const features = [
@@ -17,7 +18,7 @@ const Landing = () => {
         <p>Tired of struggling with technical errors on your own?</p>
         <p>Our error ticket management system is here to help!</p>
       </div>
-      <LoginButton type="solid">Start Ticketing</LoginButton>
+      <Link to={createGoogleUrl()} className="solid">Start Ticketing</Link>
       <img src={dashboard} alt="application dashboard mockup" />
       <h2>Why should you choose our ticket management system?</h2>
       <section className="features">

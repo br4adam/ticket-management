@@ -1,13 +1,29 @@
-import { useState } from "react"
+import { FC, useState } from "react"
+import { useParams } from "react-router-dom"
 import { HiPaperAirplane } from "react-icons/hi"
+import useGlobal from "../../hooks/useGlobal"
+import { user$ } from "../../states/user"
+import { sendMessage } from "../../api/tickets"
 
-const MessageInput = () => {
-  const [ newMessage, setNewMessage ] = useState<string>("")
+type Props = {
+  reloadTicket: () => Promise<any>
+}
+
+const MessageInput: FC<Props> = ({ reloadTicket }) => {
+  const [ message, setMessage ] = useState<string>("")
+  const { id } = useParams()
+  const user = useGlobal(user$)
+
+  const sendNewMessage = async () => {
+    if (!id || !user || message.length < 1) return
+    await sendMessage(id, { user: user._id, message })
+    reloadTicket()
+  }
 
   return (
     <div className="new-message">
-      <input type="text" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} name="message" placeholder="Type your message here..." />
-      <button className="solid">Send <HiPaperAirplane /></button>
+      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} name="message" placeholder="Type your message here..." />
+      <button className="solid" onClick={sendNewMessage}>Send <HiPaperAirplane /></button>
     </div>
   )
 }
