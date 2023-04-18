@@ -1,6 +1,6 @@
+import { client, request } from "./request"
+import { BehaviorSubject } from "rxjs"
 import { z } from "zod"
-
-const baseUrl = import.meta.env.VITE_SERVER_URL
 
 export const UserSchema = z.object({
   _id: z.string(),
@@ -21,44 +21,32 @@ export const UpdateSchema = z.object({
   phone: z.string().min(6).max(14).optional(),
   company: z.string().optional()
 })
-export type UpdateType = z.infer<typeof UpdateSchema> 
+export type UpdateType = z.infer<typeof UpdateSchema>
 
 const TokenSchema = z.string()
 
-const login = async (code: string ): Promise<string | null> => {
+export const token$ = new BehaviorSubject<string | null>(localStorage.getItem("token"))
+
+export const endSession = () => {
+    localStorage.removeItem("token")
+    token$.next(null)
+}
+
+export const login = async (code: string): Promise<string | null> => {
   try {
-    const response = await fetch(`${baseUrl}/api/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code })
-    })
-    const data = await response.json()
-    const result = TokenSchema.safeParse(data)
+    const response = await client.post("/api/login", { code })
+    const result = TokenSchema.safeParse(response.data)
     if (!result.success) return null
-    return result.data
-  } catch (error) {
-    console.log(error)
+    const token = result.data
+    token$.next(token)
+    localStorage.setItem("token", token)
+    return token
+  } catch (err) {
     return null
   }
 }
 
-const updateUser = async (updateData: UpdateType): Promise<string | null> => {
-  try {
-    const response = await fetch(`${baseUrl}/api/users/me`, {
-      method: "PUT",
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}` },
-      body: JSON.stringify(updateData)
-    })
-    const data = await response.json()
-    const result = TokenSchema.safeParse(data)
-    if (!result.success) return null
-    return result.data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
+export const updateUser = async (data: UpdateType) => {
+  const response = await request("put", "/api/users/me", data, TokenSchema)
+  return response.data
 }
-
-export { login, updateUser }

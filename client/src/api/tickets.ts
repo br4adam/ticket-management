@@ -1,7 +1,6 @@
+import { request } from "./request"
 import { z } from "zod"
 import { CompanySchema } from "./companies"
-
-const baseUrl = import.meta.env.VITE_SERVER_URL
 
 const TicketSchema = z.object({
   _id: z.string(),
@@ -43,52 +42,19 @@ const NewTicketSchema = z.object({
 export type NewTicketType = z.infer<typeof NewTicketSchema>
 
 const TicketListSchema = TicketSchema.array()
+const TicketIdSchema = z.string()
 
-const getTickets = async (): Promise<TicketType[] | null> => {
-  try {
-    const response = await fetch(`${baseUrl}/api/tickets`, {
-      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
-    const data = await response.json()
-    const result = TicketListSchema.safeParse(data)
-    if (!result.success) return null
-    return result.data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
+export const getTickets = async () => {
+  const response = await request("get", "/api/tickets", {}, TicketListSchema)
+  return response.data
 }
 
-const getTicket = async (id: string): Promise<TicketType | null> => {
-  try {
-    const response = await fetch(`${baseUrl}/api/tickets/${id}`, {
-      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }})
-    const data = await response.json()
-    const result = TicketSchema.safeParse(data)
-    if (!result.success) return null
-    return result.data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
+export const getTicket = async (id: string) => {
+  const response = await request("get", `/api/tickets/${id}`, {}, TicketSchema)
+  return response.data
 }
 
-const saveTicket = async (ticketData: NewTicketType): Promise<string | null> => {
-  try {
-    const response = await fetch(`${baseUrl}/api/tickets`, {
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}` },
-      body: JSON.stringify(ticketData)
-    })
-    const data = await response.json()
-    const result = z.string().safeParse(data)
-    if (!result.success) return null
-    return result.data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
+export const saveTicket = async (ticketData: NewTicketType) => {
+  const response = await request("post", "/api/tickets", ticketData, TicketIdSchema)
+  return response.data
 }
-
-export { getTickets, saveTicket, getTicket }

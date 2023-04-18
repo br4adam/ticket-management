@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs"
-import { login as loginRequest, updateUser, type UserType, type UpdateType, UserSchema } from "../api/users"
 import jwt_decode from "jwt-decode"
+import { login as loginRequest, updateUser, endSession, type UserType, type UpdateType, UserSchema } from "../api/users"
 
 const decodeToken = (token: string | null): UserType | null => {
   if (!token) return null
@@ -13,8 +13,8 @@ const decodeToken = (token: string | null): UserType | null => {
 const user$ = new BehaviorSubject<UserType | null>(decodeToken(localStorage.getItem("token")))
 
 type Callback = {
-  onSuccess: () => any,
-  onError: () => any
+  onSuccess: () => void,
+  onError: () => void
 }
 
 const login = async (code: string, callback: Callback): Promise<void> => {
@@ -22,14 +22,10 @@ const login = async (code: string, callback: Callback): Promise<void> => {
   const user = decodeToken(token)
   if (!user) return callback.onError()
   user$.next(user)
-  localStorage.setItem("token", token!)
   callback.onSuccess()
 }
 
-const logout = () => {
-  user$.next(null)
-  localStorage.removeItem("token")
-}
+const logout = () => endSession()
 
 const update = async (data: UpdateType) => {
   const token = await updateUser(data)
