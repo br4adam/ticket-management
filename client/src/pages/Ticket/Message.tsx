@@ -11,13 +11,13 @@ type Props = {
     user: {
         _id: string
         name: string
-        avatar: string
+        avatar?: string
     }
   }
 }
 
 const Message: FC<Props> = ({ message }) => {
-  const avatar = avatars.find(a => a.includes(message.user.avatar)) || defaultAvatar
+  const avatar = avatars.find(a => a.includes(message.user.avatar!)) || defaultAvatar
 
   return (
     <div className="message">

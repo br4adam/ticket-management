@@ -2,11 +2,13 @@ import { FC } from "react"
 import capitalize from "../../utils/capitalize"
 
 type Props = {
-  priority: string,
-  description: string
+  item: {
+    priority: string,
+    description: string
+  }
 }
 
-const Priority: FC<Props> = (item) => {
+const Priority: FC<Props> = ({ item }) => {
   return (
     <div className="priority-info">
       <div className="priority-name">

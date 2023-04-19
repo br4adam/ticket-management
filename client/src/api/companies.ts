@@ -17,5 +17,5 @@ export const getCompanies = async () => {
 
 export const createCompany = async (name: string) => {
   const response = await request("post", "/api/companies", { name }, CompanyListSchema)
-  return response.data
+  return response
 }

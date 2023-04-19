@@ -4,7 +4,7 @@ type Response<T> = {
   data: T | null
   loading: boolean
   error: string | null,
-  callApi: () => Promise<any>
+  refresh: () => Promise<void>
 }
 
 const useApi = <T>(func: () => Promise<{ data: T, status: number }>, initialState: T | null = null ): Response<T> => {
@@ -29,7 +29,9 @@ const useApi = <T>(func: () => Promise<{ data: T, status: number }>, initialStat
     callApi()
   }, [])
 
-  return { data, loading, error, callApi }
+  const refresh = () => callApi()
+
+  return { data, loading, error, refresh }
 }
 
 export default useApi

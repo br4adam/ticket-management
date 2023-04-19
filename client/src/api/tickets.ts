@@ -9,7 +9,7 @@ const TicketSchema = z.object({
     _id: z.string(),
     name: z.string(),
     email: z.string(),
-    avatar: z.string(),
+    avatar: z.string().optional(),
     phone: z.string().optional(),
     company: z.string()
   }),
@@ -25,7 +25,7 @@ const TicketSchema = z.object({
     user: z.object({
       _id: z.string(),
       name: z.string(),
-      avatar: z.string()
+      avatar: z.string().optional()
     })
   }).array().optional()
 })

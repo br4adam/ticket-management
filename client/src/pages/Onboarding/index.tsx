@@ -13,7 +13,7 @@ import useGlobal from "../../hooks/useGlobal"
 import useApi from "../../hooks/useApi"
 
 const Onboarding = () => {
-  const { data: companies, loading, callApi: getCompaniesList } = useApi<CompanyType[]>(getCompanies)
+  const { data: companies, loading, refresh } = useApi<CompanyType[]>(getCompanies)
   const [ selectedAvatar, setSelectedAvatar ] = useState<string | null>(null)
   const [ selectedCompany, setSelectedCompany ] = useState<string | null>(null)
   const user = useGlobal(user$)
@@ -33,16 +33,16 @@ const Onboarding = () => {
 
   return (
     <div className="onboarding wrapper">
-      <p>Set an avatar for yourself!</p>
+      <h1>Hello {user?.name.split(" ")[0]}!</h1>
+      <p className="title">Set an avatar for yourself!</p>
       <section className="avatars">
         { avatars.map(image => <Avatar key={image} image={image} onClick={() => setSelectedAvatar(getFilename(image))} selected={image.includes(selectedAvatar!)} />)}
       </section>
-      <p>Choose your company from the list</p>
+      <p className="title">Choose your company from the list!</p>
       <ul className="companies">
         { companies && companies.map(company => <CompanyTag key={company._id} company={company} onClick={() => setSelectedCompany(company._id)} selected={selectedCompany === company._id} />)}
       </ul>
-      <p>or</p>
-      <AddCompany getCompaniesList={getCompaniesList} />
+      <AddCompany refresh={refresh} />
       <button className="solid" onClick={saveUserData} disabled={!selectedAvatar || !selectedCompany}>
         Continue <HiArrowRight/>
       </button>

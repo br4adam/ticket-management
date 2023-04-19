@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom"
 import { getTickets, type TicketType } from "../../api/tickets"
 import TicketHeader from "../Dashboard/TicketHeader"
 import TicketBar from "../Dashboard/TicketBar"
@@ -9,7 +8,6 @@ import useApi from "../../hooks/useApi"
 
 const Tickets = () => {
   const { data: tickets, loading } = useApi<TicketType[]>(getTickets)
-  const navigate = useNavigate()
 
   return (
     <div className="ticketlist wrapper">
@@ -26,9 +24,8 @@ const Tickets = () => {
           { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}
           </div>
         : <EmptyState loading={loading}>
-            <p>No tickets found</p>
+            <p className="title">No tickets found</p>
             <p>Create your first ticket and it will show up here.</p>
-            <button className="solid" onClick={() => navigate("/create")}>Create Ticket</button>
           </EmptyState>
         }
       </section>

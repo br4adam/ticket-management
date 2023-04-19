@@ -6,10 +6,10 @@ import { user$ } from "../../states/user"
 import { sendMessage } from "../../api/tickets"
 
 type Props = {
-  reloadTicket: () => Promise<any>
+  refresh: () => Promise<void>
 }
 
-const MessageInput: FC<Props> = ({ reloadTicket }) => {
+const MessageInput: FC<Props> = ({ refresh }) => {
   const [ message, setMessage ] = useState<string>("")
   const { id } = useParams()
   const user = useGlobal(user$)
@@ -17,7 +17,8 @@ const MessageInput: FC<Props> = ({ reloadTicket }) => {
   const sendNewMessage = async () => {
     if (!id || !user || message.length < 1) return
     await sendMessage(id, { user: user._id, message })
-    reloadTicket()
+    setMessage("")
+    refresh()
   }
 
   return (

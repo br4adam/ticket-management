@@ -10,23 +10,22 @@ type Props = {
     user: {
         _id: string
         name: string
-        avatar: string
+        avatar?: string
     }
   }[],
-  reloadTicket: () => Promise<any>
+  refresh: () => Promise<void>
 }
 
-const Messages: FC<Props> = ({ messages, reloadTicket }) => {
-  const hasMessages = !!messages.length
+const Messages: FC<Props> = ({ messages, refresh }) => {
 
   return (
     <section className="messages container">
-      <p className="title">Messages { hasMessages && <span>({ messages.length })</span> }</p>
+      <p className="title">Messages { !!messages.length && <span>({ messages.length })</span> }</p>
       { messages.length > 0
         ? <>{ messages.map((message, index) => <Message key={index} message={message} /> )}</>
         : <NoMessages />
       }
-      <MessageInput reloadTicket={reloadTicket} />
+      <MessageInput refresh={refresh} />
     </section>
   )
 }

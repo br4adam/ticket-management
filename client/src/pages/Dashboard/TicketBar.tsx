@@ -12,7 +12,7 @@ import formatDate from "../../utils/formatDate"
 
 const TicketBar: FC<TicketType> = ( ticket ) => {
   const { copy, copied } = useClipboard()
-  const avatar = avatars.find(a => a.includes(ticket.createdBy.avatar!)) || defaultAvatar
+  const avatar = avatars.find(a => a.includes(ticket.createdBy.avatar)) || defaultAvatar
   const navigate = useNavigate()
 
   return (

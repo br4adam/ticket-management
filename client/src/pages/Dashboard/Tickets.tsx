@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react"
 import { getTickets } from "../../api/tickets"
 import type { TicketType } from "../../api/tickets"
 import TicketHeader from "./TicketHeader"
@@ -20,7 +19,7 @@ const Tickets = () => {
           { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}
           </div>
         : <EmptyState loading={loading}>
-            <p>No tickets found</p>
+            <p className="title">No tickets found</p>
             <p>Create your first ticket and it will show up here.</p>
           </EmptyState>
         }

@@ -9,12 +9,9 @@ import useGlobal from "../../hooks/useGlobal"
 import useApi from "../../hooks/useApi"
 import Loader from "../../components/Loader"
 
-const priorities = [ "low", "medium", "high" ]
-const statuses = [ "open", "pending", "closed" ]
-
 const Ticket = () => {
   const { id } = useParams()
-  const { data: ticket, loading, callApi: reloadTicket } = useApi<TicketType>(() => getTicket(id!))
+  const { data: ticket, loading, refresh } = useApi<TicketType>(() => getTicket(id!))
   const user = useGlobal(user$)
 
   if (!id || !ticket ) return (
@@ -34,11 +31,11 @@ const Ticket = () => {
       <h1>Ticket details</h1>
       { loading && <Loader/> }
       <section className="select-elements">
-        <Select options={statuses} disabled={!isAdmin} def={ticket.status} onSelect={updateStatus} />
-        <Select options={priorities} disabled={!isAdmin} def={ticket.priority} onSelect={updatePriority} />
+        <Select options={[ "open", "pending", "closed" ]} disabled={!isAdmin} def={ticket.status} onSelect={updateStatus} />
+        <Select options={[ "low", "medium", "high" ]} disabled={!isAdmin} def={ticket.priority} onSelect={updatePriority} />
       </section>
       { ticket && <Details ticket={ticket} /> }
-      { ticket.messages && <Messages messages={ticket.messages} reloadTicket={reloadTicket} /> }
+      { ticket.messages && <Messages messages={ticket.messages} refresh={refresh} /> }
     </div>
   )
 }

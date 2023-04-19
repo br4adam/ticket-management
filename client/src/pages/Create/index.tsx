@@ -6,9 +6,6 @@ import useGlobal from "../../hooks/useGlobal"
 import { user$ } from "../../states/user"
 import { type NewTicketType, saveTicket } from "../../api/tickets"
 
-const priorities = [ "low", "medium", "high" ]
-const statuses = [ "open", "pending", "closed" ]
-
 const Create = () => {
   const user = useGlobal(user$)
   const initialData = { createdBy: user!._id, company: user!.company!._id, subject: "", description: "", status: "open", priority: "low" }
@@ -28,8 +25,8 @@ const Create = () => {
     <div className="create wrapper">
       <h1>Create Ticket</h1>
       <section className="select-elements">
-        <Select options={statuses} disabled={true} def={"open"} />
-        <Select options={priorities} onSelect={setPriority} def={priority} />
+        <Select options={[ "open", "pending", "closed" ]} disabled={true} def={"open"} />
+        <Select options={[ "low", "medium", "high" ]} onSelect={setPriority} def={priority} />
       </section>
       <section className="new-form container">
       <div>

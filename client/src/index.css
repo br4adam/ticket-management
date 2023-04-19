@@ -28,7 +28,7 @@
   --color-priority-low-bg: #ddf6f9;
   --color-priority-medium-bg: #fbefda;
   --color-priority-high-bg: #f7dada;
-  --box-shadow: 0 0.75rem 1rem -0.5rem #00000020;
+  --box-shadow: 0 0.75rem 1rem -0.5rem #00000015;
 }
 
 body {
@@ -150,19 +150,16 @@ input:focus, textarea:focus {
   font-weight: 400;
 }
 
-
 /* Loader */
 
 .loader {
   width: 2rem;
   aspect-ratio: 1/1;
-  animation: spin 2s linear infinite;
+  border: 4px solid var(--color-mid-gray);
+  border-bottom-color: transparent;
   margin: auto;
-}
-  
-.loader circle {
-  stroke: var(--color-dark-gray);
-  animation: dash 1.5s ease-in-out infinite;
+  border-radius: 100%;
+  animation: spin 1s linear infinite;
 }
 
 /* Avatar */
@@ -382,13 +379,11 @@ nav.mobile a:hover, nav.mobile button:hover {
 /* Onboarding */
 
 .onboarding.wrapper {
-  padding-top: 2rem;
+  padding-top: 3rem;
 }
 
-.onboarding.wrapper > p {
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
+.onboarding h1 {
+  align-self: center;
 }
 
 .avatars {
@@ -397,7 +392,8 @@ nav.mobile a:hover, nav.mobile button:hover {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 1rem 0 2rem;
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid var(--color-light-gray);
 }
 
 .companies {
@@ -407,14 +403,14 @@ nav.mobile a:hover, nav.mobile button:hover {
   justify-content: center;
   align-items: self-start;
   gap: 0.75rem;
-  margin-top: 1rem;
+  padding: 1rem 0;
 }
 
 .companies li {
   position: relative;
-  display: inline-block;
   list-style-type: none;
-  border: 1px solid var(--color-black);
+  color: var(--color-dark-gray);
+  border: 1px solid var(--color-mid-gray);
   border-radius: 1rem;
   font-size: 0.875rem;
   padding: 0.25rem 0.75rem;
@@ -423,7 +419,8 @@ nav.mobile a:hover, nav.mobile button:hover {
 }
 
 .companies li:hover {
-  padding: 0.25rem 1rem;
+  color: var(--color-black);
+  border-color: var(--color-black);
 }
 
 .companies li svg {
@@ -621,7 +618,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 .ticketbar .status {
   border-radius: 1rem;
   padding: 0.25rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
@@ -631,8 +628,8 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .ticketbar .priority {
   display: flex;
-  gap: 0.4rem;
   align-items: center;
+  gap: 0.4rem;
 }
 
 .ticketbar .priority div {
@@ -669,17 +666,8 @@ nav.mobile a:hover, nav.mobile button:hover {
   max-width: 20rem;
 }
 
-.empty-state p:first-of-type {
-  font-weight: 600;
-}
-
-.empty-state p:last-of-type {
+.empty-state p:not(.title) {
   color: var(--color-dark-gray);
-}
-
-.empty-state button {
-  margin-top: 0.5rem;
-  font-size: 1rem;
 }
 
 /* Create */
@@ -803,6 +791,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .select .options {
   background-color: var(--color-white);
+  border: 1px solid var(--color-light-gray);
   position: absolute;
   top: 5rem;
   left: 0;
@@ -870,8 +859,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 }
 
 .ticketlist .search input {
-  flex: 1 1 17rem;
-  max-width: 18rem;
+  flex: 0 1 17.5rem;
 }
 
 /* Ticket */
@@ -953,7 +941,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .no-messages p:first-of-type {
   color: var(--color-black);
-  font-weight: 600;
 }
 
 .no-messages img {
@@ -1001,21 +988,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 @keyframes spin {
   100% { transform: rotate(360deg); }
-}
-
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
-  }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -125;
-  }
 }
 
 /* Breakpoints */

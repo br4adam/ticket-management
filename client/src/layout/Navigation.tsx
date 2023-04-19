@@ -17,7 +17,7 @@ const Navigation = () => {
           <Link to="/dashboard" className="link">Dashboard</Link>
           <Link to="/tickets" className="link">Tickets</Link>
           <Link to="/create" className="outline">+ New Ticket</Link>
-          <Link to="/profile"><Avatar image={avatar || ""} /></Link>
+          <Link to="/profile"><Avatar image={avatar} /></Link>
         </>
       : <Link to={createGoogleUrl()} className="outline">Login</Link>
       }
