@@ -12,7 +12,6 @@ const ResponseSchema = z.object({
     token_type: z.literal("Bearer"),
     scope: z.string(),
 })
-type Response = z.infer<typeof ResponseSchema>
 
 const getIdToken = async (code: string): Promise<string | null> => {
   try {

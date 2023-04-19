@@ -33,7 +33,7 @@ const Onboarding = () => {
 
   return (
     <div className="onboarding wrapper">
-      <h1>Hello {user?.name.split(" ")[0]}!</h1>
+      <h1>Welcome {user?.name.split(" ")[0]}</h1>
       <p className="title">Set an avatar for yourself!</p>
       <section className="avatars">
         { avatars.map(image => <Avatar key={image} image={image} onClick={() => setSelectedAvatar(getFilename(image))} selected={image.includes(selectedAvatar!)} />)}

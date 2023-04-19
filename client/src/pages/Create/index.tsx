@@ -35,7 +35,7 @@ const Create = () => {
       </div>
       <div>
         <p>Description</p>
-        <textarea value={ticketData.description} onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })} rows={4} name="subject" placeholder="Type description here..." />
+        <textarea value={ticketData.description} onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })} rows={4} name="description" placeholder="Type description here..." />
       </div>
       <button className="solid" onClick={createTicket}>Create Ticket</button>
     </section>

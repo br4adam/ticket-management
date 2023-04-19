@@ -8,7 +8,6 @@ import jwt from "jsonwebtoken"
 const router = express.Router()
 
 const secretKey = process.env.JWT_SECRET_KEY
-if (!secretKey) throw new Error ("Secret key is required.")
 
 const UserUpdateSchema = z.object({
   name: z.string().min(3).optional(),

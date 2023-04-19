@@ -12,7 +12,7 @@ import formatDate from "../../utils/formatDate"
 
 const TicketBar: FC<TicketType> = ( ticket ) => {
   const { copy, copied } = useClipboard()
-  const avatar = avatars.find(a => a.includes(ticket.createdBy.avatar)) || defaultAvatar
+  const avatar = avatars.find(a => a.includes(ticket.createdBy.avatar!)) || defaultAvatar
   const navigate = useNavigate()
 
   return (
@@ -34,7 +34,7 @@ const TicketBar: FC<TicketType> = ( ticket ) => {
         <div className={ticket.priority}></div>
         <p>{ capitalize(ticket.priority) }</p>
       </div>
-      <p className="date">{ formatDate(ticket.createdAt, "date") }</p>
+      <p className="date">{ formatDate(ticket.createdAt, "short") }</p>
       <HiOutlineArrowRight onClick={() => navigate(`/tickets/${ticket._id}`) }/>
     </div>
   )

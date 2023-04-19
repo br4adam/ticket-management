@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap");
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -23,10 +23,10 @@
   --color-status-pending-text: #845d13;
   --color-status-closed: #e0cbfc;
   --color-priority-low: #7befff;
-  --color-priority-medium: #fbd17c;
-  --color-priority-high: #fa8484;
   --color-priority-low-bg: #ddf6f9;
+  --color-priority-medium: #fbd17c;
   --color-priority-medium-bg: #fbefda;
+  --color-priority-high: #fa8484;
   --color-priority-high-bg: #f7dada;
   --box-shadow: 0 0.75rem 1rem -0.5rem #00000015;
 }
@@ -88,6 +88,7 @@ input, textarea {
   font-size: 0.875rem;
   flex: 1;
   padding: 0.5rem 0.75rem;
+  transition: all 0.25s ease-in-out;
 }
 
 textarea {
@@ -403,7 +404,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   justify-content: center;
   align-items: self-start;
   gap: 0.75rem;
-  padding: 1rem 0;
 }
 
 .companies li {
@@ -555,7 +555,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .ticketbar, .ticketheader {
   padding: 1rem;
-  border-bottom: 1px solid #16171825;
+  border-bottom: 1px solid var(--color-light-gray);
   display: flex;
   min-width: max-content;
   justify-content: space-between;
@@ -650,6 +650,8 @@ nav.mobile a:hover, nav.mobile button:hover {
   cursor: pointer;
 }
 
+/* Empty State */
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -702,7 +704,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   padding: 0.25rem 0.5rem;
   border: 1px solid;
   border-radius: 1rem;
-  background-color: #ffffff75;
+  background-color: #ffffffaa;
   border-color: inherit;
 }
 
@@ -893,7 +895,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   gap: 1rem;
 }
 
-.messages .message {
+.message {
   display: flex;
   gap: 1rem;
   padding-bottom: 1rem;

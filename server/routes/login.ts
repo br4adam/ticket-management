@@ -20,7 +20,6 @@ const PayloadSchema = z.object({
 })
 
 const secretKey = process.env.JWT_SECRET_KEY
-if (!secretKey) throw new Error ("Secret key is required.")
 
 router.post('/', verifySchema(LoginRequestSchema), async (req: Request, res: Response) => {
   const loginRequest = req.body as LoginRequest

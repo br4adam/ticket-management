@@ -87,7 +87,7 @@ describe("GET /api/tickets/:id", () => {
 })
 
 describe("POST /api/tickets", () => {
-  it("should return status 201 and the created ticket", async () => {
+  it("should return status 201 and the id of the created ticket", async () => {
     // given
     const company = await Company.create({ name: "Test Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
@@ -102,9 +102,7 @@ describe("POST /api/tickets", () => {
     const dbContent = await Ticket.find()
     expect(dbContent).toHaveLength(1)
     expect(response.status).toBe(201)
-    expect(response.body.subject).toBe("Subject")
-    expect(response.body.status).toBe("open")
-    expect(response.body.priority).toBe("low")
+    expect(typeof response.body).toBe("string")
   })
 
   it("should return status 400 if the new ticket does not match the schema", async () => {
