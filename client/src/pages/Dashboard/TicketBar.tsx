@@ -25,7 +25,7 @@ const TicketBar: FC<TicketType> = ( ticket ) => {
         <p>{ ticket._id }</p>
       </div>
       <div className="user">
-        <Avatar image={avatar} />
+        <Avatar image={avatar} onClick={() => navigate("/users", { state: ticket.createdBy.name })} />
         <p>{ ticket.createdBy.name }</p>
       </div>
       <p className="subject">{ ticket.subject }</p>

@@ -11,7 +11,7 @@ const Tickets = () => {
 
   return (
     <div className="ticketlist wrapper">
-      <div>
+      <div className="topbar">
         <h1>Tickets</h1>
         <Search />
       </div>

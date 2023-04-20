@@ -26,7 +26,6 @@ const request = async <T extends z.ZodTypeAny>(method: string, url: string, payl
     const options = { method, url, data: payload }
     const response = await client.request(options)
     const result = schema.safeParse(response.data)
-    console.log(result)
     if (result.success) return { data: result.data, status: response.status }
     else return { data: null, status: response.status }
   } catch (error) {

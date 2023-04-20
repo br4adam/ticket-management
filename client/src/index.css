@@ -24,7 +24,7 @@
   --color-status-closed: #e0cbfc;
   --color-priority-low: #7befff;
   --color-priority-low-bg: #ddf6f9;
-  --color-priority-medium: #fbd17c;
+  --color-priority-medium: #f8c96b;
   --color-priority-medium-bg: #fbefda;
   --color-priority-high: #fa8484;
   --color-priority-high-bg: #f7dada;
@@ -156,7 +156,7 @@ input:focus, textarea:focus {
 .loader {
   width: 2rem;
   aspect-ratio: 1/1;
-  border: 4px solid var(--color-mid-gray);
+  border: 2px solid var(--color-mid-gray);
   border-bottom-color: transparent;
   margin: auto;
   border-radius: 100%;
@@ -167,6 +167,7 @@ input:focus, textarea:focus {
 
 .avatar {
   position: relative;
+  cursor: pointer;
 }
 
 .avatar .box {
@@ -178,7 +179,6 @@ input:focus, textarea:focus {
 
 .avatar img {
   width: 100%;
-  cursor: pointer;
   transition: 0.25s ease-in-out;
 }
 
@@ -201,6 +201,7 @@ header {
   color: var(--color-white);
   border-bottom: 1px solid var(--color-dark-background);
   padding: 1rem 0;
+  z-index: 30;
 }
 
 header .wrapper {
@@ -294,8 +295,8 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .landing h1 {
   font-size: clamp(3.5rem, 1.722rem + 3.704vw, 4.5rem);
-  line-height: 1.25;
-  letter-spacing: -0.125rem;
+  line-height: 1.2;
+  letter-spacing: -1.25px;
   align-self: center;
   width: 90%;
   max-width: 40rem;
@@ -316,7 +317,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 .landing h2 {
   font-size: 2rem;
   line-height: 1.25;
-  letter-spacing: -0.0625rem;
+  letter-spacing: -0.75px;
   margin-bottom: 2rem;
   width: 90%;
   max-width: 40rem;
@@ -518,7 +519,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 .charts {
   width: 100%;
   display: flex;
-  flex-direction: row;
   gap: 1rem;
 }
 
@@ -844,7 +844,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 /* Ticket List */
 
-.ticketlist.wrapper > div {
+.topbar {
   width: 100%;
   display: flex;
   align-items: center;
@@ -887,6 +887,10 @@ nav.mobile a:hover, nav.mobile button:hover {
   min-width: 7rem;
   font-weight: 600;
   color: var(--color-black);
+}
+
+.details .data .created-by {
+  cursor: pointer;
 }
 
 .messages {
@@ -948,6 +952,52 @@ nav.mobile a:hover, nav.mobile button:hover {
 .no-messages img {
   width: 90%;
   max-width: 20rem;
+}
+
+/* Users */
+
+.users input {
+  flex: 0 1 21rem;
+}
+
+.usersflex {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  text-align: center;
+}
+
+.user.container {
+  gap: 1rem;
+  align-items: center;
+  flex: 0 1 calc(50% - 0.5rem);
+  cursor: default;
+}
+
+.user.container .avatar {
+  cursor: default;
+}
+
+.user-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-data p:not(.title) {
+  color: var(--color-dark-gray);
+  word-break: break-all;
+}
+
+span.admin {
+  background-color: var(--color-light-gray);
+  color: var(--color-dark-gray);
+  border-radius: 1rem;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 /* Status & Priority */
@@ -1019,7 +1069,9 @@ nav.mobile a:hover, nav.mobile button:hover {
   header {
     position: sticky;
     top: 0;
-    z-index: 30;
+  }
+  .user.container {
+    flex: 1 1 100%;
   }
 }
 

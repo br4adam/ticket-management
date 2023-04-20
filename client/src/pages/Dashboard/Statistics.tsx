@@ -11,7 +11,7 @@ type Props = {
 }
 
 const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
-  const { data: statistics, error } = useApi<StatisticListType>(getStatistics, initialState)
+  const { data: statistics } = useApi<StatisticListType>(getStatistics, initialState)
   
   const toggle = () => setShowCharts(prev => !prev)
 
@@ -22,7 +22,6 @@ const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
           <h1>Dashboard</h1>
           { showCharts ? <button onClick={toggle}>Hide charts</button> : <button onClick={toggle} className="hidden">Show charts</button> }
         </div>
-        { error && <p>{error}</p> }
         <div className="statgrid">
         { statistics && statistics.map(stat => <Stat key={stat.status} stat={stat} />)}
         </div>

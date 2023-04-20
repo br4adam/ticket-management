@@ -1,12 +1,15 @@
 import { FC } from "react"
 import { type TicketType } from "../../api/tickets"
 import formatDate from "../../utils/formatDate"
+import { useNavigate } from "react-router-dom"
 
 type Props = {
   ticket: TicketType
 }
 
 const Details: FC<Props> = ({ ticket }) => {
+  const navigate = useNavigate()
+
   return (
     <section className="details container">
       <div className="data">
@@ -20,7 +23,7 @@ const Details: FC<Props> = ({ ticket }) => {
         </div>
         <div>
           <p>Created by</p>
-          <p>{ ticket.createdBy?.name }</p>
+          <p onClick={() => navigate("/users", { state: ticket.createdBy.name })} className="created-by">{ ticket.createdBy.name }</p>
         </div>
         <div>
           <p>Created at</p>

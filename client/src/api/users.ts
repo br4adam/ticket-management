@@ -1,5 +1,6 @@
-import { client, request } from "./request"
+import { request } from "./request"
 import { BehaviorSubject } from "rxjs"
+import jwt_decode from "jwt-decode"
 import { z } from "zod"
 
 export const UserSchema = z.object({
@@ -16,6 +17,9 @@ export const UserSchema = z.object({
 })
 export type UserType = z.infer<typeof UserSchema>
 
+const UserListSchema = UserSchema.array()
+export type UserListType = z.infer<typeof UserListSchema>
+
 export const UpdateSchema = z.object({
   avatar: z.string().optional(),
   phone: z.string().min(6).max(14).optional(),
@@ -28,25 +32,34 @@ const TokenSchema = z.string()
 export const token$ = new BehaviorSubject<string | null>(localStorage.getItem("token"))
 
 export const endSession = () => {
-    localStorage.removeItem("token")
-    token$.next(null)
+  localStorage.removeItem("token")
+  token$.next(null)
 }
 
-export const login = async (code: string): Promise<string | null> => {
-  try {
-    const response = await client.post("/api/login", { code })
-    const result = TokenSchema.safeParse(response.data)
-    if (!result.success) return null
-    const token = result.data
-    token$.next(token)
-    localStorage.setItem("token", token)
-    return token
-  } catch (err) {
-    return null
-  }
+let tokenTimeout: number | null = null
+token$.subscribe((token) => {
+  if (tokenTimeout) clearTimeout(tokenTimeout)
+  if (!token) return
+  const { exp } = jwt_decode(token) as any
+  const expiredAt = exp * 1000 - Date.now()
+  tokenTimeout = setTimeout(endSession, expiredAt)
+})
+
+export const login = async (code: string) => {
+  const response = await request("post", "/api/login", { code }, TokenSchema)
+  if (response.status !== 200) return null
+  const token = response.data
+  token$.next(token)
+  localStorage.setItem("token", token)
+  return response.data
 }
 
 export const updateUser = async (data: UpdateType) => {
   const response = await request("put", "/api/users/me", data, TokenSchema)
   return response.data
+}
+
+export const getUsers = async () => {
+  const response = await request("get", "/api/users", {}, UserListSchema)
+  return response
 }
