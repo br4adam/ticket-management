@@ -4,7 +4,6 @@ import mongoose from "mongoose"
 import verifySchema from "../middlewares/verifySchema"
 import verifyToken from "../middlewares/verifyToken"
 import { Ticket, TicketType } from "../models/Ticket"
-import { Company } from "../models/Company"
 
 const { ObjectId } = mongoose.Types
 
@@ -36,10 +35,8 @@ type TicketUpdateType = z.infer<typeof TicketUpdateSchema>
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
-  const userCompany = await Company.findById(user.company).populate("admins")
-  const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
-  if (isAdmin) {
-    const companyTickets = await Ticket.find({ company: userCompany?._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
+  if (res.locals.admin) {
+    const companyTickets = await Ticket.find({ company: user.company._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
     if (!companyTickets) return res.status(400).json("Tickets not found.")
     return res.status(200).json(companyTickets)
   }

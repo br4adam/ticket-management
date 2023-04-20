@@ -2,7 +2,6 @@ import express, { Request, Response } from "express"
 import mongoose from "mongoose"
 import verifyToken from "../middlewares/verifyToken"
 import { Ticket } from "../models/Ticket"
-import { Company } from "../models/Company"
 import { getDateBefore, getDates, formatDate } from "../utils/handleDates"
 
 const router = express.Router()
@@ -12,11 +11,9 @@ const datesArray = getDates(startDate, new Date())
 
 router.get("/linechart", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
-  const userCompany = await Company.findById(user.company).populate("admins")
-  const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
 
   let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id), updatedAt: { $gte: startDate }}
-  if (isAdmin) matchQuery = { company: userCompany?._id, updatedAt: { $gte: startDate }}
+  if (res.locals.admin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id), updatedAt: { $gte: startDate }}
 
   const groupedTicketCounts = await Ticket.aggregate()
     .match(matchQuery)
@@ -43,11 +40,9 @@ router.get("/linechart", verifyToken, async (req: Request, res: Response) => {
 
 router.get("/barchart", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
-  const userCompany = await Company.findById(user.company).populate("admins")
-  const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
 
   let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id), createdAt: { $gte: startDate }}
-  if (isAdmin) matchQuery = { company: userCompany?._id, createdAt: { $gte: startDate }}
+  if (res.locals.admin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id), createdAt: { $gte: startDate }}
 
   const newTicketCounts = await Ticket.aggregate()
     .match(matchQuery)
@@ -68,11 +63,9 @@ router.get("/barchart", verifyToken, async (req: Request, res: Response) => {
 
 router.get("/statistics", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
-  const userCompany = await Company.findById(user.company).populate("admins")
-  const isAdmin = userCompany?.admins.some(admin => admin._id.equals(user._id))
 
   let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id) }
-  if (isAdmin) matchQuery = { company: userCompany?._id }
+  if (res.locals.admin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id) }
 
   const ticketCountsByStatus = await Ticket.aggregate()
     .match(matchQuery)

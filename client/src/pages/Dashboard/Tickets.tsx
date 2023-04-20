@@ -13,7 +13,7 @@ const Tickets = () => {
     <section className="tickets container">
       <p className="title">Latest Tickets</p>
       { loading && <Loader /> }
-      { tickets
+      { tickets?.length
         ? <div className="scrollable">
           <TicketHeader />
           { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}

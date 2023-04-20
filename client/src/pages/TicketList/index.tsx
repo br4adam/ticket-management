@@ -16,9 +16,9 @@ const Tickets = () => {
         <Search />
       </div>
       <section className="tickets container">
-        <p className="title">All Tickets { tickets && <span>({ tickets.length })</span> }</p>
+        <p className="title">All Tickets { !!tickets?.length && <span>({ tickets.length })</span> }</p>
         { loading && <Loader /> }
-        { tickets
+        { tickets?.length
         ? <div className="scrollable">
           <TicketHeader />
           { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}
