@@ -16,6 +16,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t ticket-management-server -f server/Dockerfile ./server
       - name: Tag Docker image
-        run: docker tag ticket-management-server {{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
+        run: docker tag ticket-management-server ${{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
       - name: Push Docker image to Dockerhub
-        run: docker push {{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
