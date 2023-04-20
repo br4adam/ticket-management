@@ -11,7 +11,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const decoded = jwt.verify(token, secretKey) as jwt.JwtPayload
     res.locals.user = decoded
-    res.locals.admin = decoded.company?.admins.some((id: string) => id === decoded._id)
+    res.locals.admin = decoded.company?.admins?.some((id: string) => id === decoded._id)
     next()
   } catch (error) {
     console.log(error)

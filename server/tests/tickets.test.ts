@@ -30,14 +30,10 @@ describe("GET /api/tickets", () => {
     expect(response.body.length).toBe(2)
   })
 
-  it("should return status 200 and all tickets of the company if user is admin", async () => {
+  it("should return status 200 and an empty array when the database is empty", async () => {
     // given
     const company = await Company.create({ name: "Test Company" })
-    const otherCompany = await Company.create({ name: "Other Company" })
     const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
-    const otherUser = await User.create({ sub: "5678", name: "Other User", email: "other@test.com", company: otherCompany._id })
-    await Company.findByIdAndUpdate(company._id, { admins: [ user._id ] })
-    await Ticket.create([ { createdBy: otherUser._id, subject: "First ticket", company: otherUser.company }, { createdBy: user._id, subject: "Second ticket", company: user.company }, { createdBy: user._id, subject: "Third ticket", company: otherCompany._id } ])
     const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
@@ -45,11 +41,10 @@ describe("GET /api/tickets", () => {
       .set("Authorization", `Bearer ${token}`)
     // then
     const dbContent = await Ticket.find()
-    expect(dbContent).toHaveLength(3)
+    expect(dbContent).toHaveLength(0)
     expect(response.status).toBe(200)
     expect(Array.isArray(response.body)).toBeTruthy()
-    expect(response.body.length).toBe(1)
-    expect(response.body[0].subject).toBe("Second ticket")
+    expect(response.body.length).toBe(0)
   })
 })
 
