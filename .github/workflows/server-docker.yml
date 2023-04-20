@@ -1,21 +1,21 @@
 name: Build and push server Docker image
 
-  on:
-    push:
-      branches: [main]
+on:
+  push:
+    branches: [main]
 
-  jobs:
-    build-and-push:
-      runs-on: ubuntu latest
+jobs:
+  build-and-push:
+    runs-on: ubuntu latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-        - name: Login to Dockerhub
-          run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-        - name: Build Docker image
-          run: docker build -t ticket-management-server -f server/Dockerfile .
-        - name: Tag Docker image
-          run: docker tag ticket-management-server {{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
-        - name: Push Docker image to Dockerhub
-          run: docker push {{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Login to Dockerhub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build Docker image
+        run: docker build -t ticket-management-server -f server/Dockerfile .
+      - name: Tag Docker image
+        run: docker tag ticket-management-server {{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
+      - name: Push Docker image to Dockerhub
+        run: docker push {{ secrets.DOCKERHUB_USERNAME }}/ticket-management-server:${{ github.sha }}
