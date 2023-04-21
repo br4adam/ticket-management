@@ -7,7 +7,6 @@ import useApi from "../../hooks/useApi"
 
 const Users = () => {
   const { state } = useLocation()
-  console.log(state)
   const { data: users, loading } = useApi(getUsers, [])
   const [ searchValue, setSearchValue ] = useState<string>(state || "")
 

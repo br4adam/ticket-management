@@ -17,10 +17,10 @@
   --color-mid-gray: #b8b8b8;
   --color-dark-gray: #565656;
   --color-status-total: #7befff;
-  --color-status-open: #acffaa;
-  --color-status-open-text: #238812;
+  --color-status-open: #b0ffae;
+  --color-status-open-text: #196b0c;
   --color-status-pending: #ffe693;
-  --color-status-pending-text: #845d13;
+  --color-status-pending-text: #6b4b0c;
   --color-status-closed: #e0cbfc;
   --color-priority-low: #7befff;
   --color-priority-low-bg: #ddf6f9;
@@ -29,6 +29,7 @@
   --color-priority-high: #fa8484;
   --color-priority-high-bg: #f7dada;
   --box-shadow: 0 0.75rem 1rem -0.5rem #00000015;
+  --animation-time: 0.25s;
 }
 
 body {
@@ -50,7 +51,8 @@ button, a {
   gap: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
-  transition: all 0.25s ease-in-out;
+  font-size: 1rem;
+  transition: all var(--animation-time) ease-in-out;
 }
 
 button.solid, a.solid {
@@ -88,7 +90,8 @@ input, textarea {
   font-size: 0.875rem;
   flex: 1;
   padding: 0.5rem 0.75rem;
-  transition: all 0.25s ease-in-out;
+  cursor: text;
+  transition: all var(--animation-time) ease-in-out;
 }
 
 textarea {
@@ -116,6 +119,7 @@ input:focus, textarea:focus {
   gap: 1rem;
   padding: 1rem 0 5rem 0;
   margin: auto;
+  animation: load var(--animation-time) ease-in forwards;
 }
 
 .wrapper h1 {
@@ -179,7 +183,7 @@ input:focus, textarea:focus {
 
 .avatar img {
   width: 100%;
-  transition: 0.25s ease-in-out;
+  transition: var(--animation-time) ease-in-out;
 }
 
 .avatar img:hover {
@@ -208,6 +212,7 @@ header .wrapper {
   flex-direction: row;
   padding: 0;
   height: 2.5rem;
+  animation: none;
 }
 
 .logo {
@@ -244,12 +249,8 @@ nav .avatar .box {
 header .hamburger {
   position: relative;
   font-size: 1.5rem;
-  transition: all 0.25s ease-in-out;
+  transition: all var(--animation-time) ease-out;
   cursor: pointer;
-}
-
-header .hamburger:hover {
-  color: var(--color-main);
 }
 
 nav.mobile {
@@ -277,8 +278,8 @@ nav.mobile a, nav.mobile button {
   width: 100%;
   border-radius: 0;
   padding: 1.5rem;
-  justify-content: center;
-  transition: all 0.25s ease-in-out;
+  justify-content: center ;
+  transition: all var(--animation-time) ease-in-out;
 }
 
 nav.mobile a:hover, nav.mobile button:hover {
@@ -291,14 +292,15 @@ nav.mobile a:hover, nav.mobile button:hover {
   gap: 2.5rem;
   padding-top: 4rem;
   text-align: center;
+  opacity: 0;
+  animation-delay: 0.5s;
 }
 
 .landing h1 {
   font-size: clamp(3.5rem, 1.722rem + 3.704vw, 4.5rem);
-  line-height: 1.2;
+  line-height: 1.1;
   letter-spacing: -1.25px;
   align-self: center;
-  width: 90%;
   max-width: 40rem;
 }
 
@@ -350,6 +352,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .features .feature-card svg {
   font-size: 2rem;
+  stroke-width: 1.75px;
 }
 
 .features .feature-card p:first-of-type {
@@ -416,7 +419,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   font-size: 0.875rem;
   padding: 0.25rem 0.75rem;
   cursor: pointer;
-  transition: all 0.25s ease-in-out;
+  transition: all var(--animation-time) ease-in-out;
 }
 
 .companies li:hover {
@@ -617,7 +620,7 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .ticketbar .status {
   border-radius: 1rem;
-  padding: 0.25rem;
+  padding: 0.2rem;
   font-size: 0.75rem;
   font-weight: 500;
 }
@@ -802,6 +805,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   border-radius: 0.5rem;
   cursor: pointer;
   z-index: 20;
+  animation: roll var(--animation-time) ease-out forwards;
 }
 
 .select .options .option {
@@ -810,7 +814,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.25s ease-in-out;
+  transition: all var(--animation-time) ease-in-out;
 }
 
 .select .options .option:hover {
@@ -821,24 +825,24 @@ nav.mobile a:hover, nav.mobile button:hover {
   border-bottom: none;
 }
 
-.new-form {
+.create form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.new-form > div {
+.create form label {
   display: flex;
   gap: 0.5rem;
 }
 
-.new-form > div p {
-  font-weight: 600;
+.create form span {
   width: 7rem;
+  font-weight: 600;
   padding-top: 0.25rem;
 }
 
-.new-form button {
+.create form button {
   align-self: flex-end;
 }
 
@@ -928,10 +932,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   gap: 0.5rem;
 }
 
-.new-message button {
-  font-size: 1rem;
-}
-
 .new-message button svg {
   transform: rotate(90deg);
 }
@@ -1000,6 +1000,18 @@ span.admin {
   font-weight: 500;
 }
 
+/* Toast */
+
+.toast {
+  border-radius: 2rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-dark-gray);
+  color: var(--color-white);
+  background-color: var(--color-dark-background);
+  box-shadow: var(--box-shadow);
+}
+
 /* Status & Priority */
 
 .open {
@@ -1042,6 +1054,17 @@ span.admin {
   100% { transform: rotate(360deg); }
 }
 
+@keyframes load {
+  0% { opacity: 0; transform: translateY(0.5rem); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes roll {
+  0% { opacity: 0; transform: translateY(-1rem); }
+  75% { opacity: 1; }
+  100% { transform: none; }
+}
+
 /* Breakpoints */
 
 @media screen and (max-width: 992px) {
@@ -1063,7 +1086,7 @@ span.admin {
   .chart {
     width: 100%;
   }
-  .select-elements, .new-form div {
+  .select-elements, .create form label {
     flex-direction: column;
   }
   header {
@@ -1079,6 +1102,9 @@ span.admin {
   .stat {
     flex-direction: column;
     text-align: center;
+  }
+  .chart {
+    aspect-ratio: 8/7;
   }
   .details .data > div {
     flex-direction: column;

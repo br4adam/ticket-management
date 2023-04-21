@@ -4,6 +4,7 @@ import { HiPaperAirplane } from "react-icons/hi"
 import useGlobal from "../../hooks/useGlobal"
 import { user$ } from "../../states/user"
 import { sendMessage } from "../../api/tickets"
+import { toast } from "react-hot-toast"
 
 type Props = {
   refresh: () => Promise<void>
@@ -15,7 +16,7 @@ const MessageInput: FC<Props> = ({ refresh }) => {
   const user = useGlobal(user$)
 
   const sendNewMessage = async () => {
-    if (!id || !user || message.length < 1) return
+    if (!id || !user || message.length < 1) return toast.error("Write your message before sending!")
     await sendMessage(id, { user: user._id, message })
     setMessage("")
     refresh()

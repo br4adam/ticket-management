@@ -35,16 +35,11 @@ type TicketUpdateType = z.infer<typeof TicketUpdateSchema>
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
-  if (res.locals.admin) {
-    const companyTickets = await Ticket.find({ company: user.company._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
-    if (!companyTickets) return res.status(400).json("Tickets not found.")
-    return res.status(200).json(companyTickets)
-  }
-  else {
-    const userTickets = await Ticket.find({ createdBy: user._id }).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
-    if (!userTickets) return res.status(400).json("Tickets not found.")
-    return res.status(200).json(userTickets)
-  }
+  let findQuery: any = { createdBy: user._id }
+  if (res.locals.admin) findQuery = { company: user.company._id }
+  const userTickets = await Ticket.find(findQuery).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
+  if (!userTickets) return res.status(400).json("Tickets not found.")
+  return res.status(200).json(userTickets)
 })
 
 router.get("/:id", verifyToken, async (req: Request, res: Response) => {

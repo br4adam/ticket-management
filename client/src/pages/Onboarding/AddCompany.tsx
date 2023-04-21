@@ -1,5 +1,6 @@
 import { FC, useState } from "react"
 import { createCompany } from "../../api/companies"
+import { toast } from "react-hot-toast"
 
 type Props = {
   refresh: () => Promise<void>
@@ -9,7 +10,7 @@ const AddCompany: FC<Props> = ({ refresh }) => {
   const [ newCompany, setNewCompany ] = useState<string>("")
 
   const saveCompany = async () => {
-    if (!newCompany) return
+    if (newCompany.length < 3) return toast.error("This company name is too short!")
     await createCompany(newCompany)
     refresh()
     setNewCompany("")

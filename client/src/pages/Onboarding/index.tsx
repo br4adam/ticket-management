@@ -11,6 +11,7 @@ import { user$, update as updateUser } from "../../states/user"
 import Loader from "../../components/Loader"
 import useGlobal from "../../hooks/useGlobal"
 import useApi from "../../hooks/useApi"
+import { toast } from "react-hot-toast"
 
 const Onboarding = () => {
   const { data: companies, loading, refresh } = useApi<CompanyType[]>(getCompanies)
@@ -24,7 +25,7 @@ const Onboarding = () => {
   }, [])
 
   const saveUserData = async () => {
-    if (!selectedAvatar || !selectedCompany) return
+    if (!selectedAvatar || !selectedCompany) return toast.error("Choose your avatar and company first!")
     await updateUser({ avatar: selectedAvatar, company: selectedCompany })
     navigate("/dashboard")
   }
@@ -43,7 +44,7 @@ const Onboarding = () => {
         { companies && companies.map(company => <CompanyTag key={company._id} company={company} onClick={() => setSelectedCompany(company._id)} selected={selectedCompany === company._id} />)}
       </ul>
       <AddCompany refresh={refresh} />
-      <button className="solid" onClick={saveUserData} disabled={!selectedAvatar || !selectedCompany}>
+      <button className="solid" onClick={saveUserData} >
         Continue <HiArrowRight/>
       </button>
     </div>

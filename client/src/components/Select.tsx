@@ -27,7 +27,7 @@ const Select: FC<Props> = ({ options, def, disabled, onSelect = () => {} }) => {
   const toggling = () => setIsOpen(prev => !prev)
   const close = () => setIsOpen(false)
 
-  const optionsRef = useRef(null)
+  const optionsRef = useRef<HTMLDivElement>(null)
   useClickOutside(optionsRef, close)
 
   const onChange = (value: string) => {
