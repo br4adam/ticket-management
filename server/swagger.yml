@@ -1,0 +1,571 @@
+openapi: 3.0.3
+info:
+  title: Ticket Management API
+  description: |-
+    This is the Ticket Management API documentation.
+    Some useful links:
+    - [GitHub Repository](https://github.com/br4adam/ticket-management)
+    - [Source of API definition](https://github.com/br4adam/ticket-management/blob/main/server/swagger.yml)
+  contact:
+    email: br4adam@gmail.com
+  version: "1.0"
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8000/api
+tags:  
+  - name: tickets
+  - name: users
+  - name: login
+  - name: companies
+  - name: charts
+paths:
+  /tickets:
+    get:
+      tags:
+        - tickets
+      summary: Find all tickets of the user.
+      description: Return all the tickets of the user. If the user is admin in the company, it will return all the tickets of the company.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Bad request. Tickets not found.
+        "401":
+          description: Authorization error.
+    post:
+      tags:
+        - tickets
+      summary: Create a new ticket.
+      description: Create a new ticket and return the ID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                createdBy:
+                  type: string
+                  example: 29cw45bav2261h14633634na
+                subject:
+                  type: string
+                  example: The subject of the ticket.
+                description:
+                  type: string
+                  example: The description of the ticket.
+                priority:
+                  type: string
+                  example: low
+                status:
+                  type: string
+                  example: open
+      responses:
+        "201":
+          description: Ticket created successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 56cb91bdc3464f14678934ca
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+  /tickets/{id}:
+    get:
+      tags:
+        - tickets
+      summary: Find ticket by ID.
+      description: Return a single ticket.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the ticket.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "401":
+          description: Authorization error.
+        "404":
+          description: Ticket not found.
+        "422":
+          description: ID validation error.
+        "500":
+          description: Internal server error.
+    put:
+      tags:
+        - tickets
+      summary: Update ticket.
+      description: Find ticket by ID, update and return the updated ticket.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the ticket.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority:
+                  type: string
+                  enum: [low, medium, high]
+                status:
+                  type: string
+                  enum: [open, pending, closed]
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "401":
+          description: Authorization error.
+        "404":
+          description: Ticket not found.
+        "422":
+          description: ID validation error.
+        "500":
+          description: Internal server error.
+    delete:
+      tags:
+        - tickets
+      summary: Delete ticket.
+      description: Find ticket by ID and delete it from the database.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the ticket.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Ticket has been deleted successfully."
+        "401":
+          description: Authorization error.
+        "404":
+          description: Ticket not found.
+        "422":
+          description: ID validation error.
+        "500":
+          description: Internal server error.
+  /tickets/{id}/messages:
+    put:
+      tags:
+        - tickets
+      summary: Add a new message to ticket.
+      description: Find ticket by ID, update with the new message and return the updated ticket.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the ticket.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Ticket"
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+        "401":
+          description: Authorization error.
+        "404":
+          description: Ticket not found.
+        "422":
+          description: ID validation error.
+        "500":
+          description: Internal server error.
+  /users:
+    get:
+      tags:
+        - users
+      summary: Find users of the company.
+      description: Return all the users.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request. Users not found.
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+  /users/me:
+    get:
+      tags:
+        - users
+      summary: Find the logged in user.
+      description: Return the user data.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request. User not found.
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+    put:
+      tags:
+        - users
+      summary: Update user.
+      description: Update user data and return a new token.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: johndoe@gmail.com
+                avatar:
+                  type: string
+                  example: avatar01
+                company:
+                  $ref: "#/components/schemas/Company"
+                phone:
+                  type: string
+                  example: "+36001234567"
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        "401":
+          description: Authorization error.
+        "404":
+          description: User not found.
+        "500":
+          description: Internal server error.
+  /companies:
+    get:
+      tags:
+        - companies
+      summary: Find all companies.
+      description: Return all the companies.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Company"
+        "400":
+          description: Bad request. Companies not found.
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+    post:
+      tags:
+        - companies
+      summary: Create a new company.
+      description: Create a new company and return the company data.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Ticket Company
+      responses:
+        "201":
+          description: Company created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Company"
+        "401":
+          description: Authorization error.
+        "409":
+          description: Conflict. This company is already listed in our system.
+        "500":
+          description: Internal server error.
+  /companies/{id}/tickets:
+    get:
+      tags:
+        - companies
+      summary: Find tickets by company ID.
+      description: Return all ticket created by users from the company.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the company.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+        "401":
+          description: Authorization error.
+        "404":
+          description: Company not found.
+        "422":
+          description: ID validation error.
+        "500":
+          description: Internal server error.
+  /login:
+    post:
+      tags:
+        - login
+      summary: Login with Google.
+      description: Return a token if the user has successfully logged in. If this is the first login, save user to database.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: eihNKOB9r6qf87sbZawoqmFapzZsTSj9quRQec7uGfEBGeMBSrTQhHkp9oDWu6GF
+      responses:
+        "200":
+          description: Logged in successfully, return the session token.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        "400":
+          description: Bad request.
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+  /charts/linechart:
+    get:
+      tags:
+        - charts
+      summary: Find ticket counts by change of status for the line chart.
+      description: Return all the tickets data grouped by date and change of status.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      example: "04.22"
+                    open:
+                      type: number
+                      example: 4
+                    pending:
+                      type: number
+                      example: 12
+                    closed:
+                      type: number
+                      example: 8
+        "401":
+          description: Authorization error.
+  /charts/barchart:
+    get:
+      tags:
+        - charts
+      summary: Find new ticket counts by date for the bar chart.
+      description: Return all the new tickets data grouped by date.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      example: "04.22"
+                    count:
+                      type: number
+                      example: 8
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+  /charts/statistics:
+    get:
+      tags:
+        - charts
+      summary: Find ticket counts by status for the statistics section.
+      description: Return all the ticket counts grouped by status.
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    count:
+                      type: number
+                      example: 34
+                    status:
+                      type: string
+                      example: total
+        "401":
+          description: Authorization error.
+        "500":
+          description: Internal server error.
+components:
+  schemas:
+    Ticket:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 56cb91bdc3464f14678934ca
+        createdBy:
+          type: string
+          example: 29cw45bav2261h14633634na
+        subject:
+          type: string
+          example: The subject of the ticket.
+        description:
+          type: string
+          example: The description of the ticket.
+        priority:
+          type: string
+          enum: [low, medium, high]
+        status:
+          type: string
+          enum: [open, pending, closed]
+        messages:
+          type: array
+          items: 
+            $ref: "#/components/schemas/Message"
+        createdAt:
+          type: string
+          example: "2023-04-22T16:37:48.244Z"
+        updatedAt:
+          type: string
+          example: "2023-04-23T08:25:19.244Z"
+    Message:
+      type: object
+      properties:
+        date:
+          type: string
+          example: "2023-04-24T11:49:26.244Z"
+        user:
+          type: string
+          example: 29cw45bav2261h14633634na
+        message:
+          type: string
+          example: This is my first message.
+    Company:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 15fe59bwv1181g93348634ma
+        name:
+          type: string
+          example: Ticket Corporation
+        admins:
+          type: array
+          items:
+            type: string
+            example: 29cw45bav2261h14633634na
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 29cw45bav2261h14633634na
+        sub:
+          type: string
+          example: "110363468815700157887"
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: johndoe@gmail.com
+        avatar:
+          type: string
+          example: avatar01
+        company:
+          $ref: "#/components/schemas/Company"
+        phone:
+          type: string
+          example: "+36001234567"
+        createdAt:
+          type: string
+          example: "2023-04-22T16:37:48.244Z"
+        updatedAt:
+          type: string
+          example: "2023-04-23T08:25:19.244Z"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

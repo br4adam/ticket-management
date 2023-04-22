@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, ChangeEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import PriorityLevels from "./PriorityLevels"
 import Select from "../../components/Select"
@@ -15,12 +15,17 @@ const Create = () => {
   const [ ticketData, setTicketData ] = useState<NewTicketType>(initialData)
   const [ priority, setPriority ] = useState<string>("low")
 
+  const onInputChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = event.target
+    setTicketData({ ...ticketData, [name]: value })
+  }
+
   const createTicket = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!ticketData.subject) return toast.error("Please fill all the fields before submitting!")
     const { data } = await saveTicket({ ...ticketData, priority })
-    setTicketData(initialData)
     toast.success("Ticket created successfully!")
+    setTicketData(initialData)
     navigate(`/tickets/${data}`)
   }
 
@@ -34,11 +39,11 @@ const Create = () => {
       <form className="container" onSubmit={createTicket}>
         <label>
           <span>Subject</span>
-          <input type="text" value={ticketData.subject} onChange={(e) => setTicketData({ ...ticketData, subject: e.target.value })} name="subject" placeholder="The subject of the ticket." />
+          <input type="text" value={ticketData.subject} onChange={onInputChange} name="subject" placeholder="The subject of the ticket." />
         </label>
         <label>
           <span>Description</span>
-          <textarea value={ticketData.description} onChange={(e) => setTicketData({ ...ticketData, description: e.target.value })} rows={4} name="description" placeholder="Type description here..." />
+          <textarea value={ticketData.description} onChange={onInputChange} rows={4} name="description" placeholder="Type description here..." />
         </label>
         <button className="solid">Create Ticket</button>
       </form>

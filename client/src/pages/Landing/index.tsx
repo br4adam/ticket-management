@@ -1,15 +1,23 @@
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { HiOutlineDeviceMobile, HiOutlineViewGrid, HiOutlineEmojiHappy } from "react-icons/hi"
 import dashboard from "../../assets/dashboard-mockup.webp"
 import FeatureCard from "./FeatureCard"
 import createGoogleUrl from "../../utils/createGoogleUrl"
+import useGlobal from "../../hooks/useGlobal"
+import { user$ } from "../../states/user"
+import { token$ } from "../../api/users"
 
 const Landing = () => {
+  const user = useGlobal(user$)
+  const token = useGlobal(token$)
+
   const features = [
     { title: "Responsive", description: "Designed to be mobile-friendly, allowing you to report issues and track your tickets on the go.", icon: <HiOutlineDeviceMobile /> },
     { title: "Centralized", description: "Centralize all error tickets, making it easy for administrators to manage and resolve them.", icon: <HiOutlineViewGrid /> },
     { title: "User friendly", description: "Easy to navigate and use, making it simple for you to create and track your error tickets.", icon: <HiOutlineEmojiHappy /> }
   ]
+
+  if (user && token) return <Navigate to="/dashboard" replace />
 
   return (
     <div className="landing wrapper">

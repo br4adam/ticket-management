@@ -38,6 +38,8 @@ body {
   background-color: var(--color-light-background);
 }
 
+/* Buttons */
+
 button, a {
   all: unset;
   padding: 0.5rem 1rem;
@@ -51,7 +53,6 @@ button, a {
   border-radius: 2rem;
   cursor: pointer;
   font-size: 1rem;
-  transition: all var(--animation-time) ease-in-out;
 }
 
 button.solid, a.solid {
@@ -74,11 +75,17 @@ button.link, a.link {
   padding: 0.5rem 0;
 }
 
+button.link:hover, a.link:hover {
+  color: var(--color-light-gray);
+}
+
 button:disabled {
   background-color: var(--color-light-gray);
   border-color: var(--color-light-gray);
   cursor: not-allowed;
 }
+
+/* Inputs */
 
 input, textarea {
   all: unset;
@@ -90,7 +97,6 @@ input, textarea {
   flex: 1;
   padding: 0.5rem 0.75rem;
   cursor: text;
-  transition: all var(--animation-time) ease-in-out;
 }
 
 textarea {
@@ -108,6 +114,8 @@ input:focus, textarea:focus {
 ::placeholder {
   color: var(--color-mid-gray);
 }
+
+/* Wrapper */
 
 .wrapper {
   width: 90%;
@@ -186,7 +194,7 @@ input:focus, textarea:focus {
 }
 
 .avatar img:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .avatar svg {
@@ -248,7 +256,6 @@ nav .avatar .box {
 header .hamburger {
   position: relative;
   font-size: 1.5rem;
-  transition: all var(--animation-time) ease-out;
   cursor: pointer;
 }
 
@@ -278,7 +285,6 @@ nav.mobile a, nav.mobile button {
   border-radius: 0;
   padding: 1.5rem;
   justify-content: center ;
-  transition: all var(--animation-time) ease-in-out;
 }
 
 nav.mobile a:hover, nav.mobile button:hover {
@@ -418,7 +424,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   font-size: 0.875rem;
   padding: 0.25rem 0.75rem;
   cursor: pointer;
-  transition: all var(--animation-time) ease-in-out;
 }
 
 .companies li:hover {
@@ -813,7 +818,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all var(--animation-time) ease-in-out;
 }
 
 .select .options .option:hover {
@@ -972,6 +976,7 @@ nav.mobile a:hover, nav.mobile button:hover {
   align-items: center;
   flex: 0 1 calc(50% - 0.5rem);
   cursor: default;
+  animation: load var(--animation-time) ease-in forwards;
 }
 
 .user.container .avatar {
