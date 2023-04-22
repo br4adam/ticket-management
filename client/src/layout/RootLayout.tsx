@@ -6,8 +6,10 @@ const RootLayout = () => {
   return (
     <>
       <Header />
-      <Outlet />
-      <Toast />
+      <main>
+        <Outlet />
+        <Toast />
+      </main>
     </>
   )
 }

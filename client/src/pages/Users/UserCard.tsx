@@ -9,7 +9,6 @@ type Props = {
 const UserCard: FC<Props> = ({ user }) => {
   const isAdmin = user.company?.admins.includes(user._id)
 
-  console.log(user)
   return (
     <div className="user container">
       <Avatar image={user.avatar!} />
