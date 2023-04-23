@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { HiBadgeCheck } from "react-icons/hi"
+import { CheckmarkFilled } from "@carbon/icons-react"
 import avatars from "../assets/avatars"
 import defaultAvatar from "../assets/default-avatar.webp"
 
@@ -17,7 +17,7 @@ const Avatar: FC<Props> = ({ image, onClick, selected }) => {
       <div className="box">
         <img src={avatar} onClick={onClick} />
       </div>
-      { selected && <HiBadgeCheck /> }
+      { selected && <CheckmarkFilled size="20" /> }
     </div>
   )
 }

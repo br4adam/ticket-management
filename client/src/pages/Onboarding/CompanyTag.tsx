@@ -1,4 +1,4 @@
-import { HiBadgeCheck } from "react-icons/hi"
+import { CheckmarkFilled } from "@carbon/icons-react"
 import type { CompanyType } from "../../api/companies"
 import { FC } from "react"
 
@@ -12,7 +12,7 @@ const CompanyTag: FC<Props> = ({ company, onClick, selected }) => {
   return (
     <li onClick={onClick}>
       { company.name }
-      { selected && <HiBadgeCheck /> }
+      { selected && <CheckmarkFilled size="20" /> }
     </li>
   )
 }

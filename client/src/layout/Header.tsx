@@ -1,7 +1,7 @@
 import { useState } from "react"
+import { Menu, Close } from "@carbon/icons-react"
 import logo from "../assets/logo.svg"
 import useWindowSize from "../hooks/useWindowSize"
-import { HiMenu, HiX } from "react-icons/hi"
 import Navigation from "./Navigation"
 import MobileNavigation from "./MobileNavigation"
 
@@ -21,7 +21,7 @@ const Header = () => {
         { width > 768
           ? <Navigation />
           : <>
-            { isOpen ? <HiX className="hamburger" onClick={onClick} /> : <HiMenu className="hamburger" onClick={onClick} /> }
+            { isOpen ? <Close size="24" className="hamburger" onClick={onClick} /> : <Menu size="24" className="hamburger" onClick={onClick} /> }
             <MobileNavigation isOpen={isOpen} onClick={onClick} />
             </>
         }

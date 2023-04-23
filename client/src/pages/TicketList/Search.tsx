@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
-import { HiOutlineSearch } from "react-icons/hi"
+import { Search as SearchIcon } from "@carbon/icons-react"
 import { useNavigate } from "react-router-dom"
 
 const Search = () => {
@@ -19,7 +19,7 @@ const Search = () => {
   return (
     <div className="search">
     <input value={searchValue} onChange={onChange} type="text" name="search" placeholder="Search by Id" />
-    <button className="solid" onClick={onClick}><HiOutlineSearch /></button>
+    <button className="solid" onClick={onClick}><SearchIcon /></button>
   </div>
   )
 }

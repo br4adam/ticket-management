@@ -43,7 +43,7 @@ const Create = () => {
         </label>
         <label>
           <span>Description</span>
-          <textarea value={ticketData.description} onChange={onInputChange} rows={4} name="description" placeholder="Type description here..." />
+          <textarea value={ticketData.description} onChange={onInputChange} rows={4} name="description" placeholder="Write description here." />
         </label>
         <button className="solid">Create Ticket</button>
       </form>

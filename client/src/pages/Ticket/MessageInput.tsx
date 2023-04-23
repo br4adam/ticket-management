@@ -1,6 +1,6 @@
 import { FC, useState } from "react"
 import { useParams } from "react-router-dom"
-import { HiPaperAirplane } from "react-icons/hi"
+import { SendFilled } from "@carbon/icons-react"
 import useGlobal from "../../hooks/useGlobal"
 import { user$ } from "../../states/user"
 import { sendMessage } from "../../api/tickets"
@@ -24,8 +24,8 @@ const MessageInput: FC<Props> = ({ refresh }) => {
 
   return (
     <div className="new-message">
-      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} name="message" placeholder="Type your message here..." />
-      <button className="solid" onClick={sendNewMessage}>Send <HiPaperAirplane /></button>
+      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} name="message" placeholder="Write your message here." />
+      <button className="solid" onClick={sendNewMessage}>Send <SendFilled /></button>
     </div>
   )
 }

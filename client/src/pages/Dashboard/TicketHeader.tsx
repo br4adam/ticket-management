@@ -1,4 +1,4 @@
-import { HiArrowRight } from "react-icons/hi"
+import { ArrowRight } from "@carbon/icons-react"
 
 const TicketHeader = () => {
   return (
@@ -15,7 +15,7 @@ const TicketHeader = () => {
         <p>Priority</p>
       </div>
       <p className="date">Created</p>
-      <HiArrowRight />
+      <ArrowRight />
     </div>
   )
 }

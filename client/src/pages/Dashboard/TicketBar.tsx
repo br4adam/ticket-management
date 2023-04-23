@@ -1,8 +1,7 @@
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import { type TicketType } from "../../api/tickets"
-import { HiOutlineArrowRight, HiOutlineCheck } from "react-icons/hi"
-import { RxCopy } from "react-icons/rx"
+import { ArrowRight, Copy, Checkmark } from "@carbon/icons-react"
 import Avatar from "../../components/Avatar"
 import capitalize from "../../utils/capitalize"
 import useClipboard from "../../hooks/useClipboard"
@@ -16,8 +15,8 @@ const TicketBar: FC<TicketType> = ( ticket ) => {
     <div className="ticketbar">
       <div className="id">
         { copied
-          ? <HiOutlineCheck />
-          : <RxCopy onClick={() => copy(ticket._id)} />
+          ? <Checkmark />
+          : <Copy onClick={() => copy(ticket._id)} />
         }
         <p>{ ticket._id }</p>
       </div>
@@ -32,7 +31,7 @@ const TicketBar: FC<TicketType> = ( ticket ) => {
         <p>{ capitalize(ticket.priority) }</p>
       </div>
       <p className="date">{ formatDate(ticket.createdAt, "short") }</p>
-      <HiOutlineArrowRight onClick={() => navigate(`/tickets/${ticket._id}`) }/>
+      <ArrowRight onClick={() => navigate(`/tickets/${ticket._id}`) }/>
     </div>
   )
 }

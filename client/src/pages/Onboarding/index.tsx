@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { HiArrowRight } from "react-icons/hi"
+import { ArrowRight } from "@carbon/icons-react"
 import avatars from "../../assets/avatars"
 import Avatar from "../../components/Avatar"
 import CompanyTag from "./CompanyTag"
@@ -45,7 +45,7 @@ const Onboarding = () => {
       </ul>
       <AddCompany refresh={refresh} />
       <button className="solid" onClick={saveUserData} >
-        Continue <HiArrowRight/>
+        Continue <ArrowRight />
       </button>
     </div>
   )

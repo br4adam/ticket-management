@@ -1,5 +1,5 @@
 import { Link, Navigate } from "react-router-dom"
-import { HiOutlineDeviceMobile, HiOutlineViewGrid, HiOutlineEmojiHappy } from "react-icons/hi"
+import { MobileCheck, CenterSquare, ThumbsUp } from "@carbon/icons-react"
 import dashboard from "../../assets/dashboard-mockup.webp"
 import FeatureCard from "./FeatureCard"
 import createGoogleUrl from "../../utils/createGoogleUrl"
@@ -12,9 +12,9 @@ const Landing = () => {
   const token = useGlobal(token$)
 
   const features = [
-    { title: "Responsive", description: "Designed to be mobile-friendly, allowing you to report issues and track your tickets on the go.", icon: <HiOutlineDeviceMobile /> },
-    { title: "Centralized", description: "Centralize all error tickets, making it easy for administrators to manage and resolve them.", icon: <HiOutlineViewGrid /> },
-    { title: "User friendly", description: "Easy to navigate and use, making it simple for you to create and track your error tickets.", icon: <HiOutlineEmojiHappy /> }
+    { title: "Responsive", description: "Designed to be mobile-friendly, allowing you to report issues and track your tickets on the go.", icon: <MobileCheck size="32" /> },
+    { title: "Centralized", description: "Centralize all error tickets, making it easy for administrators to manage and resolve them.", icon: <CenterSquare size="32" /> },
+    { title: "User friendly", description: "Easy to navigate and use, making it simple for you to create and track your error tickets.", icon: <ThumbsUp size="32" /> }
   ]
 
   if (user && token) return <Navigate to="/dashboard" replace />

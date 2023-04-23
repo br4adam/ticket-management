@@ -200,9 +200,7 @@ input:focus, textarea:focus {
 .avatar svg {
   position: absolute;
   bottom: 0;
-  right: -0.5rem;
-  font-size: 1.5rem;
-  fill: var(--color-black);
+  right: -0.25rem;
 }
 
 /* Header */
@@ -281,14 +279,10 @@ nav.mobile.slide {
 }
 
 nav.mobile a, nav.mobile button {
-  width: 100%;
+  width: 90%;
   border-radius: 0;
-  padding: 1.5rem;
-  justify-content: center ;
-}
-
-nav.mobile a:hover, nav.mobile button:hover {
-  background-color: var(--color-dark-background);
+  padding: 1.5rem 0;
+  justify-content: flex-start
 }
 
 /* Landing */
@@ -353,11 +347,6 @@ nav.mobile a:hover, nav.mobile button:hover {
   justify-content: center;
   width: 3.5rem;
   aspect-ratio: 1/1;
-}
-
-.features .feature-card svg {
-  font-size: 2rem;
-  stroke-width: 1.75px;
 }
 
 .features .feature-card p:first-of-type {
@@ -433,10 +422,9 @@ nav.mobile a:hover, nav.mobile button:hover {
 
 .companies li svg {
   position: absolute;
-  bottom: -0.5rem;
-  right: -0.7rem;
-  font-size: 1.5rem;
-  fill: var(--color-black);
+  bottom: -0.25rem;
+  right: -0.6rem;
+  color: var(--color-black);
 }
 
 .add-company {
@@ -587,6 +575,10 @@ nav.mobile a:hover, nav.mobile button:hover {
   border-radius: 1rem;
   border: 0.5px solid var(--color-mid-gray);
   background-color: var(--color-light-background);
+}
+
+.ticketbar .id svg {
+  transform: scale(0.75);
 }
 
 .ticketbar .user, .ticketheader .user {
@@ -782,7 +774,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 }
 
 .select .header .chevron svg {
-  font-size: 1.25rem;
   margin: auto;
   cursor: pointer;
 }
@@ -933,10 +924,6 @@ nav.mobile a:hover, nav.mobile button:hover {
 .new-message {
   display: flex;
   gap: 0.5rem;
-}
-
-.new-message button svg {
-  transform: rotate(90deg);
 }
 
 .no-messages {

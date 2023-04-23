@@ -1,5 +1,5 @@
 import { FC, useState, useRef } from "react"
-import { HiChevronDown, HiChevronUp } from "react-icons/hi"
+import { ChevronUp, ChevronDown } from "@carbon/icons-react"
 import useClickOutside from "../hooks/useClickOutside"
 import SelectOption from "./SelectOption"
 import capitalize from "../utils/capitalize"
@@ -45,7 +45,7 @@ const Select: FC<Props> = ({ options, def, disabled, onSelect = () => {} }) => {
         <p>{ capitalize(selected) }</p>
         { !disabled &&
           <div className="chevron" >
-          { isOpen ? <HiChevronUp /> : <HiChevronDown /> } 
+          { isOpen ? <ChevronUp size="20" /> : <ChevronDown size="20" /> } 
           </div>
         }
       </div>
