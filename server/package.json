@@ -17,7 +17,6 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
-    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2",
     "yamljs": "^0.3.0",
     "zod": "^3.21.4"
