@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { getStatistics, type StatisticListType } from "../../api/charts"
+import { OpenPanelFilledTop, OpenPanelFilledBottom } from "@carbon/icons-react"
 import Stat from "./Stat"
 import useApi from "../../hooks/useApi"
 
@@ -20,7 +21,9 @@ const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
       <div className="wrapper">
         <div className="titlebar">
           <h1>Dashboard</h1>
-          { showCharts ? <button onClick={toggle}>Hide charts</button> : <button onClick={toggle} className="hidden">Show charts</button> }
+          { showCharts 
+            ? <button className="solid" onClick={toggle}><OpenPanelFilledTop />Hide charts</button>
+            : <button className="solid" onClick={toggle}><OpenPanelFilledBottom />Show charts</button> }
         </div>
         <div className="statgrid">
         { statistics && statistics.map(stat => <Stat key={stat.status} stat={stat} />)}

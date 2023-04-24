@@ -21,6 +21,8 @@ const UserListSchema = UserSchema.array()
 export type UserListType = z.infer<typeof UserListSchema>
 
 export const UpdateSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().optional(),
   avatar: z.string().optional(),
   phone: z.string().min(6).max(14).optional(),
   company: z.string().optional()
@@ -57,6 +59,11 @@ export const login = async (code: string) => {
 export const updateUser = async (data: UpdateType) => {
   const response = await request("put", "/api/users/me", data, TokenSchema)
   return response.data
+}
+
+export const getUser = async () => {
+  const response = await request("get", "/api/users/me", {}, UserSchema)
+  return response
 }
 
 export const getUsers = async () => {

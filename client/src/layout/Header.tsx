@@ -16,7 +16,7 @@ const Header = () => {
       <div className="wrapper">
         <div className="logo">
           <img src={logo} alt="logo icon" />
-          <p>Ticket Management</p>
+          <p><span>Ticket</span> Management</p>
         </div>
         { width > 768
           ? <Navigation />

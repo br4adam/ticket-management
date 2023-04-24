@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Dashboard, ListBoxes, DocumentAdd, User, Logout } from "@carbon/icons-react"
+import { Dashboard, ListBoxes, DocumentAdd, User, Login, Logout } from "@carbon/icons-react"
 import useGlobal from "../hooks/useGlobal"
 import { user$, logout } from "../states/user"
 import createGoogleUrl from "../utils/createGoogleUrl"
@@ -30,7 +30,7 @@ const MobileNavigation: FC<Props> = ({ isOpen, onClick }) => {
           <Link to="/profile" onClick={onClick} className="link"><User />Profile</Link>
           <button onClick={logOut} className="link"><Logout />Logout</button>
         </>
-      : <Link to={createGoogleUrl()} className="linke">Login</Link>
+      : <Link to={createGoogleUrl()} className="linke"><Login />Login</Link>
       }
     </nav>
   )

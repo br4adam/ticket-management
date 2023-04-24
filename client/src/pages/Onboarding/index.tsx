@@ -7,7 +7,7 @@ import CompanyTag from "./CompanyTag"
 import AddCompany from "./AddCompany"
 import { getCompanies, type CompanyType } from "../../api/companies"
 import getFilename from "../../utils/getFilename"
-import { user$, update as updateUser } from "../../states/user"
+import { user$, update } from "../../states/user"
 import Loader from "../../components/Loader"
 import useGlobal from "../../hooks/useGlobal"
 import useApi from "../../hooks/useApi"
@@ -26,7 +26,7 @@ const Onboarding = () => {
 
   const saveUserData = async () => {
     if (!selectedAvatar || !selectedCompany) return toast.error("Choose your avatar and company first!")
-    await updateUser({ avatar: selectedAvatar, company: selectedCompany })
+    await update({ avatar: selectedAvatar, company: selectedCompany })
     navigate("/dashboard")
   }
 

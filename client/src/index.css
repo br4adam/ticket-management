@@ -44,6 +44,7 @@ button, a {
   all: unset;
   padding: 0.5rem 1rem;
   width: fit-content;
+  height: fit-content;
   font-weight: 600;
   white-space: nowrap;
   line-height: 1.25;
@@ -190,7 +191,7 @@ input:focus, textarea:focus {
 
 .avatar img {
   width: 100%;
-  transition: var(--animation-time) ease-in-out;
+  transition: all var(--animation-time) ease-in-out;
 }
 
 .avatar img:hover {
@@ -200,7 +201,7 @@ input:focus, textarea:focus {
 .avatar svg {
   position: absolute;
   bottom: 0;
-  right: -0.25rem;
+  right: -10%;
 }
 
 /* Header */
@@ -232,6 +233,10 @@ header .wrapper {
 
 .logo img {
   height: 0.75rem;
+}
+
+.logo p span {
+  color: var(--color-main);
 }
 
 /* Navigation */
@@ -268,7 +273,6 @@ nav.mobile {
   width: 100%;
   height: calc(100% - 4.5rem);
   z-index: 30;
-  overflow: hidden;
   border-top: 1px solid var(--color-dark-background);
   background-color: var(--color-black);
   transition: right 0.5s ease-in-out;
@@ -292,7 +296,7 @@ nav.mobile a, nav.mobile button {
   padding-top: 4rem;
   text-align: center;
   opacity: 0;
-  animation-delay: 0.5s;
+  animation-delay: 0.25s;
 }
 
 .landing h1 {
@@ -450,21 +454,14 @@ nav.mobile a, nav.mobile button {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .statistics .wrapper .titlebar button {
-  background-color: var(--color-dark-background);
-  border: 1px solid transparent;
   font-size: 0.75rem;
 }
 
-.statistics .wrapper .titlebar button:hover {
-  border: 1px solid var(--color-dark-gray);
-}
-
-.statistics .wrapper .titlebar .hidden {
-  opacity: 0.4;
+.statistics .wrapper .titlebar svg {
+  width: 0.875rem;
 }
 
 .statistics .statgrid {
@@ -503,7 +500,7 @@ nav.mobile a, nav.mobile button {
 .stat .data p:first-of-type {
   font-size: 1.5rem;
   line-height: 1.25;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .stat .data p:last-of-type {
@@ -578,7 +575,7 @@ nav.mobile a, nav.mobile button {
 }
 
 .ticketbar .id svg {
-  transform: scale(0.75);
+  width: 0.75rem;
 }
 
 .ticketbar .user, .ticketheader .user {
@@ -656,10 +653,8 @@ nav.mobile a, nav.mobile button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
   gap: 0.5rem;
   margin: 1rem 0;
-  font-size: 0.875rem;
 }
 
 .empty-state img {
@@ -930,7 +925,6 @@ nav.mobile a, nav.mobile button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   gap: 0.5rem;
   color: var(--color-dark-gray);
 }
@@ -944,6 +938,69 @@ nav.mobile a, nav.mobile button {
   max-width: 20rem;
 }
 
+/* Profile */
+
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-light-gray);
+  padding-bottom: 1rem;
+}
+
+.edit-header > div p:last-of-type {
+  margin-top: 0.5rem;
+  color: var(--color-dark-gray);
+}
+
+.edit-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.edit-data > div {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  color: var(--color-dark-gray);
+}
+
+.edit-data > div > p:first-of-type {
+  min-width: 7rem;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.edit-avatar .avatars {
+  border: none;
+  max-width: 100%;
+  padding: 0;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.edit-avatar .avatar .box {
+  width: 2.5rem;
+}
+
+.edit-avatar svg {
+  color: var(--color-black);
+  width: 1rem;
+}
+
+.logout.container {
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.logout p:last-of-type {
+  margin-top: 0.5rem;
+  color: var(--color-dark-gray);
+}
+
 /* Users */
 
 .users input {
@@ -955,7 +1012,6 @@ nav.mobile a, nav.mobile button {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  text-align: center;
 }
 
 .user.container {
@@ -988,7 +1044,7 @@ span.admin {
   border-radius: 1rem;
   padding: 0 0.5rem;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Toast */
@@ -1077,7 +1133,7 @@ span.admin {
   .chart {
     width: 100%;
   }
-  .select-elements, .create form label {
+  .select-elements, .create form label, .logout.container, .edit-header, .edit-data > div {
     flex-direction: column;
   }
   header {

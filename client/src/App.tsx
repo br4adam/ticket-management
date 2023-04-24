@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard"
 import Create from "./pages/Create"
 import TicketList from "./pages/TicketList"
 import Ticket from "./pages/Ticket"
+import Profile from "./pages/Profile"
 import Users from "./pages/Users"
 import NotFound from "./pages/NotFound"
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
           { path: "/create", element: <Create /> },
           { path: "/tickets", element: <TicketList /> },
           { path: "/tickets/:id", element: <Ticket /> },
+          { path: "/profile", element: <Profile /> },
           { path: "/users", element: <Users /> },
         ] 
       },
