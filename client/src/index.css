@@ -28,6 +28,7 @@
   --color-priority-medium-bg: #fbefda;
   --color-priority-high: #fa8484;
   --color-priority-high-bg: #f7dada;
+  --color-main-15: #e0ff4015;
   --box-shadow: 0 0.75rem 1rem -0.5rem #00000015;
   --animation-time: 0.25s;
 }
@@ -69,6 +70,10 @@ button.solid:hover:not(:disabled), a.solid:hover:not(:disabled) {
 button.outline, a.outline {
   color: var(--color-main);
   border: 1px solid var(--color-main);
+}
+
+button.outline:hover, a.outline:hover {
+  background-color: var(--color-main-15);
 }
 
 button.link, a.link {

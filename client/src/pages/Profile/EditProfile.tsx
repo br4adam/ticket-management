@@ -18,9 +18,12 @@ const EditProfile: FC<Props> = ({ user, refresh }) => {
     setUpdateData({ ...updateData, [name]: value })
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
   const saveUserData = async () => {
     if (!updateData.name || !updateData.email) return toast.error("Please fill all the fields before saving!")
-    if (updateData.phone && updateData.phone.length < 6) return toast.error("Please write a valid phone number!")
+    if (!emailRegex.test(updateData.email)) return toast.error("Please add a valid email!")
+    if (updateData.phone && updateData.phone.length < 6) return toast.error("Please add a valid phone number!")
     await update(updateData)
     toast.success("Your profile updated successfully!")
     setIsEditable(false)
