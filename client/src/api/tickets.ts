@@ -53,11 +53,18 @@ const MessageSchema = z.object({
 })
 type MessageType = z.infer<typeof MessageSchema>
 
-const TicketListSchema = TicketSchema.array()
+const TicketListSchema = z.object({
+  tickets: TicketSchema.array(),
+  page: z.number(),
+  totalPages: z.number(),
+  totalCount: z.number()
+})
+export type TicketListType = z.infer<typeof TicketListSchema>
+
 const TicketIdSchema = z.string()
 
-export const getTickets = async () => {
-  const response = await request("get", "/api/tickets", {}, TicketListSchema)
+export const getTickets = async (limit?: number, page?: number) => {
+  const response = await request("get", `/api/tickets/?limit=${limit}&page=${page}`, {}, TicketListSchema)
   return response
 }
 

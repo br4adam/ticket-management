@@ -17,14 +17,14 @@ client.interceptors.request.use(
 )
 
 type Completed<T> = {
-  data: T,
-  status: number,
+  data: T
+  status: number
   success: true
 }
 
 type Failed = {
-  data: unknown,
-  status: number,
+  data: unknown
+  status: number
   success: false
 }
 

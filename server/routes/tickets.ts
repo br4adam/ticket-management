@@ -35,10 +35,17 @@ type TicketUpdateType = z.infer<typeof TicketUpdateSchema>
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
+  const limit = parseInt(req.query.limit as string) || 0
+  const page = parseInt(req.query.page as string) || 1
+  const skip = (page - 1) * limit
+
   let findQuery: any = { createdBy: user._id }
   if (user.isAdmin) findQuery = { company: user.company._id }
-  const userTickets = await Ticket.find(findQuery).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
-  return res.status(200).json(userTickets)
+  const userTickets = await Ticket.find(findQuery).skip(skip).limit(limit).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
+  
+  const totalCount = await Ticket.countDocuments(findQuery)
+  const totalPages = Math.ceil(totalCount / limit)
+  return res.status(200).json({ tickets: userTickets, page, totalPages, totalCount })
 })
 
 router.get("/:id", verifyToken, async (req: Request, res: Response) => {

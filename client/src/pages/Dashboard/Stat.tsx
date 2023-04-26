@@ -7,7 +7,7 @@ import capitalize from "../../utils/capitalize"
 
 type Props = {
   stat: {
-    status: string,
+    status: string
     count: number
   }
 }

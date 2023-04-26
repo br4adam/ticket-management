@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect } from "react"
 
 type WindowSize = {
-  width: number,
+  width: number
   height: number
 }
 

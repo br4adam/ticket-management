@@ -3,9 +3,9 @@ import type { CompanyType } from "../../api/companies"
 import { FC } from "react"
 
 type Props = {
-  company: CompanyType,
-  onClick: React.MouseEventHandler<HTMLLIElement>,
-  selected: boolean,
+  company: CompanyType
+  onClick: React.MouseEventHandler<HTMLLIElement>
+  selected: boolean
 }
 
 const CompanyTag: FC<Props> = ({ company, onClick, selected }) => {

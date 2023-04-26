@@ -2,8 +2,8 @@ import { FC } from "react"
 
 type Props = {
   feature: {
-    title: string,
-    description: string,
+    title: string
+    description: string
     icon: JSX.Element
   }
 }

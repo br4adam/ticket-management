@@ -3,7 +3,7 @@ import capitalize from "../../utils/capitalize"
 
 type Props = {
   item: {
-    priority: string,
+    priority: string
     description: string
   }
 }

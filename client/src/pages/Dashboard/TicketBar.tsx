@@ -7,7 +7,11 @@ import capitalize from "../../utils/capitalize"
 import useClipboard from "../../hooks/useClipboard"
 import formatDate from "../../utils/formatDate"
 
-const TicketBar: FC<TicketType> = ( ticket ) => {
+type Props = {
+  ticket: TicketType
+}
+
+const TicketBar: FC<Props> = ({ ticket }) => {
   const { copy, copied } = useClipboard()
   const navigate = useNavigate()
 

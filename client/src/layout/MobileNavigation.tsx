@@ -6,7 +6,7 @@ import { user$, logout } from "../states/user"
 import createGoogleUrl from "../utils/createGoogleUrl"
 
 type Props = {
-  isOpen: boolean,
+  isOpen: boolean
   onClick: () => void
 }
 

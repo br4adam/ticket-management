@@ -4,8 +4,8 @@ import type { Response as NativeResponse } from "../api/request"
 type Response<T> = {
   data: T | null
   loading: boolean
-  error: string | null,
-  refresh: () => Promise<void>,
+  error: string | null
+  refresh: () => Promise<void>
 }
 
 const useApi = <T>(func: () => Promise<NativeResponse<T>>, initialState: T | null = null ): Response<T> => {

@@ -12,7 +12,7 @@ type Props = {
         name: string
         avatar?: string
     }
-  }[],
+  }[]
   refresh: () => Promise<void>
 }
 
