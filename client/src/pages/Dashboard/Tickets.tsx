@@ -9,10 +9,11 @@ import useApi from "../../hooks/useApi"
 const Tickets = () => {
   const { data: tickets, loading } = useApi<TicketType[]>(getTickets)
 
+  if (loading) return <Loader />
+
   return (
     <section className="tickets container">
       <p className="title">Latest Tickets</p>
-      { loading && <Loader /> }
       { tickets?.length
         ? <div className="scrollable">
           <TicketHeader />

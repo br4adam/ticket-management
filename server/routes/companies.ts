@@ -24,7 +24,7 @@ router.get("/:id/tickets", verifyToken, async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const company = await Company.findById(id)
-  if (!company) return res.status(404).json("Company not found.")
+  if (!company) return res.sendStatus(404)
   const foundTickets = await Ticket.find({ company: id }).populate("createdBy").populate("company").populate("messages.user")
   res.status(200).json(foundTickets)
 })

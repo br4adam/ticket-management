@@ -15,20 +15,22 @@ const Tickets = () => {
         <h1>Tickets</h1>
         <Search />
       </div>
-      <section className="tickets container">
-        <p className="title">All Tickets { !!tickets?.length && <span>({ tickets.length })</span> }</p>
-        { loading && <Loader /> }
-        { tickets?.length
-        ? <div className="scrollable">
-          <TicketHeader />
-          { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}
-          </div>
-        : <EmptyState loading={loading}>
-            <p className="title">No tickets found</p>
-            <p>Create your first ticket and it will show up here.</p>
-          </EmptyState>
-        }
-      </section>
+      { loading 
+        ? <Loader />
+        : <section className="tickets container">
+            <p className="title">All Tickets { !!tickets?.length && <span>({ tickets.length })</span> }</p>
+            { tickets?.length
+            ? <div className="scrollable">
+              <TicketHeader />
+              { tickets && tickets.map(ticket => <TicketBar key={ticket._id} {...ticket} /> )}
+              </div>
+            : <EmptyState loading={loading}>
+                <p className="title">No tickets found</p>
+                <p>Create your first ticket and it will show up here.</p>
+              </EmptyState>
+            }
+          </section>
+      }
     </div>
   )
 }

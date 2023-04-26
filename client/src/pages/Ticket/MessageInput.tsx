@@ -17,7 +17,8 @@ const MessageInput: FC<Props> = ({ refresh }) => {
 
   const sendNewMessage = async () => {
     if (!id || !user || message.length < 1) return toast.error("Write your message before sending!")
-    await sendMessage(id, { user: user._id, message })
+    const response = await sendMessage(id, { user: user._id, message })
+    if (!response.success) return toast.error("Unable to send your message!")
     setMessage("")
     refresh()
   }

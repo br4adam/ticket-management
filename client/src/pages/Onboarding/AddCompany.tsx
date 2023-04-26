@@ -11,7 +11,8 @@ const AddCompany: FC<Props> = ({ refresh }) => {
 
   const saveCompany = async () => {
     if (newCompany.length < 3) return toast.error("This company name is too short!")
-    await createCompany(newCompany)
+    const response = await createCompany(newCompany)
+    if (!response.success) return toast.error("Unable to create company!")
     refresh()
     setNewCompany("")
   }

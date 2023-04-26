@@ -8,7 +8,7 @@ const TicketSchema = z.object({
   createdBy: z.object({
     _id: z.string(),
     name: z.string(),
-    email: z.string(),
+    email: z.string().email(),
     avatar: z.string().optional(),
     phone: z.string().optional(),
     company: z.string()

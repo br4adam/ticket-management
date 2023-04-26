@@ -38,7 +38,6 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
   let findQuery: any = { createdBy: user._id }
   if (res.locals.admin) findQuery = { company: user.company._id }
   const userTickets = await Ticket.find(findQuery).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
-  if (!userTickets) return res.status(400).json("Tickets not found.")
   return res.status(200).json(userTickets)
 })
 
@@ -46,14 +45,14 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const foundTicket = await Ticket.findById(id).populate("createdBy").populate("company").populate(({ path: "messages.user", select: "_id name avatar" }))
-  if (!foundTicket) return res.status(404).json(`Ticket ${id} not found.`)
+  if (!foundTicket) return res.sendStatus(404)
   res.status(200).json(foundTicket)
 })
 
 router.post("/", verifyToken, verifySchema(TicketSchema), async (req: Request, res: Response) => {
   const data = req.body as NewTicketType
   const user = res.locals.user
-  if (data.createdBy !== user._id) return res.sendStatus(401)
+  if (data.createdBy !== user._id) return res.sendStatus(403)
   const createdTicket = await Ticket.create<TicketType>(data)
   res.status(201).json(createdTicket._id)
 })
@@ -63,7 +62,7 @@ router.put("/:id", verifyToken, verifySchema(TicketUpdateSchema), async (req: Re
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const data = req.body as TicketUpdateType
   const updatedTicket = await Ticket.findByIdAndUpdate(id, { $set: { ...data } }, { new: true })
-  if (!updatedTicket) return res.status(404).json(`Ticket ${id} not found.`)
+  if (!updatedTicket) return res.sendStatus(404)
   res.status(200).json(updatedTicket)
 })
 
@@ -71,10 +70,10 @@ router.put("/:id/messages", verifyToken, verifySchema(MessageSchema), async (req
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const user = res.locals.user
-  if (req.body.user !== user._id) return res.sendStatus(401)
+  if (req.body.user !== user._id) return res.sendStatus(403)
   const message = req.body as MessageType
   const updatedTicket = await Ticket.findByIdAndUpdate(id, { $push: { messages: message } }, { new: true })
-  if (!updatedTicket) return res.status(404).json(`Ticket ${id} not found.`)
+  if (!updatedTicket) return res.sendStatus(404)
   res.status(200).json(updatedTicket)
 })
 
@@ -82,7 +81,7 @@ router.delete("/:id", verifyToken, async (req: Request, res: Response) => {
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const deletedTicket = await Ticket.findByIdAndDelete(id)
-  if (!deletedTicket) return res.status(404).json(`Ticket ${id} not found.`)
+  if (!deletedTicket) return res.sendStatus(404)
   res.status(200).json("Ticket has been deleted successfully.")
 })
 

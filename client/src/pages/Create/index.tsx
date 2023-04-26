@@ -23,10 +23,11 @@ const Create = () => {
   const createTicket = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!ticketData.subject) return toast.error("Please fill all the fields before submitting!")
-    const { data } = await saveTicket({ ...ticketData, priority })
+    const response = await saveTicket({ ...ticketData, priority })
+    if (!response.success) return toast.error("Unable to create your ticket!")
     toast.success("Ticket created successfully!")
     setTicketData(initialData)
-    navigate(`/tickets/${data}`)
+    navigate(`/tickets/${response.data}`)
   }
 
   return (

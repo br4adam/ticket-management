@@ -14,7 +14,7 @@ const Ticket = () => {
   const { data: ticket, loading, refresh } = useApi<TicketType>(() => getTicket(id!))
   const user = useGlobal(user$)
 
-  if (!id || !ticket ) return (
+  if (!id || !ticket) return (
     <EmptyState loading={loading}>
       <p className="title">{`Ticket with Id "${id}" not found`}</p>
       <p>Check the Id of the ticket again.</p>
@@ -29,13 +29,17 @@ const Ticket = () => {
   return (
     <div className="ticket wrapper">
       <h1>Ticket details</h1>
-      { loading && <Loader/> }
-      <section className="select-elements">
-        <Select options={[ "open", "pending", "closed" ]} disabled={!isAdmin} def={ticket.status} onSelect={updateStatus} />
-        <Select options={[ "low", "medium", "high" ]} disabled={!isAdmin} def={ticket.priority} onSelect={updatePriority} />
-      </section>
-      { ticket && <Details ticket={ticket} /> }
-      { ticket.messages && <Messages messages={ticket.messages} refresh={refresh} /> }
+      { loading
+        ? <Loader/> 
+        : <>
+          <section className="select-elements">
+            <Select options={[ "open", "pending", "closed" ]} disabled={!isAdmin} def={ticket.status} onSelect={updateStatus} />
+            <Select options={[ "low", "medium", "high" ]} disabled={!isAdmin} def={ticket.priority} onSelect={updatePriority} />
+          </section>
+          { ticket && <Details ticket={ticket} /> }
+          { ticket.messages && <Messages messages={ticket.messages} refresh={refresh} /> }  
+        </>
+      }
     </div>
   )
 }

@@ -34,7 +34,7 @@ router.post('/', verifySchema(LoginRequestSchema), async (req: Request, res: Res
   if (!foundUser) await User.create<UserType>(result)
   
   const user = await User.findOne({ sub: result.sub }).select("-sub").populate("company").lean()
-  if (!user) return res.sendStatus(400)
+  if (!user) return res.sendStatus(404)
 
   const sessionToken = jwt.sign(user, secretKey, { expiresIn: "2h" })
   res.status(200).json(sessionToken) 

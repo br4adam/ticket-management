@@ -6,7 +6,7 @@ import { z } from "zod"
 export const UserSchema = z.object({
   _id: z.string(),
   name: z.string(),
-  email: z.string(),
+  email: z.string().email(),
   avatar: z.string().optional(),
   phone: z.string().min(6).max(14).optional(),
   company: z.object({
@@ -49,16 +49,16 @@ token$.subscribe((token) => {
 
 export const login = async (code: string) => {
   const response = await request("post", "/api/login", { code }, TokenSchema)
-  if (response.status !== 200) return null
+  if (!response.success) return response
   const token = response.data
   token$.next(token)
   localStorage.setItem("token", token)
-  return response.data
+  return response
 }
 
 export const updateUser = async (data: UpdateType) => {
   const response = await request("put", "/api/users/me", data, TokenSchema)
-  return response.data
+  return response
 }
 
 export const getUser = async () => {

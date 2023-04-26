@@ -10,9 +10,13 @@ const Profile = () => {
   return (
     <div className="profile wrapper">
       <h1>Profile</h1>
-      { loading && <Loader /> }
-      { user && <EditProfile user={user} refresh={refresh} /> }
-      <Logout />
+      { loading
+        ? <Loader /> 
+        : <>
+          { user && <EditProfile user={user} refresh={refresh} /> }
+          <Logout />
+          </>
+      }
     </div>
   )
 }
