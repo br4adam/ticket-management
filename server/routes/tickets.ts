@@ -36,7 +36,7 @@ type TicketUpdateType = z.infer<typeof TicketUpdateSchema>
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
   let findQuery: any = { createdBy: user._id }
-  if (res.locals.admin) findQuery = { company: user.company._id }
+  if (user.isAdmin) findQuery = { company: user.company._id }
   const userTickets = await Ticket.find(findQuery).populate("createdBy").populate("company").populate({ path: "messages.user", select: "_id name avatar" }).sort({ createdAt: -1 })
   return res.status(200).json(userTickets)
 })

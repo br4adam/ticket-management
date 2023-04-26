@@ -10,7 +10,8 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_REDIRECT_URI: z.string(),
-  JWT_SECRET_KEY: z.string()
+  JWT_SECRET_KEY: z.string(),
+  TOKEN_EXPIRATION_TIME: z.string()
 })
 
 envSchema.parse(process.env)

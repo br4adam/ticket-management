@@ -3,11 +3,13 @@ import { z } from "zod"
 import verifyToken from "../middlewares/verifyToken"
 import verifySchema from "../middlewares/verifySchema"
 import { User } from "../models/User"
+import { Company } from "../models/Company"
 import jwt from "jsonwebtoken"
 
 const router = express.Router()
 
 const secretKey = process.env.JWT_SECRET_KEY
+const expiresIn = process.env.TOKEN_EXPIRATION_TIME
 
 const UserUpdateSchema = z.object({
   name: z.string().min(3).optional(),
@@ -38,7 +40,8 @@ router.put("/me", verifyToken, verifySchema(UserUpdateSchema), async (req: Reque
   const user = res.locals.user
   const updatedUser = await User.findByIdAndUpdate(user._id, { $set: { ...userData } }, { new: true }).select("-sub").populate("company").lean()
   if (!updatedUser) return res.sendStatus(404)
-  const sessionToken = jwt.sign(updatedUser, secretKey, { expiresIn: "2h" })
+  const isAdmin = !!(updatedUser.company && await Company.exists({ _id: updatedUser.company._id, admins: updatedUser._id }))
+  const sessionToken = jwt.sign({ ...updatedUser, isAdmin }, secretKey, { expiresIn })
   res.status(200).json(sessionToken)
 })
 

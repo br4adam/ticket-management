@@ -13,7 +13,7 @@ router.get("/linechart", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
 
   let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id), updatedAt: { $gte: startDate }}
-  if (res.locals.admin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id), updatedAt: { $gte: startDate }}
+  if (user.isAdmin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id), updatedAt: { $gte: startDate }}
 
   const groupedTicketCounts = await Ticket.aggregate()
     .match(matchQuery)
@@ -42,7 +42,7 @@ router.get("/barchart", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
 
   let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id), createdAt: { $gte: startDate }}
-  if (res.locals.admin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id), createdAt: { $gte: startDate }}
+  if (user.isAdmin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id), createdAt: { $gte: startDate }}
 
   const newTicketCounts = await Ticket.aggregate()
     .match(matchQuery)
@@ -65,7 +65,7 @@ router.get("/statistics", verifyToken, async (req: Request, res: Response) => {
   const user = res.locals.user
 
   let matchQuery: any = { createdBy: new mongoose.Types.ObjectId(user._id) }
-  if (res.locals.admin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id) }
+  if (user.isAdmin) matchQuery = { company: new mongoose.Types.ObjectId(user.company._id) }
 
   const ticketCountsByStatus = await Ticket.aggregate()
     .match(matchQuery)

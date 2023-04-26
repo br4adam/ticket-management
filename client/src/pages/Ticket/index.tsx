@@ -24,7 +24,7 @@ const Ticket = () => {
   const updateStatus = async (value: string) => await updateTicket(id, { status: value })
   const updatePriority = async (value: string) => await updateTicket(id, { priority: value })
 
-  const isAdmin = user && ticket.company.admins.includes(user._id)
+  const isAdmin = user?.isAdmin || false
 
   return (
     <div className="ticket wrapper">

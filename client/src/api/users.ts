@@ -13,7 +13,8 @@ export const UserSchema = z.object({
     _id: z.string(),
     name: z.string(),
     admins: z.string().array(),
-  }).optional()
+  }).optional(),
+  isAdmin: z.boolean().optional()
 })
 export type UserType = z.infer<typeof UserSchema>
 

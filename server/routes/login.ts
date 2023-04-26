@@ -5,6 +5,7 @@ import getIdToken from "../api/google"
 import safeParse from "../utils/safeParse"
 import verifySchema from "../middlewares/verifySchema"
 import { User, UserType } from "../models/User"
+import { Company } from "../models/Company"
 
 const router = express.Router()
 
@@ -20,6 +21,7 @@ const PayloadSchema = z.object({
 })
 
 const secretKey = process.env.JWT_SECRET_KEY
+const expiresIn = process.env.TOKEN_EXPIRATION_TIME
 
 router.post('/', verifySchema(LoginRequestSchema), async (req: Request, res: Response) => {
   const loginRequest = req.body as LoginRequest
@@ -36,7 +38,9 @@ router.post('/', verifySchema(LoginRequestSchema), async (req: Request, res: Res
   const user = await User.findOne({ sub: result.sub }).select("-sub").populate("company").lean()
   if (!user) return res.sendStatus(404)
 
-  const sessionToken = jwt.sign(user, secretKey, { expiresIn: "2h" })
+  const isAdmin = !!(user.company && await Company.exists({ _id: user.company._id, admins: user._id }))
+  
+  const sessionToken = jwt.sign({ ...user, isAdmin }, secretKey, { expiresIn })
   res.status(200).json(sessionToken) 
 })
 
