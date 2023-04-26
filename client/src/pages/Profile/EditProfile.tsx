@@ -11,7 +11,7 @@ type Props = {
 
 const EditProfile: FC<Props> = ({ user, refresh }) => {
   const [ isEditable, setIsEditable ] = useState<boolean>(false)
-  const [ updateData, setUpdateData ] = useState<UpdateType>({ name: user.name, email: user.email, phone: user.phone || "", avatar: user.avatar })
+  const [ updateData, setUpdateData ] = useState<UpdateType>({ name: user.name, email: user.email, phone: user.phone || "" })
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -24,8 +24,7 @@ const EditProfile: FC<Props> = ({ user, refresh }) => {
     if (!updateData.name || !updateData.email) return toast.error("Please fill all the fields before saving!")
     if (!emailRegex.test(updateData.email)) return toast.error("Please add a valid email!")
     if (updateData.phone && updateData.phone.length < 6) return toast.error("Please add a valid phone number!")
-    const response = await update(updateData)
-    if (!response) return toast.error("Unable to update your profile!")
+    await update(updateData)
     toast.success("Your profile updated successfully!")
     setIsEditable(false)
     refresh()

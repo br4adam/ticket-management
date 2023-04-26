@@ -61,7 +61,7 @@ router.put("/:id", verifyToken, verifySchema(TicketUpdateSchema), async (req: Re
   const id = req.params.id
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(422).json("Please provide correct id.")
   const data = req.body as TicketUpdateType
-  const updatedTicket = await Ticket.findByIdAndUpdate(id, { $set: { ...data } }, { new: true })
+  const updatedTicket = await Ticket.findByIdAndUpdate(id, { $set: { ...data } }, { new: true }).populate("createdBy").populate("company").populate(({ path: "messages.user", select: "_id name avatar" }))
   if (!updatedTicket) return res.sendStatus(404)
   res.status(200).json(updatedTicket)
 })
@@ -72,7 +72,7 @@ router.put("/:id/messages", verifyToken, verifySchema(MessageSchema), async (req
   const user = res.locals.user
   if (req.body.user !== user._id) return res.sendStatus(403)
   const message = req.body as MessageType
-  const updatedTicket = await Ticket.findByIdAndUpdate(id, { $push: { messages: message } }, { new: true })
+  const updatedTicket = await Ticket.findByIdAndUpdate(id, { $push: { messages: message } }, { new: true }).populate("createdBy").populate("company").populate(({ path: "messages.user", select: "_id name avatar" }))
   if (!updatedTicket) return res.sendStatus(404)
   res.status(200).json(updatedTicket)
 })

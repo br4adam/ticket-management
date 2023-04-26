@@ -17,12 +17,12 @@
   --color-mid-gray: #b8b8b8;
   --color-dark-gray: #565656;
   --color-status-total: #7befff;
-  --color-status-open: #b0ffae;
+  --color-status-open: #b1fab0;
   --color-status-open-text: #196b0c;
-  --color-status-pending: #ffe693;
+  --color-status-pending: #f9e4a0;
   --color-status-pending-text: #6b4b0c;
-  --color-status-closed: #e0cbfc;
-  --color-priority-low: #7befff;
+  --color-status-closed: #dfcdf8;
+  --color-priority-low: #7eecfa;
   --color-priority-low-bg: #ddf6f9;
   --color-priority-medium: #f8c96b;
   --color-priority-medium-bg: #fbefda;
