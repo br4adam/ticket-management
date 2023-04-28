@@ -12,7 +12,7 @@ const Logout = () => {
   return (
     <div className="logout container">
       <div>
-        <p className="title">Logout</p>
+        <h2>Logout</h2>
         <p>Thank you for using the app! When you're ready to log out, simply click the Logout button.</p>
       </div>
       <button className="solid" onClick={logOut}>Logout</button>

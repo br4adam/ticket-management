@@ -12,10 +12,10 @@ const UserCard: FC<Props> = ({ user }) => {
   return (
     <div className="user container">
       <Avatar image={user.avatar!} />
-      <p className="title">
+      <h2>
         { user.name }
         { isAdmin && <span className="admin">admin</span> }
-      </p>
+      </h2>
       <div className="user-data">
         <p>{ user.email }</p>
         <p>{ user.phone }</p>

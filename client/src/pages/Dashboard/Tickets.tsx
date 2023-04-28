@@ -13,14 +13,14 @@ const Tickets = () => {
 
   return (
     <section className="tickets container">
-      <p className="title">Latest Tickets</p>
+      <h2>Latest Tickets</h2>
       { data?.tickets.length
         ? <div className="scrollable">
           <TicketHeader />
           { data.tickets.map(ticket => <TicketBar key={ticket._id} ticket={ticket} /> )}
           </div>
         : <EmptyState loading={loading}>
-            <p className="title">No tickets found</p>
+            <h3>No tickets found</h3>
             <p>Create your first ticket and it will show up here.</p>
           </EmptyState>
         }

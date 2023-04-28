@@ -9,6 +9,7 @@
 
 :root {
   --color-main: #e0ff40;
+  --color-main-dark: #243201;
   --color-black: #161819;
   --color-white: #ffffff;
   --color-dark-background: #262829;
@@ -16,10 +17,10 @@
   --color-light-gray: #ebebeb;
   --color-mid-gray: #b8b8b8;
   --color-dark-gray: #565656;
-  --color-status-total: #7befff;
-  --color-status-open: #b1fab0;
+  --color-status-total: #80edfc;
+  --color-status-open: #b8feb0;
   --color-status-open-text: #196b0c;
-  --color-status-pending: #f9e4a0;
+  --color-status-pending: #fddd8d;
   --color-status-pending-text: #6b4b0c;
   --color-status-closed: #dfcdf8;
   --color-priority-low: #7eecfa;
@@ -28,7 +29,6 @@
   --color-priority-medium-bg: #fbefda;
   --color-priority-high: #fa8484;
   --color-priority-high-bg: #f7dada;
-  --color-main-15: #e0ff4015;
   --box-shadow: 0 0.75rem 1rem -0.5rem #00000015;
   --animation-time: 0.25s;
 }
@@ -37,6 +37,8 @@ body {
   line-height: 1.5;
   font-family: "Inter", Helvetica, sans-serif;
   background-color: var(--color-light-background);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Buttons */
@@ -73,7 +75,7 @@ button.outline, a.outline {
 }
 
 button.outline:hover, a.outline:hover {
-  background-color: var(--color-main-15);
+  background-color: var(--color-main-dark);
 }
 
 button.link, a.link {
@@ -120,6 +122,10 @@ input:focus, textarea:focus {
   color: var(--color-mid-gray);
 }
 
+::selection {
+  background-color: var(--color-light-gray);
+}
+
 /* Wrapper */
 
 .wrapper {
@@ -139,6 +145,27 @@ input:focus, textarea:focus {
   align-self: flex-start;
 }
 
+h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+h2 span {
+  color: var(--color-mid-gray);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+h3 {
+  color: var(--color-black);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+
 /* Container */
 
 .container {
@@ -151,20 +178,6 @@ input:focus, textarea:focus {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-}
-
-.title {
-  font-size: 1rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.title span {
-  color: var(--color-mid-gray);
-  font-size: 0.875rem;
-  font-weight: 400;
 }
 
 /* Loader */
@@ -447,6 +460,7 @@ nav.mobile a, nav.mobile button {
   background-color: var(--color-black);
   color: var(--color-white);
   width: 100%;
+  user-select: none;
 }
 
 .statistics .wrapper {
@@ -454,17 +468,17 @@ nav.mobile a, nav.mobile button {
   padding: 1rem 0 2rem;
 }
 
-.statistics .wrapper .titlebar {
+.statistics .titlebar {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.statistics .wrapper .titlebar button {
+.statistics .titlebar button {
   font-size: 0.75rem;
 }
 
-.statistics .wrapper .titlebar svg {
+.statistics .titlebar svg {
   width: 0.875rem;
 }
 
@@ -516,6 +530,7 @@ nav.mobile a, nav.mobile button {
   width: 100%;
   display: flex;
   gap: 1rem;
+  user-select: none;
 }
 
 .chart {
@@ -532,17 +547,13 @@ nav.mobile a, nav.mobile button {
   box-shadow: var(--box-shadow);
 }
 
-.chart > p {
-  font-size: 1rem;
-  font-weight: 600;
-}
-
 .tickets .scrollable {
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .ticketheader {
@@ -617,9 +628,8 @@ nav.mobile a, nav.mobile button {
 
 .ticketbar .status {
   border-radius: 1rem;
-  padding: 0.2rem;
+  padding: 0.15rem;
   font-size: 0.75rem;
-  font-weight: 500;
 }
 
 .ticketbar .priority, .ticketheader .priority {
@@ -650,6 +660,19 @@ nav.mobile a, nav.mobile button {
   cursor: pointer;
 }
 
+.scroll-to-top {
+  position: fixed;
+  z-index: 20;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2.5rem;
+  aspect-ratio: 1/1;
+  padding: 0;
+  border-radius: 100%;
+  justify-content: center;
+  animation: load var(--animation-time) ease-in forwards;
+}
+
 /* Empty State */
 
 .empty-state {
@@ -659,15 +682,12 @@ nav.mobile a, nav.mobile button {
   justify-content: center;
   gap: 0.5rem;
   margin: 1rem 0;
+  color: var(--color-dark-gray);
 }
 
 .empty-state img {
   width: 90%;
   max-width: 20rem;
-}
-
-.empty-state p:not(.title) {
-  color: var(--color-dark-gray);
 }
 
 /* Create */
@@ -841,7 +861,7 @@ nav.mobile a, nav.mobile button {
 
 /* Ticket List */
 
-.topbar {
+.searchbar {
   width: 100%;
   display: flex;
   align-items: center;
@@ -859,10 +879,6 @@ nav.mobile a, nav.mobile button {
 
 .ticketlist .search input {
   flex: 0 1 17.5rem;
-}
-
-.tickets .scrollable {
-  margin-bottom: 1rem;
 }
 
 .tickets .load-more {
@@ -1060,10 +1076,8 @@ progress {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.user-data p:not(.title) {
   color: var(--color-dark-gray);
+  word-break: break-all;
   word-break: break-all;
 }
 

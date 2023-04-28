@@ -19,7 +19,7 @@ const Search = () => {
   return (
     <div className="search">
     <input value={searchValue} onChange={onChange} type="text" name="search" placeholder="Search by Id" />
-    <button className="solid" onClick={onClick}><SearchIcon /></button>
+    <button className="solid" onClick={onClick} aria-label="Search"><SearchIcon /></button>
   </div>
   )
 }

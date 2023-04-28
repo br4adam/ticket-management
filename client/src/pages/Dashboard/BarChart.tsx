@@ -9,7 +9,7 @@ const NewTicketsChart = () => {
 
   return (
     <div className="chart">
-      <p>New Tickets</p>
+      <h2>New Tickets</h2>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData}>
           <CartesianGrid vertical={false} stroke="#666666" />

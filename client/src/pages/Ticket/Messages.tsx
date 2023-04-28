@@ -20,7 +20,7 @@ const Messages: FC<Props> = ({ messages, refresh }) => {
 
   return (
     <section className="messages container">
-      <p className="title">Messages { !!messages.length && <span>({ messages.length })</span> }</p>
+      <h2>Messages { !!messages.length && <span>({ messages.length })</span> }</h2>
       { messages.length > 0
         ? <>{ messages.map((message, index) => <Message key={index} message={message} /> )}</>
         : <NoMessages />

@@ -14,7 +14,7 @@ const Users = () => {
 
   return (
     <div className="users wrapper">
-      <div className="topbar">
+      <div className="searchbar">
         <h1>Users</h1>
         <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search by name" />
       </div>

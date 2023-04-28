@@ -9,7 +9,7 @@ const priorityLevels = [
 const PriorityLevels = () => {
   return (
     <section className="priority-levels container">
-      <p className="title">Priority levels</p>
+      <h2>Priority levels</h2>
       <div>
         { priorityLevels.map(item => <Priority key={item.priority} item={item} />) }
       </div>

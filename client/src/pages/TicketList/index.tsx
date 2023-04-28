@@ -23,14 +23,14 @@ const Tickets = () => {
 
   return (
     <div className="ticketlist wrapper">
-      <div className="topbar">
+      <div className="searchbar">
         <h1>Tickets</h1>
         <Search />
       </div>
       { !tickets && loading 
         ? <Loader />
         : <section className="tickets container">
-            <p className="title">All Tickets</p>
+            <h2>All Tickets</h2>
             { tickets.length
             ? <>
                 <div className="scrollable">
@@ -49,7 +49,7 @@ const Tickets = () => {
                 </div>
               </>
             : <EmptyState loading={loading}>
-                <p className="title">No tickets found</p>
+                <h3>No tickets found</h3>
                 <p>Create your first ticket and it will show up here.</p>
               </EmptyState>
             }

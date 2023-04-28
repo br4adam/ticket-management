@@ -46,7 +46,7 @@ const Create = () => {
           <span>Description</span>
           <textarea value={ticketData.description} onChange={onInputChange} rows={4} name="description" placeholder="Write description here." />
         </label>
-        <button className="solid">Create Ticket</button>
+        <button className="solid" type="submit">Create Ticket</button>
       </form>
       <PriorityLevels />
     </div>

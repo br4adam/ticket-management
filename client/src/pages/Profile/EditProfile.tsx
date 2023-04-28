@@ -34,7 +34,7 @@ const EditProfile: FC<Props> = ({ user, refresh }) => {
     <div className="edit container">
       <div className="edit-header">
         <div>
-          <p className="title">Profile information</p>
+          <h2>Profile information</h2>
           <p>Here you can edit public information about yourself.</p>
         </div>
         { isEditable

@@ -16,7 +16,7 @@ const Ticket = () => {
 
   if (!id || !ticket) return (
     <EmptyState loading={loading}>
-      <p className="title">{`Ticket with Id "${id}" not found`}</p>
+      <h3>{`Ticket with Id "${id}" not found`}</h3>
       <p>Check the Id of the ticket again.</p>
     </EmptyState>
   )
