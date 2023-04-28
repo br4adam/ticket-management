@@ -33,13 +33,27 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Ticket"
+                type: object
+                properties:
+                  tickets:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Ticket"
+                  page:
+                    type: number
+                    example: 1
+                  totalPages:
+                    type: number
+                    example: 8
+                  totalCount:
+                    type: number
+                    example: 76
         "400":
-          description: Bad request. Tickets not found.
+          description: Bad request.
         "401":
           description: Authorization error.
+        "500":
+          description: Internal server error.
     post:
       tags:
         - tickets
@@ -76,6 +90,8 @@ paths:
                 example: 56cb91bdc3464f14678934ca
         "401":
           description: Authorization error.
+        "403":
+          description: Forbidden.
         "500":
           description: Internal server error.
   /tickets/{id}:
@@ -101,7 +117,7 @@ paths:
         "401":
           description: Authorization error.
         "404":
-          description: Ticket not found.
+          description: Not found.
         "422":
           description: ID validation error.
         "500":
@@ -140,7 +156,7 @@ paths:
         "401":
           description: Authorization error.
         "404":
-          description: Ticket not found.
+          description: Not found.
         "422":
           description: ID validation error.
         "500":
@@ -168,7 +184,7 @@ paths:
         "401":
           description: Authorization error.
         "404":
-          description: Ticket not found.
+          description: Not found.
         "422":
           description: ID validation error.
         "500":
@@ -201,7 +217,7 @@ paths:
         "401":
           description: Authorization error.
         "404":
-          description: Ticket not found.
+          description: Not found.
         "422":
           description: ID validation error.
         "500":
@@ -222,7 +238,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/User"
         "400":
-          description: Bad request. Users not found.
+          description: Bad request.
         "401":
           description: Authorization error.
         "500":
@@ -240,8 +256,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-        "400":
-          description: Bad request. User not found.
+        "404":
+          description: Not found.
         "401":
           description: Authorization error.
         "500":
@@ -282,7 +298,7 @@ paths:
         "401":
           description: Authorization error.
         "404":
-          description: User not found.
+          description: Not found.
         "500":
           description: Internal server error.
   /companies:
@@ -301,7 +317,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Company"
         "400":
-          description: Bad request. Companies not found.
+          description: Bad request.
         "401":
           description: Authorization error.
         "500":
@@ -358,7 +374,7 @@ paths:
         "401":
           description: Authorization error.
         "404":
-          description: Company not found.
+          description: Not found.
         "422":
           description: ID validation error.
         "500":
@@ -390,6 +406,8 @@ paths:
           description: Bad request.
         "401":
           description: Authorization error.
+        "404":
+          description: Not found.
         "500":
           description: Internal server error.
   /charts/linechart:
@@ -422,6 +440,8 @@ paths:
                       example: 8
         "401":
           description: Authorization error.
+        "500":
+          description: Internal server error.
   /charts/barchart:
     get:
       tags:
