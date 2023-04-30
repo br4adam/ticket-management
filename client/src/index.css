@@ -313,7 +313,7 @@ nav.mobile a, nav.mobile button {
   padding-top: 4rem;
   text-align: center;
   opacity: 0;
-  animation-delay: 0.25s;
+  animation-delay: var(--animation-time);
 }
 
 .landing h1 {
