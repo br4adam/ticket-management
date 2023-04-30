@@ -3,7 +3,9 @@
 <img src="https://user-images.githubusercontent.com/104263751/235360008-413a094e-4344-418e-afaf-05617e72839f.png">
 
 ### 💻 About
-This is a full-stack ticket management app built with the MERN (MongoDB, Express, React, Node.js) stack.
+This full-stack app specifically designed to track issues and manage tickets.
+
+With this application, users can easily create tickets, track their progress and communicate with administrators on the platform. Additionally, a dashboard is provided to allow users to view the status of their tickets and charts for analyzing aggregated ticket data.
 
 ### 🚀 Run locally
 Clone the project using the following command:
@@ -20,7 +22,7 @@ cd client
 npm install
 npm run dev
 ```
-Install server dependencies, build, and start the server using the following commands:
+Install server dependencies, build and start the server using the following commands:
 ```
 cd server
 npm install
