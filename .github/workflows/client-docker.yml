@@ -8,6 +8,11 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    env:
+      VITE_REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+      VITE_SERVER_URL: ${{ secrets.SERVER_URL }}
+      VITE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

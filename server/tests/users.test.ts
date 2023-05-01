@@ -1,10 +1,7 @@
 import request from "supertest"
 import app from "../app"
-import jwt from "jsonwebtoken"
-import { connect, disconnect, clear } from "./databaseHandler"
+import { connect, disconnect, clear, createUser } from "./databaseHandler"
 import { User } from "../models/User"
-import { Company } from "../models/Company"
-const secretKey = process.env.JWT_SECRET_KEY as string
 
 beforeAll(async () => await connect())
 afterEach(async () => await clear())
@@ -13,10 +10,8 @@ afterAll(async () => await disconnect())
 describe("GET /api/users", () => {
   it("should return status 200 and all users from the company", async () => {
     // given
-    const company = await Company.create({ name: "Test Company" })
-    const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
+    const { company, token } = await createUser()
     await User.create([ { sub: "1", name: "User 1", email: "user1@test.com", company: company._id }, { sub: "2", name: "User 2", email: "user2@test.com", company: company._id }, { sub: "3", name: "User 3", email: "user3@test.com", company: company._id } ])
-    const token = jwt.sign(user.toJSON(), secretKey)
     // when
     const response = await request(app)
       .get("/api/users")
@@ -33,8 +28,7 @@ describe("GET /api/users", () => {
 describe("GET /api/users/me", () => {
   it("should return status 200 and all data of the user", async () => {
     // given
-    const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign(user.toJSON(), secretKey)
+    const { token } = await createUser()
     // when
     const response = await request(app)
       .get("/api/users/me")
@@ -52,13 +46,13 @@ describe("GET /api/users/me", () => {
 describe("PUT /api/users/me", () => {
   it("should return status 200 and change the avatar and phone number of the user", async () => {
     // given
-    const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", avatar: "picture1" })
-    const token = jwt.sign(user.toJSON(), secretKey)
+    const { token } = await createUser()
+    const updateData = { avatar: "picture2", phone: "+123456789" }
     // when
     const response = await request(app)
       .put("/api/users/me")
       .set("Authorization", `Bearer ${token}`)
-      .send({ avatar: "picture2", phone: "+123456789" })
+      .send( updateData )
     // then
     const dbContent = await User.find()
     expect(dbContent).toHaveLength(1)
@@ -68,13 +62,13 @@ describe("PUT /api/users/me", () => {
 
   it("should return status 400 if wrong data sent", async () => {
     // given
-    const user = await User.create({ sub: "1234", name: "User", email: "user@test.com" })
-    const token = jwt.sign(user.toJSON(), secretKey)
+    const { token } = await createUser()
+    const email = "invalidformat.com"
     // when
     const response = await request(app)
       .put("/api/users/me")
       .set("Authorization", `Bearer ${token}`)
-      .send({ email: "invalidformat.com" })
+      .send({ email })
     // then
     const dbContent = await User.find()
     expect(dbContent).toHaveLength(1)

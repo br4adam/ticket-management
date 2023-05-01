@@ -1,5 +1,9 @@
 import { MongoMemoryServer } from "mongodb-memory-server"
 import mongoose from "mongoose"
+import { User } from "../models/User"
+import { Company } from "../models/Company"
+import jwt from "jsonwebtoken"
+const secretKey = process.env.JWT_SECRET_KEY as string
 
 let mongoServer: MongoMemoryServer
 
@@ -21,4 +25,11 @@ const clear = async () => {
   }
 }
 
-export { connect, disconnect, clear }
+const createUser = async () => {
+  const company = await Company.create({ name: "Test Company" })
+  const user = await User.create({ sub: "1234", name: "User", email: "user@test.com", company: company._id })
+  const token = jwt.sign(user.toJSON(), secretKey)
+  return { company, user, token }
+}
+
+export { connect, disconnect, clear, createUser }
