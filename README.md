@@ -7,6 +7,9 @@ This full-stack app specifically designed to track issues and manage tickets.
 
 With this application, users can easily create tickets, track their progress and communicate with administrators on the platform. Additionally, a dashboard is provided to allow users to view the status of their tickets and charts for analyzing aggregated ticket data.
 
+### 🖥️ Demo
+<img src="https://user-images.githubusercontent.com/104263751/236424724-165fa635-bb9e-48a1-8ab5-1f128ed3d55d.gif">
+
 ### 🚀 Run locally
 Clone the project using the following command:
 ```
