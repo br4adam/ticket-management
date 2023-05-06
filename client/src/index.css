@@ -184,7 +184,7 @@ h3 {
 
 .loader {
   width: 1.5rem;
-  aspect-ratio: 1/1;
+  height: 1.5rem;
   border: 2px solid var(--color-mid-gray);
   border-bottom-color: transparent;
   margin: auto;

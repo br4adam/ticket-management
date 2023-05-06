@@ -19,9 +19,9 @@ const StatusChart = () => {
           cursor={{ stroke: "#666666" }}
           wrapperStyle={{ outline: "none" }}
           contentStyle={{ backgroundColor: "#262829", border: "1px solid #666666", borderRadius: "0.25rem" }} />
-        <Line type="monotone" dataKey="open" stroke="#acffaa" dot={false} strokeWidth={2} activeDot={{ stroke: "#262829", strokeWidth: 2 }} isAnimationActive={false} />
-        <Line type="monotone" dataKey="pending" stroke="#ffe693" dot={false} strokeWidth={2} activeDot={{ stroke: "#262829", strokeWidth: 2 }} isAnimationActive={false} />
-        <Line type="monotone" dataKey="closed" stroke="#e0c8ff" dot={false} strokeWidth={2} activeDot={{ stroke: "#262829", strokeWidth: 2 }} isAnimationActive={false} />
+        <Line type="monotone" dataKey="open" stroke="#b8feb0" dot={false} strokeWidth={2} activeDot={{ stroke: "#262829", strokeWidth: 2 }} isAnimationActive={false} />
+        <Line type="monotone" dataKey="pending" stroke="#fddd8d" dot={false} strokeWidth={2} activeDot={{ stroke: "#262829", strokeWidth: 2 }} isAnimationActive={false} />
+        <Line type="monotone" dataKey="closed" stroke="#dfcdf8" dot={false} strokeWidth={2} activeDot={{ stroke: "#262829", strokeWidth: 2 }} isAnimationActive={false} />
       </LineChart>
     </ResponsiveContainer>
     </div>
