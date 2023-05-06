@@ -245,6 +245,7 @@ header .wrapper {
   gap: 0.5rem;
   font-family: "Nunito", Helvetica, sans-serif;
   font-weight: 700;
+  cursor: pointer;
   user-select: none;
 }
 
@@ -666,7 +667,7 @@ nav.mobile a, nav.mobile button {
   bottom: 2rem;
   right: 2rem;
   width: 2.5rem;
-  aspect-ratio: 1/1;
+  height: 2.5rem;
   padding: 0;
   border-radius: 100%;
   justify-content: center;
@@ -1192,9 +1193,6 @@ span.admin {
   .stat {
     flex-direction: column;
     text-align: center;
-  }
-  .chart {
-    aspect-ratio: 8/7;
   }
   .details .data > div {
     flex-direction: column;

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Menu, Close } from "@carbon/icons-react"
 import logo from "../assets/logo.svg"
 import useWindowSize from "../hooks/useWindowSize"
@@ -8,13 +9,14 @@ import MobileNavigation from "./MobileNavigation"
 const Header = () => {
   const [ isOpen, setIsOpen ] = useState<boolean>(false)
   const { width } = useWindowSize()
+  const navigate = useNavigate()
 
   const onClick = (() => setIsOpen(prev => !prev))
 
   return (
     <header>
       <div className="wrapper">
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/")}>
           <img src={logo} alt="logo icon" />
           <p><span>Ticket</span> Management</p>
         </div>
