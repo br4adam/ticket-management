@@ -19,7 +19,7 @@ jobs:
       - name: Login to Dockerhub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build Docker image
-        run: docker build -t ticket-management-client -f client/Dockerfile ./client
+        run: docker build -t ticket-management-client --build-arg VITE_REDIRECT_URI=${{ secrets.REDIRECT_URI }} --build-arg VITE_SERVER_URL=${{ secrets.SERVER_URL }} --build-arg VITE_CLIENT_ID=${{ secrets.CLIENT_ID }} -f client/Dockerfile ./client
       - name: Tag Docker image
         run: docker tag ticket-management-client ${{ secrets.DOCKERHUB_USERNAME }}/ticket-management-client:${{ github.sha }}
       - name: Push Docker image to Dockerhub

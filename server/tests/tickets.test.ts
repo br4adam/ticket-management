@@ -189,7 +189,7 @@ describe("DELETE /api/tickets/:id", () => {
 
   it("should return status 422 if the id is not correct", async () => {
     // given
-    const { user, token } = await createUser()
+    const { token } = await createUser()
     // when
     const response = await request(app)
       .delete(`/api/tickets/1234567`)
