@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { Suspense } from "react"
 import RootLayout from "./layout/RootLayout"
 import ProtectedRoute from "./layout/ProtectedRoute"
 import Landing from "./pages/Landing"
@@ -11,11 +12,15 @@ import Ticket from "./pages/Ticket"
 import Profile from "./pages/Profile"
 import Users from "./pages/Users"
 import NotFound from "./pages/NotFound"
+import Loader from "./components/Loader"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: 
+      <Suspense fallback={<Loader />}>
+        <RootLayout />
+      </Suspense>,
     children: [
       { path: "/", element: <Landing /> },
       { path: "/callback", element: <Callback /> },
@@ -31,8 +36,8 @@ const router = createBrowserRouter([
         ] 
       },
       { path: "/*", element: <NotFound /> }
-    ],
-  },
+    ]
+  }
 ])
 
 const App = () => {

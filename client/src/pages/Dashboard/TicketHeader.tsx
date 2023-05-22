@@ -1,20 +1,23 @@
 import { ArrowRight } from "@carbon/icons-react"
+import { useTranslation } from "react-i18next"
 
 const TicketHeader = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="ticketheader">
       <div className="id">
-        <p>Id</p>
+        <p>{t("ticketbar.id")}</p>
       </div>
       <div className="user">
-        <p>Name</p>
+        <p>{t("ticketbar.name")}</p>
       </div>
-      <p className="subject">Subject</p>
-      <p className={"status"}>Status</p>
+      <p className="subject">{t("ticketbar.subject")}</p>
+      <p className={"status"}>{t("ticketbar.status")}</p>
       <div className="priority">
-        <p>Priority</p>
+        <p>{t("ticketbar.priority")}</p>
       </div>
-      <p className="date">Created</p>
+      <p className="date">{t("ticketbar.created")}</p>
       <ArrowRight />
     </div>
   )

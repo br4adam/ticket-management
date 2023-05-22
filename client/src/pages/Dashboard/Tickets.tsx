@@ -5,15 +5,17 @@ import TicketBar from "./TicketBar"
 import EmptyState from "../../components/EmptyState"
 import Loader from "../../components/Loader"
 import useApi from "../../hooks/useApi"
+import { useTranslation } from "react-i18next"
 
 const Tickets = () => {
   const { data, loading } = useApi<TicketListType>(() => getTickets(10, 1))
+  const { t } = useTranslation()
 
   if (loading) return <Loader />
 
   return (
     <section className="tickets container">
-      <h2>Latest Tickets</h2>
+      <h2>{t("dashboard.latest")}</h2>
       { data?.tickets.length
         ? <div className="scrollable">
           <TicketHeader />

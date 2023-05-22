@@ -1,0 +1,112 @@
+{
+  "languages": {
+    "en": "Angol",
+    "hu": "Magyar"
+  },
+  "navigation": {
+    "dashboard": "Kezdőlap",
+    "tickets": "Hibajegyek",
+    "new-ticket": "+ Létrehozás",
+    "login": "Bejelentkezés"
+  },
+  "mobilenav": {
+    "dashboard": "Kezdőlap",
+    "tickets": "Hibajegyek",
+    "create": "Hibajegy létrehozása",
+    "profile": "Profil",
+    "logout": "Kijelentkezés",
+    "login": "Bejelentkezés"
+  },
+  "landing": {
+    "title-start": "A megoldás csak egy ",
+    "title-span": "ticket",
+    "title-end": "re van.",
+    "sub-first": "Meguntad a technikai hibákkal való küzdelmet?",
+    "sub-second": "A hibajegy kezelő rendszerünk segítségével egyszerű dolgod lesz!",
+    "cta": "Hibajegy létrehozása"
+  },
+  "onboarding": {
+    "welcome": "Üdvözlünk",
+    "avatar": "Válassz egy hozzád illő avatart!",
+    "company": "Válaszd ki a céged a listából!",
+    "add-button": "Hozzáadás",
+    "next-button": "Tovább",
+    "placeholder": "Cég hozzáadása"
+  },
+  "features": {
+    "title": "Miért válaszd a jegykezelő rendszerünket?",
+    "responsive": "Reszponzív",
+    "description-responsive": "Mobilbarát kialakítás, amely lehetővé teszi a problémák bejelentését és nyomon követését akár útközben is.",
+    "centralized": "Centralizált",
+    "description-centralized": "Központosított hibajegy kezelés, hogy a hibákat az adminisztrátorok egyszerűen és gyorsan megoldhassák.",
+    "userfirendly": "Felhasználóbarát",
+    "description-userfriendly": "Egyszerű navigáció és felhasználói felület, ami lehetővé teszi a hibajegyek hatékony kezelését."
+  },
+  "dashboard": {
+    "title": "Kezdőlap",
+    "hide": "Diagramok elrejtése",
+    "show": "Diagramok megjelenítése",
+    "chart-new": "Új hibajegyek",
+    "chart-status": "Státuszok változása",
+    "latest": "Legutóbbi hibajegyek"
+  },
+  "ticketbar": {
+    "id": "Id",
+    "name": "Beküldő",
+    "subject": "Tárgy",
+    "status": "Státusz",
+    "priority": "Prioritás",
+    "created": "Beküldve"
+  },
+  "ticketlist": {
+    "title": "Hibajegyek",
+    "sub": "Összes hibajegy",
+    "count": "{{count}} / {{total}} hibajegyet tekintettél meg.",
+    "load": "Továbbiak betöltése",
+    "placeholder": "Keresés Id szerint"
+  },
+  "ticket": {
+    "title": "Hibajegy részletei",
+    "messages-title": "Üzenetek",
+    "no-messages-title": "Még nincsenek üzenetek",
+    "no-messages-description": "A küldött és fogadott üzenetek itt fognak megjelenni.",
+    "send": "Küldés",
+    "id": "Id",
+    "subject": "Tárgy",
+    "created-by": "Beküldő",
+    "created": "Beküldve",
+    "updated": "Frissítve",
+    "description": "Részletek"
+  },
+  "emptystate": {
+    "no-tickets": "Még nincsenek hibajegyek",
+    "no-tickets-description": "Hozz létre egy hibajegyet és itt fog megjelenni."
+  },
+  "create": {
+    "title": "Hibajegy létrehozása",
+    "subject": "Tárgy",
+    "subject-placeholder": "A hibajegy tárgya.",
+    "description": "Részletek",
+    "description-placeholder": "A hibajegy leírását itt adhatod meg.",
+    "button": "Létrehozás"
+  },
+  "profile": {
+    "title": "Profil",
+    "profile-title": "Személyes adatok",
+    "profile-description": "Itt szerkesztheted a profilodhoz tartozó személyes adatokat.",
+    "edit-button": "Szerkesztés",
+    "save-button": "Mentés",
+    "logout-title": "Kijelentkezés",
+    "logout-description": "Köszönjük, hogy használod az alkalmazást. Ha készen állsz a távozásra, csak kattints a Kijelentkezés gombra.",
+    "logout-button": "Kijelentkezés",
+    "name": "Név",
+    "email": "Email cím",
+    "phone": "Telefonszám",
+    "company": "Cégnév",
+    "avatar": "Avatar"
+  },
+  "users": {
+    "title": "Felhasználók",
+    "placeholder": "Keresés név szerint"
+  }
+}

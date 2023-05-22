@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../states/user"
+import { useTranslation } from "react-i18next"
 
 const Logout = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   
   const logOut = () => {
     logout()
@@ -12,10 +14,10 @@ const Logout = () => {
   return (
     <div className="logout container">
       <div>
-        <h2>Logout</h2>
-        <p>Thank you for using the app! When you're ready to log out, simply click the Logout button.</p>
+        <h2>{t("profile.logout-title")}</h2>
+        <p>{t("profile.logout-description")}</p>
       </div>
-      <button className="solid" onClick={logOut}>Logout</button>
+      <button className="solid" onClick={logOut}>{t("profile.logout-button")}</button>
     </div>
   )
 }

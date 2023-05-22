@@ -8,11 +8,13 @@ import { user$ } from "../../states/user"
 import useGlobal from "../../hooks/useGlobal"
 import useApi from "../../hooks/useApi"
 import Loader from "../../components/Loader"
+import { useTranslation } from "react-i18next"
 
 const Ticket = () => {
   const { id } = useParams()
   const { data: ticket, loading, refresh } = useApi<TicketType>(() => getTicket(id!))
   const user = useGlobal(user$)
+  const { t } = useTranslation()
 
   if (!id || !ticket) return (
     <EmptyState loading={loading}>
@@ -28,7 +30,7 @@ const Ticket = () => {
 
   return (
     <div className="ticket wrapper">
-      <h1>Ticket details</h1>
+      <h1>{t("ticket.title")}</h1>
       { loading
         ? <Loader/> 
         : <>

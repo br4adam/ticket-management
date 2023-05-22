@@ -272,6 +272,20 @@ nav .avatar .box {
   width: calc(2rem + 4px);
 }
 
+.languages {
+  display: flex;
+  gap: 1rem;
+  background-color: var(--color-light-gray);
+  padding: 0.5rem;
+  border-radius: 2rem;
+}
+
+.languages img {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
 /* Mobile Navigation */
 
 header .hamburger {

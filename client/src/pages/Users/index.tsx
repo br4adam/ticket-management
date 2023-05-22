@@ -4,19 +4,21 @@ import UserCard from "./UserCard"
 import Loader from "../../components/Loader"
 import { getUsers } from "../../api/users"
 import useApi from "../../hooks/useApi"
+import { useTranslation } from "react-i18next"
 
 const Users = () => {
   const { state } = useLocation()
   const { data: users, loading } = useApi(getUsers, [])
   const [ searchValue, setSearchValue ] = useState<string>(state || "")
+  const { t } = useTranslation()
 
   const filteredUsers = users && users.filter(user => user.name.toLowerCase().includes(searchValue.toLocaleLowerCase()))
 
   return (
     <div className="users wrapper">
       <div className="searchbar">
-        <h1>Users</h1>
-        <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search by name" />
+        <h1>{t("users.title")}</h1>
+        <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder={t("users.placeholder")} />
       </div>
       { loading
         ? <Loader />

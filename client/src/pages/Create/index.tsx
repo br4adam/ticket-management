@@ -6,11 +6,13 @@ import useGlobal from "../../hooks/useGlobal"
 import { user$ } from "../../states/user"
 import { type NewTicketType, saveTicket } from "../../api/tickets"
 import { toast } from "react-hot-toast"
+import { useTranslation } from "react-i18next"
 
 const Create = () => {
   const user = useGlobal(user$)
   const initialData = { createdBy: user!._id, company: user!.company!._id, subject: "", description: "", status: "open", priority: "low" }
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const [ ticketData, setTicketData ] = useState<NewTicketType>(initialData)
   const [ priority, setPriority ] = useState<string>("low")
@@ -32,21 +34,21 @@ const Create = () => {
 
   return (
     <div className="create wrapper">
-      <h1>Create Ticket</h1>
+      <h1>{t("create.title")}</h1>
       <section className="select-elements">
         <Select options={[ "open", "pending", "closed" ]} disabled={true} def={"open"} />
         <Select options={[ "low", "medium", "high" ]} onSelect={setPriority} def={priority} />
       </section>
       <form className="container" onSubmit={createTicket}>
         <label>
-          <span>Subject</span>
-          <input type="text" value={ticketData.subject} onChange={onInputChange} name="subject" placeholder="The subject of the ticket." />
+          <span>{t("create.subject")}</span>
+          <input type="text" value={ticketData.subject} onChange={onInputChange} name="subject" placeholder={t("create.subject-placeholder"!)} />
         </label>
         <label>
-          <span>Description</span>
-          <textarea value={ticketData.description} onChange={onInputChange} rows={4} name="description" placeholder="Write description here." />
+          <span>{t("create.description")}</span>
+          <textarea value={ticketData.description} onChange={onInputChange} rows={4} name="description" placeholder={t("create.description-placeholder"!)}  />
         </label>
-        <button className="solid" type="submit">Create Ticket</button>
+        <button className="solid" type="submit">{t("create.button")}</button>
       </form>
       <PriorityLevels />
     </div>

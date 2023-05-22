@@ -1,15 +1,17 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { getLineChartData, type LineChartDataType } from "../../api/charts"
 import useApi from "../../hooks/useApi"
+import { useTranslation } from "react-i18next"
 
 const StatusChart = () => {
   const { data: chartData } = useApi<LineChartDataType>(getLineChartData)
+  const { t } = useTranslation()
 
   if (!chartData) return null
 
   return (
     <div className="chart">
-      <h2>Change of status</h2>
+      <h2>{t("dashboard.chart-status")}</h2>
       <ResponsiveContainer width="100%" height="100%">
       <LineChart data={chartData}>
         <CartesianGrid vertical={false} stroke="#666666" />

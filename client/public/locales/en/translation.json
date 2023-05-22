@@ -1,0 +1,112 @@
+{
+  "languages": {
+    "en": "English",
+    "hu": "Hungarian"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "tickets": "Tickets",
+    "new-ticket": "+ New Ticket",
+    "login": "Login"
+  },
+  "mobilenav": {
+    "dashboard": "Dashboard",
+    "tickets": "Tickets",
+    "create": "Create Ticket",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "landing": {
+    "title-start": "Your solution is just a ",
+    "title-span": "ticket",
+    "title-end": " away.",
+    "sub-first": "Tired of struggling with technical errors on your own?",
+    "sub-second": "Our error ticket management system is here to help!",
+    "cta": "Start Ticketing"
+  },
+  "onboarding": {
+    "welcome": "Welcome",
+    "avatar": "Set an avatar for yourself!",
+    "company": "Choose your company from the list!",
+    "add-button": "Add",
+    "next-button": "Continue",
+    "placeholder": "Add your company"
+  },
+  "features": {
+    "title": "Why should you choose our ticket management system?",
+    "responsive": "Responsive",
+    "description-responsive": "Designed to be mobile-friendly, allowing you to report issues and track your tickets on the go.",
+    "centralized": "Centralized",
+    "description-centralized": "Centralize all error tickets, making it easy for administrators to manage and resolve them.",
+    "userfirendly": "User friendly",
+    "description-userfriendly": "Easy to navigate and use, making it simple for you to create and track your error tickets."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "hide": "Hide charts",
+    "show": "Show charts",
+    "chart-new": "New Tickets",
+    "chart-status": "Change of status",
+    "latest": "Latest tickets"
+  },
+  "ticketbar": {
+    "id": "Id",
+    "name": "Name",
+    "subject": "Subject",
+    "status": "Status",
+    "priority": "Priority",
+    "created": "Created"
+  },
+  "ticketlist": {
+    "title": "Tickets",
+    "sub": "All tickets",
+    "count": "You have viewed {{count}} of {{total}}.",
+    "load": "Load More",
+    "placeholder": "Search by Id"
+  },
+  "ticket": {
+    "title": "Ticket details",
+    "messages-title": "Messages",
+    "no-messages-title": "No messages yet",
+    "no-messages-description": "Get or send a message and it will show up here.",
+    "send": "Send",
+    "id": "Ticket Id",
+    "subject": "Subject",
+    "created-by": "Created by",
+    "created": "Created at",
+    "updated": "Updated at",
+    "description": "Description"
+  },
+  "emptystate": {
+    "no-tickets": "No tickets found",
+    "no-tickets-description": "Create your first ticket and it will show up here."
+  },
+  "create": {
+    "title": "Create Ticket",
+    "subject": "Subject",
+    "subject-placeholder": "The subject of the ticket.",
+    "description": "Description",
+    "description-placeholder": "Write description here.",
+    "button": "Create Ticket"
+  },
+  "profile": {
+    "title": "Profile",
+    "profile-title": "Profile information",
+    "profile-description": "Here you can edit public information about yourself.",
+    "edit-button": "Edit Profile",
+    "save-button": "Save",
+    "logout-title": "Logout",
+    "logout-description": "Thank you for using the app! When you're ready to log out, simply click the Logout button.",
+    "logout-button": "Logout",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "avatar": "Avatar"
+  },
+  "users": {
+    "title": "Users",
+    "placeholder": "Search by name"
+  }
+}

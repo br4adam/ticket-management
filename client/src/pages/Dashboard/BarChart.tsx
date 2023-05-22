@@ -1,15 +1,17 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { getBarChartData, type BarChartDataType } from "../../api/charts"
 import useApi from "../../hooks/useApi"
+import { useTranslation } from "react-i18next"
 
 const NewTicketsChart = () => {
   const { data: chartData } = useApi<BarChartDataType>(getBarChartData)
+  const { t } = useTranslation()
 
   if (!chartData) return null
 
   return (
     <div className="chart">
-      <h2>New Tickets</h2>
+      <h2>{t("dashboard.chart-new")}</h2>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData}>
           <CartesianGrid vertical={false} stroke="#666666" />

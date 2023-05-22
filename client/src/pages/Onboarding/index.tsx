@@ -12,6 +12,7 @@ import Loader from "../../components/Loader"
 import useGlobal from "../../hooks/useGlobal"
 import useApi from "../../hooks/useApi"
 import { toast } from "react-hot-toast"
+import { useTranslation } from "react-i18next"
 
 const Onboarding = () => {
   const { data: companies, loading, refresh } = useApi<CompanyType[]>(getCompanies)
@@ -19,6 +20,7 @@ const Onboarding = () => {
   const [ selectedCompany, setSelectedCompany ] = useState<string | null>(null)
   const user = useGlobal(user$)
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (user?.company) return navigate("/dashboard")
@@ -34,18 +36,18 @@ const Onboarding = () => {
 
   return (
     <div className="onboarding wrapper">
-      <h1>Welcome {user?.name.split(" ")[0]}</h1>
-      <p className="title">Set an avatar for yourself!</p>
+      <h1>{t("onboarding.welcome")} {user?.name.split(" ")[0]}</h1>
+      <p className="title">{t("onboarding.avatar")}</p>
       <section className="avatars">
         { avatars.map(image => <Avatar key={image} image={image} onClick={() => setSelectedAvatar(getFilename(image))} selected={image.includes(selectedAvatar!)} />)}
       </section>
-      <p className="title">Choose your company from the list!</p>
+      <p className="title">{t("onboarding.company")}</p>
       <ul className="companies">
         { companies && companies.map(company => <CompanyTag key={company._id} company={company} onClick={() => setSelectedCompany(company._id)} selected={selectedCompany === company._id} />)}
       </ul>
       <AddCompany refresh={refresh} />
       <button className="solid" onClick={saveUserData} >
-        Continue <ArrowRight />
+        {t("onboarding.next-button")} <ArrowRight />
       </button>
     </div>
   )
