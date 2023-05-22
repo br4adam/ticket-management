@@ -272,20 +272,6 @@ nav .avatar .box {
   width: calc(2rem + 4px);
 }
 
-.languages {
-  display: flex;
-  gap: 1rem;
-  background-color: var(--color-light-gray);
-  padding: 0.5rem;
-  border-radius: 2rem;
-}
-
-.languages img {
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-}
-
 /* Mobile Navigation */
 
 header .hamburger {
@@ -359,6 +345,32 @@ nav.mobile a, nav.mobile button {
   width: 90%;
   max-width: 40rem;
 }
+
+/* Language Switch */
+
+.languages {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--color-light-gray);
+  padding: 0.25rem;
+  border-radius: 2rem;
+}
+
+.languages div {
+  overflow: hidden;
+  width: 2rem;
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  transition: all var(--animation-time) ease-in-out;
+  box-shadow: var(--box-shadow);
+}
+
+.languages div:hover {
+  animation: shake 0.75s ease-in-out;
+}
+
+/* Features */
 
 .features {
   display: flex;
@@ -1168,6 +1180,12 @@ span.admin {
   0% { opacity: 0; transform: translateY(-1rem); }
   75% { opacity: 1; }
   100% { transform: none; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  20%, 60% { transform: rotate(4deg); }
+  40%, 80% { transform: rotate(-4deg); }
 }
 
 /* Breakpoints */

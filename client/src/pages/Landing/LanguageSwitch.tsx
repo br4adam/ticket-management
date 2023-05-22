@@ -16,7 +16,9 @@ const LanguageSwitch = () => {
   return (
     <div className="languages">
     { languages.map((lng) => (
-      <img key={lng.code} src={lng.icon} onClick={() => handleLanguageSelection(lng.code)} alt={lng.name} />)) 
+      <div key={lng.code}>
+        <img src={lng.icon} onClick={() => handleLanguageSelection(lng.code)} alt={lng.name} /> 
+      </div>))
     }
   </div>
   )
