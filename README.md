@@ -62,9 +62,10 @@ TOKEN_EXPIRATION_TIME=2h
 - [React](https://react.dev): A JavaScript library for building user interfaces using reusable components.
 - [Zod](https://zod.dev): A TypeScript-first schema validation library with a focus on developer experience.
 - [Axios](https://axios-http.com): A promise based HTTP client for the browser and Node.js.
-- [RxJS](https://rxjs.dev): Reactive programming library for JavaScript.
+- [RxJS](https://rxjs.dev): A reactive programming library for JavaScript.
 - [Json Web Tokens](https://jwt.io): A standard for securely transmitting information between parties as a JSON object.
 - [Jest](https://jestjs.io): A delightful JavaScript testing framework.
 - [Supertest](https://github.com/ladjs/supertest): A Node.js library for testing APIs.
 - [Swagger](https://swagger.io): A set of tools used to generate documentation for REST APIs.
 - [Recharts](https://recharts.org): A composable charting library for building declarative and reusable charts.
+- [i18next](https://www.i18next.com): An internationalization framework for JavaScript.
