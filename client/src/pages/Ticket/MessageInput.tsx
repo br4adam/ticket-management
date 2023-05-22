@@ -27,7 +27,7 @@ const MessageInput: FC<Props> = ({ refresh }) => {
 
   return (
     <div className="new-message">
-      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} name="message" placeholder="Write your message here." />
+      <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} name="message" placeholder={t("ticket.placeholder")} />
       <button className="solid" onClick={sendNewMessage}>{t("ticket.send")} <SendFilled /></button>
     </div>
   )

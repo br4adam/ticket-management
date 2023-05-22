@@ -70,6 +70,7 @@
     "messages-title": "Üzenetek",
     "no-messages-title": "Még nincsenek üzenetek",
     "no-messages-description": "A küldött és fogadott üzenetek itt fognak megjelenni.",
+    "placeholder": "Itt adhatod hozzá az üzeneted.",
     "send": "Küldés",
     "id": "Id",
     "subject": "Tárgy",
@@ -77,6 +78,15 @@
     "created": "Beküldve",
     "updated": "Frissítve",
     "description": "Részletek"
+  },
+  "priority": {
+    "title": "Prioritási szintek",
+    "low": "alacsony",
+    "medium": "közepes",
+    "high": "magas",
+    "low-description": "Az alacsony prioritási szintet olyan hibák vagy problémák esetén használjuk, amelyek minimális hatással vannak a rendszer vagy alkalmazás funkcionalitására. Ezek későbbi időpontban kezelhetők és nem igényelnek azonnali beavatkozást. Az alacsony prioritású problémák általában esztétikai vagy kisebb hibák, amelyek jelentősen nem akadályozzák a felhasználókat a rendszer vagy alkalmazás használatában.",
+    "medium-description": "A közepes prioritási szintet olyan hibák vagy problémák esetén használjuk, amelyek mérsékelten befolyásolják a rendszer vagy alkalmazás funkcionalitását. Ezek a problémák megoldást igényelnek egy elfogadható időkereten belül, de nem feltétlenül kívánnak azonnali javítást. A közepes prioritású problémák néhány felhasználót érinthetnek vagy kellemetlenséget okozhatnak, de nem kritikusak a rendszer általános funkcionalitása szempontjából.",
+    "high-description": "A magas prioritási szintet olyan hibák vagy problémák esetén használjuk, amelyek súlyosan befolyásolják a rendszer vagy alkalmazás funkcionalitását. Ezek a problémák azonnali figyelmet igényelnek és mielőbb meg kell oldani őket. A magas prioritású problémák rendszerhibát, adatvesztést vagy jelentős kiesést okozhatnak. Nagyszámú felhasználót érinthetnek és sürgős intézkedéseket igényelnek a rendszer helyreállításához."
   },
   "emptystate": {
     "no-tickets": "Még nincsenek hibajegyek",
