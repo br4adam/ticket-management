@@ -1,4 +1,3 @@
-import { FC } from "react"
 import Avatar from "../../components/Avatar"
 import { UserType } from "../../api/users"
 
@@ -6,7 +5,7 @@ type Props = {
   user: UserType
 }
 
-const UserCard: FC<Props> = ({ user }) => {
+const UserCard = ({ user }: Props) => {
   const isAdmin = user.company?.admins.includes(user._id)
 
   return (

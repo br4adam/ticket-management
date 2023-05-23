@@ -90,7 +90,9 @@
   },
   "emptystate": {
     "no-tickets": "No tickets found",
-    "no-tickets-description": "Create your first ticket and it will show up here."
+    "no-tickets-description": "Create your first ticket and it will show up here.",
+    "no-ticket": "Ticket with Id {{id}} not found.",
+    "no-ticket-description": "Check the Id of the ticket again."
   },
   "create": {
     "title": "Create Ticket",
@@ -118,5 +120,8 @@
   "users": {
     "title": "Users",
     "placeholder": "Search by name"
+  },
+  "notfound": {
+    "button": "Back to Home"
   }
 }

@@ -1,4 +1,3 @@
-import { FC } from "react"
 import Message from "./Message"
 import MessageInput from "./MessageInput"
 import NoMessages from "./NoMessages"
@@ -17,7 +16,7 @@ type Props = {
   refresh: () => Promise<void>
 }
 
-const Messages: FC<Props> = ({ messages, refresh }) => {
+const Messages = ({ messages, refresh }: Props) => {
   const { t } = useTranslation()
 
   return (

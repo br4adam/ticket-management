@@ -7,7 +7,7 @@ import useGlobal from "../../hooks/useGlobal"
 import { user$ } from "../../states/user"
 import { token$ } from "../../api/users"
 import { useTranslation } from "react-i18next"
-import LanguageSwitch from "./LanguageSwitch"
+import LanguageSwitcher from "./LanguageSwitcher"
 
 const Landing = () => {
   const user = useGlobal(user$)
@@ -29,7 +29,7 @@ const Landing = () => {
         <p>{t("landing.sub-first")}</p>
         <p>{t("landing.sub-second")}</p>
       </div>
-      <LanguageSwitch />
+      <LanguageSwitcher />
       <Link to={createGoogleUrl()} className="solid">{t("landing.cta")}</Link>
       <img src={dashboard} alt="application dashboard mockup" />
       <h2>{t("features.title")}</h2>

@@ -1,4 +1,3 @@
-import { FC } from "react"
 import total from "../../assets/status-total.svg"
 import open from "../../assets/status-open.svg"
 import pending from "../../assets/status-pending.svg"
@@ -12,7 +11,7 @@ type Props = {
   }
 }
 
-const Stat: FC<Props> = ({ stat }) => {
+const Stat = ({ stat }: Props) => {
   const statusIcons = [ total, open, pending, closed ]
   const icon = statusIcons.find(icon => icon.includes(stat.status))
 

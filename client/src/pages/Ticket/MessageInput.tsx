@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { SendFilled } from "@carbon/icons-react"
 import useGlobal from "../../hooks/useGlobal"
@@ -11,7 +11,7 @@ type Props = {
   refresh: () => Promise<void>
 }
 
-const MessageInput: FC<Props> = ({ refresh }) => {
+const MessageInput = ({ refresh }: Props) => {
   const [ message, setMessage ] = useState<string>("")
   const { id } = useParams()
   const user = useGlobal(user$)

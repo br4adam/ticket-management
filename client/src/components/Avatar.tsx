@@ -1,15 +1,14 @@
-import { FC } from "react"
 import { CheckmarkFilled } from "@carbon/icons-react"
 import avatars from "../assets/avatars"
 import defaultAvatar from "../assets/default-avatar.webp"
 
 type Props = {
-  image: string,
-  onClick?: React.MouseEventHandler<HTMLImageElement>,
+  image: string
+  onClick?: React.MouseEventHandler<HTMLImageElement>
   selected?: boolean
 }
 
-const Avatar: FC<Props> = ({ image, onClick, selected }) => {
+const Avatar = ({ image, onClick, selected }: Props) => {
   const avatar = avatars.find(a => a.includes(image)) || defaultAvatar
 
   return (

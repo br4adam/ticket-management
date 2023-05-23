@@ -1,4 +1,4 @@
-import { FC, useState, useRef } from "react"
+import { useState, useRef } from "react"
 import { ChevronUp, ChevronDown } from "@carbon/icons-react"
 import useClickOutside from "../hooks/useClickOutside"
 import SelectOption from "./SelectOption"
@@ -11,13 +11,13 @@ import medium from "../assets/priority-medium.svg"
 import high from "../assets/priority-high.svg"
 
 type Props = {
-  options: string[],
-  def: string,
+  options: string[]
+  def: string
   onSelect?: (value: string) => void
   disabled?: boolean
 }
 
-const Select: FC<Props> = ({ options, def, disabled, onSelect = () => {} }) => {
+const Select = ({ options, def, disabled, onSelect = () => {} }: Props) => {
   const [ isOpen, setIsOpen ] = useState<boolean>(false)
   const [ selected, setSelected ] = useState<string>(def || options[0])
 

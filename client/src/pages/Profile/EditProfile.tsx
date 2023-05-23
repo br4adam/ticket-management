@@ -1,4 +1,4 @@
-import { FC, useState, ChangeEvent } from "react"
+import { useState, ChangeEvent } from "react"
 import { UpdateType, UserType } from "../../api/users"
 import { toast } from "react-hot-toast"
 import { update } from "../../states/user"
@@ -10,7 +10,7 @@ type Props = {
   refresh: () => Promise<any>
 }
 
-const EditProfile: FC<Props> = ({ user, refresh }) => {
+const EditProfile = ({ user, refresh }: Props) => {
   const [ isEditable, setIsEditable ] = useState<boolean>(false)
   const [ updateData, setUpdateData ] = useState<UpdateType>({ name: user.name, email: user.email, phone: user.phone || "" })
   const { t } = useTranslation()

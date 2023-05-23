@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { getStatistics, type StatisticListType } from "../../api/charts"
 import { OpenPanelFilledTop, OpenPanelFilledBottom } from "@carbon/icons-react"
 import Stat from "./Stat"
@@ -12,7 +11,7 @@ type Props = {
   setShowCharts: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Statistics: FC<Props> = ({ showCharts, setShowCharts }) => {
+const Statistics = ({ showCharts, setShowCharts }: Props) => {
   const { data: statistics } = useApi<StatisticListType>(getStatistics, initialState)
   const { t } = useTranslation()
 

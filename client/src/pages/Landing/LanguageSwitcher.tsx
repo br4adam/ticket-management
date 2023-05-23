@@ -12,7 +12,7 @@ const handleLanguageSelection = (code: string) => {
   localStorage.setItem("language", code)
 }
 
-const LanguageSwitch = () => {
+const LanguageSwitcher = () => {
   return (
     <div className="languages">
     { languages.map((lng) => (
@@ -24,4 +24,4 @@ const LanguageSwitch = () => {
   )
 }
 
-export default LanguageSwitch
+export default LanguageSwitcher

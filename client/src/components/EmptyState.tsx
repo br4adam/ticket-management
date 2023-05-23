@@ -1,12 +1,12 @@
-import { FC, ReactNode } from "react"
+import { ReactNode } from "react"
 import empty from "../assets/empty-state.webp"
 
 type Props = {
-  children: ReactNode,
+  children: ReactNode
   loading: boolean
 }
 
-const EmptyState: FC<Props> = ({ children, loading = false }) => {
+const EmptyState = ({ children, loading = false }: Props) => {
   if (loading) return null
 
   return (

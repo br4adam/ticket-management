@@ -1,4 +1,3 @@
-import { FC } from "react"
 import open from "../assets/status-open.svg"
 import pending from "../assets/status-pending.svg"
 import closed from "../assets/status-closed.svg"
@@ -12,7 +11,7 @@ type Props = {
   onChange: (value: string) => void
 }
 
-const SelectOption: FC<Props> = ({ option, onChange }) => {
+const SelectOption = ({ option, onChange }: Props) => {
   const icons = [ open, pending, closed, low, medium, high ]
   const icon = icons.find(item => item.includes(option))
 

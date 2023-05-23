@@ -8,9 +8,6 @@ i18next
   .init({
     lng: localStorage.getItem("language") || "en",
     fallbackLng: "hu",
-    interpolation: {
-      escapeValue: false
-    },
     react: {
       bindI18n: "languageChanged",
       useSuspense: true,

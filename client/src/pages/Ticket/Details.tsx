@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { type TicketType } from "../../api/tickets"
 import formatDate from "../../utils/formatDate"
 import { useNavigate } from "react-router-dom"
@@ -8,7 +7,7 @@ type Props = {
   ticket: TicketType
 }
 
-const Details: FC<Props> = ({ ticket }) => {
+const Details = ({ ticket }: Props) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 

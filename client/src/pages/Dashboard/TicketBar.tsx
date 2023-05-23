@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import { type TicketType } from "../../api/tickets"
 import { ArrowRight, Copy, Checkmark } from "@carbon/icons-react"
@@ -11,7 +10,7 @@ type Props = {
   ticket: TicketType
 }
 
-const TicketBar: FC<Props> = ({ ticket }) => {
+const TicketBar = ({ ticket }: Props) => {
   const { copy, copied } = useClipboard()
   const navigate = useNavigate()
 

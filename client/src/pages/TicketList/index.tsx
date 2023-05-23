@@ -29,7 +29,7 @@ const Tickets = () => {
         <h1>{t("ticketlist.title")}</h1>
         <Search />
       </div>
-      { !tickets && loading 
+      { !tickets.length && loading 
         ? <Loader />
         : <section className="tickets container">
             <h2>{t("ticketlist.sub")}</h2>

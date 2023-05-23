@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Dashboard, ListBoxes, DocumentAdd, User, Login, Logout } from "@carbon/icons-react"
 import useGlobal from "../hooks/useGlobal"
@@ -11,7 +10,7 @@ type Props = {
   onClick: () => void
 }
 
-const MobileNavigation: FC<Props> = ({ isOpen, onClick }) => {
+const MobileNavigation = ({ isOpen, onClick }: Props) => {
   const user = useGlobal(user$)
   const navigate = useNavigate()
   const { t } = useTranslation()

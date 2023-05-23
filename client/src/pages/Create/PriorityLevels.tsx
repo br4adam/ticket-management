@@ -9,6 +9,7 @@ const PriorityLevels = () => {
     { priority: "medium", title: t("priority.medium"), description: t("priority.medium-description") },
     { priority: "high", title: t("priority.high"), description: t("priority.high-description") }
   ]
+  
   return (
     <section className="priority-levels container">
       <h2>{t("priority.title")}</h2>

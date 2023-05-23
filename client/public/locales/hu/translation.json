@@ -19,8 +19,8 @@
   },
   "landing": {
     "title-start": "A megoldás csak egy ",
-    "title-span": "ticket",
-    "title-end": "re van.",
+    "title-span": "ticketre",
+    "title-end": " van.",
     "sub-first": "Meguntad a technikai hibákkal való küzdelmet?",
     "sub-second": "A hibajegy kezelő rendszerünk segítségével egyszerű dolgod lesz!",
     "cta": "Hibajegy létrehozása"
@@ -34,7 +34,7 @@
     "placeholder": "Cég hozzáadása"
   },
   "features": {
-    "title": "Miért válaszd a jegykezelő rendszerünket?",
+    "title": "Miért válaszd a hibajegy kezelő rendszerünket?",
     "responsive": "Reszponzív",
     "description-responsive": "Mobilbarát kialakítás, amely lehetővé teszi a problémák bejelentését és nyomon követését akár útközben is.",
     "centralized": "Centralizált",
@@ -90,7 +90,9 @@
   },
   "emptystate": {
     "no-tickets": "Még nincsenek hibajegyek",
-    "no-tickets-description": "Hozz létre egy hibajegyet és itt fog megjelenni."
+    "no-tickets-description": "Hozz létre egy hibajegyet és itt fog megjelenni.",
+    "no-ticket": "A hibajegy Id {{id}} nem található.",
+    "no-ticket-description": "Kérlek ellenőrizd a megadott Id-t."
   },
   "create": {
     "title": "Hibajegy létrehozása",
@@ -118,5 +120,8 @@
   "users": {
     "title": "Felhasználók",
     "placeholder": "Keresés név szerint"
+  },
+  "notfound": {
+    "button": "Vissza a Kezdőlapra"
   }
 }

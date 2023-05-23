@@ -22,8 +22,8 @@ const Tickets = () => {
           { data.tickets.map(ticket => <TicketBar key={ticket._id} ticket={ticket} /> )}
           </div>
         : <EmptyState loading={loading}>
-            <h3>No tickets found</h3>
-            <p>Create your first ticket and it will show up here.</p>
+            <h3>{t("emptystate.no-tickets")}</h3>
+            <p>{t("emptystate.no-tickets-description")}</p>
           </EmptyState>
         }
     </section>

@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import Avatar from "../../components/Avatar"
 import timeAgo from "../../utils/timeAgo"
@@ -15,7 +14,7 @@ type Props = {
   }
 }
 
-const Message: FC<Props> = ({ message }) => {
+const Message = ({ message }: Props) => {
   const navigate = useNavigate()
 
   return (

@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { useState } from "react"
 import { createCompany } from "../../api/companies"
 import { toast } from "react-hot-toast"
 import { useTranslation } from "react-i18next"
@@ -7,7 +7,7 @@ type Props = {
   refresh: () => Promise<void>
 }
 
-const AddCompany: FC<Props> = ({ refresh }) => {
+const AddCompany = ({ refresh }: Props) => {
   const [ newCompany, setNewCompany ] = useState<string>("")
   const { t } = useTranslation()
 
